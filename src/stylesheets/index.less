@@ -1,0 +1,162 @@
+@import '../../semantic-ui/site/globals/site.variables';
+
+body, html {
+    height: 100%;
+    margin: 0px;
+    letter-spacing: 0.1rem;
+}
+
+/* The App Background image */
+#app {
+  /* Use "linear-gradient" to add a darken background effect to the image (photographer.jpg). This will make the text easier to read */
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../images/default_bg.png");
+
+  /* Set a specific height */
+  height: 100vh;
+
+  /* Position and center the image to scale nicely on all screens */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+.logo {
+    text-align: center;
+    &:hover, &:active, &:focus {
+        text-decoration: none;
+    }
+}
+
+#left-panel {
+
+    &.dark {
+        background-color: rgba(0,0,0,.5);
+    }
+
+    &.light {
+        background-color: rgba(255,255,255,.4);
+    }
+    
+    width: 20rem;
+    height: 100%;
+    padding: 1em;
+
+
+    .main-logo-container {
+        text-align: center;
+    }
+}
+
+
+#loading {
+    color: red;
+}
+
+.frames {
+    height: 100vh;
+    &#left-frame {
+        border-right: 1px solid #cccccc;
+    }
+}
+
+// Welcome Panel
+#welcome-pnl {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,.3);
+    padding: 25px;
+    .container {
+        position: relative;
+        text-align: center;
+        padding: 55px;
+    }
+    
+}
+
+button.animated-metamask {
+    .hidden.content {
+        top: 9px !important;
+        text-align: center;
+        img {
+            width: 32px;
+            margin: 0 auto;
+        }
+    }
+}
+.ui.dropdown {
+    .menu {
+        > .item {
+            color: #777 !important;
+        }
+    }
+}
+.ui.input {
+    > input {
+        color: #555 !important;
+    }
+} 
+#check_name {
+    
+    &.placeholder {
+
+        background: transparent !important;
+        border: 1px solid #555 !important;
+        border-right: none !important;
+        color: #bbb !important;
+
+        &::-webkit-input-placeholder { /* Edge */
+            color: #999;
+        }
+        
+        &:-ms-input-placeholder { /* Internet Explorer 10-11 */
+            color: #999;
+        }
+        
+        &::placeholder {
+            color: #999;
+        }
+    }
+    
+}
+
+.ui.basic.label {
+    color: #bbb !important;
+    font-weight: normal !important;
+    border-left: none !important;
+}
+
+.subtitle {
+    font-size: 18px;
+    font-weight: @normal;
+}
+.normal-text {
+    font-size: 12px;
+    font-weight: @normal;
+}
+
+.checkname-input-container {
+
+    margin-bottom: 15px;
+    width: 100%;
+
+    .label {
+        background: transparent !important;
+        border: 1px solid #555 !important;
+        border-left: none !important;
+    }
+}
+
+.align-right {
+    text-align: right;
+}
+
+.otocorp-step-wrap {
+    .otocorp-step-item:not(.active) {
+        border-right-color: rgba(255,255,255,.3) !important;
+    }
+}
+
