@@ -7,7 +7,8 @@ export default ({stepNum}) => {
         <OtoCorpStep.Wrap pointing secondary vertical>
             <OtoCorpStep.Item active={stepNum === 0}>Check Name</OtoCorpStep.Item>
             <OtoCorpStep.Item active={stepNum === 1}>Connect Wallet</OtoCorpStep.Item>
-            <OtoCorpStep.Item active={stepNum === 2}>Activate Company</OtoCorpStep.Item>
+            <OtoCorpStep.Item active={stepNum === 2}>Approve Payment</OtoCorpStep.Item>
+            <OtoCorpStep.Item active={stepNum === 3}>Activate Company</OtoCorpStep.Item>
         </OtoCorpStep.Wrap>
     )
 }
