@@ -1,4 +1,4 @@
-# This is a simple web dapp with Smart Contrat POC
+# This is a simple web dapp with Smart Contract POC
 ## This is ERC20 Payment version
 ## Currently, It's an beta version.
 ## **Kovan** Test Net Only.
