@@ -3,7 +3,7 @@ export const initWelcomePanelState = {
     loading: false,
     approving: false,
     waitingTicktoc: 0,
-    currentStep: 1,
+    currentStep: 0,
     inputCompanyName: '',
     availableName: '',
     focusInputCompanyName: false,
