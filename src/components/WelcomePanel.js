@@ -18,16 +18,8 @@ import Step_Nav from './OtoCorp/SpinUpCompanySteps/Nav'
 // UI Framework
 import { Container, Button, Image, Loader, Icon, Message, Grid } from 'semantic-ui-react'
 
-// Static Sources
-import img_metamask from '../images/metamask.svg'
-
-async function getAccounts_MetaMask() {
-    const accounts = await ethereum.enable();
-    return accounts;
-}
-
 export default () => {
-    const {loading, currentStep, errMsg, availableName} = useMappedState(({welcomePanelState}) => welcomePanelState);
+    const {loading, currentStep, errMsg, availableName, waitingTicktoc} = useMappedState(({welcomePanelState}) => welcomePanelState);
     const {txs} = useMappedState(({txsState}) => txsState);
     const {ownSeriesContracts} = useMappedState(({accountState}) => accountState);
     
@@ -37,19 +29,19 @@ export default () => {
                 <h1 className="title">Confirmation</h1>
                 <p className="subtitle">Your company <b>{availableName}</b> was validly formed! You can find proof of its existence here:</p>
                 <div className="subtitle">
-                    Transaction ID: <b>{(txs[0]) ? txs[0].id : ""}</b>
+                    Transaction ID: <b>{(txs[1]) ? txs[1].id : ""}</b>
                     <div style={{marginTop: '10px'}}>
-                        (<a href={`https://kovan.etherscan.io/tx/${(txs[0]) ? txs[0].id : ""}`} 
+                        ( <a href={`https://kovan.etherscan.io/tx/${(txs[1]) ? txs[1].id : ""}`} 
                             target="_blank">View Transaction on Etherscan
-                        </a>)
+                        </a> )
                     </div>
                 </div>
                 <div className="subtitle" style={{marginTop: '20px'}}>
-                    Your Company Contract Address: <b>{(ownSeriesContracts.length > 0) ? ownSeriesContracts[ownSeriesContracts.length - 1] : "(Tx Pending... Please wait...)"}</b>
+                    Your Company Contract Address: <b>{(ownSeriesContracts.length > 0) ? ownSeriesContracts[ownSeriesContracts.length - 1] : `(${(txs[1]) ? (txs[1].status === "Confirmed" ? "Confirmed!" : (txs[1].status === "Pending" ? `Pending for ${waitingTicktoc}s ...` : "Initializing..")) : "Initializing.." })`}</b>
                     <div style={{marginTop: '10px', display: (ownSeriesContracts.length > 0) ? '' : 'none'}}>
-                        (<a href={`https://kovan.etherscan.io/address/${ownSeriesContracts[ownSeriesContracts.length - 1]}`} 
+                        ( <a href={`https://kovan.etherscan.io/address/${ownSeriesContracts[ownSeriesContracts.length - 1]}`} 
                             target="_blank">View Contract on Etherscan
-                        </a>)
+                        </a> )
                     </div>
                 </div>
             </div>

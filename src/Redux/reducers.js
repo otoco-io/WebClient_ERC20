@@ -11,6 +11,14 @@ export const welcomePanelReducer = function(state = welcomePanelState, action){
             return Object.assign({}, state, {loading: true})
         case "Close Welcome Board Loading":
             return Object.assign({}, state, {loading: false})
+        case "Open Welcome Board Approving":
+            return Object.assign({}, state, {approving: true})
+        case "Close Welcome Board Approving":
+            return Object.assign({}, state, {approving: false})
+        case "Increase Waiting Ticktoc":
+            return Object.assign({}, state, {waitingTicktoc: state.waitingTicktoc + 1})
+        case "Reset Waiting Ticktoc":
+            return Object.assign({}, state, {waitingTicktoc: 0})
         case "Welcome Board Go To Step N":
             return Object.assign({}, state, {currentStep: action.N})
         case "Enter Company Name on Welcome Board":
@@ -85,8 +93,19 @@ export const txsReducer = function(state = txsState, action){
     switch(action.type){
         case "Push Tx":
             tx.id = action.txID;
+            tx.status = "Initialized";
             return Object.assign({}, state, {
                 txs: [...state.txs, tx]
+            });
+        case "Set Tx Confirmed":
+            state.txs[action.idx].status = "Confirmed";
+            return Object.assign({}, state, {
+                txs: [...state.txs]
+            });
+        case "Set Tx Pending":
+            state.txs[action.idx].status = "Pending";
+            return Object.assign({}, state, {
+                txs: [...state.txs]
             });
         default:
             return state;

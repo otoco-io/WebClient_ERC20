@@ -15,7 +15,8 @@ export default () => {
 
     const dispatch = useDispatch();
     const {currentAccount, accountBalanceERC20, erc20Symbol, erc20SpinUpFee} = useMappedState(({accountState}) => accountState)
-    const {availableName} = useMappedState(({welcomePanelState}) => welcomePanelState);
+    const {availableName, approving, waitingTicktoc} = useMappedState(({welcomePanelState}) => welcomePanelState);
+    const {txs} = useMappedState(({txsState}) => txsState);
     
     const clickCancelHandler = (e) => {
         dispatch({ type: "Resume Welcome Board" });
@@ -26,11 +27,39 @@ export default () => {
         
         MainContract.getContract().methods.seriesFee().call((error, SpinUpFee) => {
             ERC20Contract.getContract().methods.approve(MainContract.getContract().options.address, SpinUpFee).send({from: currentAccount},(error, result) => {
-                dispatch({ type: "Close Welcome Board Loading" });
-    
+                
                 if(result) {
+                    dispatch({ type: "Open Welcome Board Approving" });
                     dispatch({ type: "Push Tx", txID: result });
-                    dispatch({ type: "Welcome Board Go To Step N", N: 3 });
+                    function polling() {
+                        setTimeout(function(){
+                            web3.eth.getTransactionReceipt(result, function(error, tx){
+                                console.log("tx_info", tx);
+                                if(!tx){
+                                    polling();
+                                } else { 
+                                    dispatch({ type: "Set Tx Pending", idx: 0});
+                                    web3.eth.getBlockNumber(function(error, blockNum){
+                                        console.log("blockNum", blockNum)
+                                        console.log("confirmed", blockNum - tx.blockNumber)
+                                        if(blockNum - tx.blockNumber < 1){
+                                            dispatch({ type: "Increase Waiting Ticktoc" });
+                                            polling();
+                                        } else {
+                                            dispatch({ type: "Set Tx Confirmed", idx: 0});
+                                            dispatch({ type: "Close Welcome Board Loading" });
+                                            dispatch({ type: "Welcome Board Go To Step N", N: 3 });
+                                            dispatch({ type: "Close Welcome Board Approving" });
+                                            dispatch({ type: "Reset Waiting Ticktoc" });
+                                        }
+                                    })
+
+                                }
+                                
+                            })
+                        }, 2000);
+                    }
+                    polling();
                 }
                 
                 if(error) console.log("Something went wrong!", error);
@@ -41,17 +70,30 @@ export default () => {
 
     return (
         <div>
-            <div style={{minHeight: '200px'}}>
-            <p className="normal-text">All it takes to activate <b>{availableName}</b> is to send <b>{erc20SpinUpFee} {erc20Symbol}</b> to OtoCorp from your connected wallet.</p>
-            <p className="normal-text">Approve <b>{erc20SpinUpFee} {erc20Symbol}</b> of total <b>{accountBalanceERC20} {erc20Symbol}</b> available</p>
-            <p className="normal-text">Form Your Account: {currentAccount}</p>
-            <p className="normal-text">To Address: <b>otocorp.eth</b></p>
-            <p className="normal-text"><a href="#"><b>Terms of Service</b></a></p>
+            <div style={{display: (approving) ? 'none':''}}>
+                <div style={{minHeight: '200px'}}>
+                <p className="normal-text">All it takes to activate <b>{availableName}</b> is to send <b>{erc20SpinUpFee} {erc20Symbol}</b> to OtoCorp from your connected wallet.</p>
+                <p className="normal-text">Approve <b>{erc20SpinUpFee} {erc20Symbol}</b> of total <b>{accountBalanceERC20} {erc20Symbol}</b> available</p>
+                <p className="normal-text">From Your Account: {currentAccount}</p>
+                <p className="normal-text">To Address: <b>otocorp.eth</b></p>
+                <p className="normal-text"><a href="#"><b>Terms of Service</b></a></p>
+                </div>
+                <p className="align-right">
+                    <Button id="btn-check-nmae" className="primary" onClick={clickCancelHandler}>Cancel</Button>
+                    <Button id="btn-check-nmae" className="primary" onClick={clickApproveHandler}>Approve</Button>
+                </p>
             </div>
-            <p className="align-right">
-                <Button id="btn-check-nmae" className="primary" onClick={clickCancelHandler}>Cancel</Button>
-                <Button id="btn-check-nmae" className="primary" onClick={clickApproveHandler}>Approve</Button>
-            </p>
+            <div style={{display: (approving) ? '':'none'}}>
+                <p>Waiting the Transaction to be confirmed....</p>
+                <p>( { (txs[0]) ? (txs[0].status === "Confirmed" ? "Confirmed! Redirecting.." : (txs[0].status === "Pending" ? `Pending for ${waitingTicktoc}s ...` : "Initializing..")) : "Initializing.." } )</p>
+                <p>* Please `<b>DO NOT</b>` Close This Window.</p>
+                <p>* If transaction is confirmed, it will go to next step.</p> 
+                <div style={{marginTop: '10px'}}>
+                    ( <a href={`https://kovan.etherscan.io/tx/${(txs[0]) ? txs[0].id : ""}`} 
+                        target="_blank">View Transaction on Etherscan
+                    </a> )
+                </div>
+            </div>
         </div>
     );
     

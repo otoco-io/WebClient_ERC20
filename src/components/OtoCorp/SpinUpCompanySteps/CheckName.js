@@ -51,7 +51,7 @@ export default () => {
             .then(function({data}){
 
                 if (data.results.total_count === 0) dispatch({type: 'Store Available Company Name'});
-                else dispatch({type: 'Show Error Msg on Welcome Board', title: "Sorry! This name has been uesd.", msg: "Please Enter Another Company Name."});
+                else dispatch({type: 'Show Error Msg on Welcome Board', title: "Sorry! This name has been used.", msg: "Please Enter Another Company Name."});
                 
                 closeLoading();
                 
@@ -89,7 +89,7 @@ export default () => {
                 <Label basic>&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;LLC&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;Delaware&nbsp;&nbsp;&nbsp;&nbsp;</Label>
             </Input>
             <Message negative style={{display: "none"}}>
-                <Message.Header>Sorry! This name has been uesd.</Message.Header>
+                <Message.Header>Sorry! This name has been used.</Message.Header>
                 <p>Please Enter Another Company Name.</p>
             </Message>
             <Message negative style={{display: "none"}}>
@@ -109,7 +109,7 @@ export default () => {
         <div>
             <div style={{minHeight: '200px'}}>
                 <p className="normal-text">Congrats! <b>{availableName}</b> is available for registration with Delaware State Registry.</p>
-                <p className="normal-text"><b>{availableName}</b>  will have its registered address at: <br/> <u>N Orange Street, Wilmington, DE 19801.</u></p>
+                <p className="normal-text"><b>{availableName}</b>  will have its registered address at: <br/> <b>1201 N. Orange Street, Suite 7160, Wilmington, 19801 Delaware.</b></p>
                 <p className="normal-text">Click `<b>Next</b>` to proceed or go `Back` to try a different name.</p>
             </div>
             <p className="align-right">

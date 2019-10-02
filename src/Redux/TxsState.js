@@ -4,7 +4,7 @@ export const initTxsState = {
 
 export const tx = {
     id: "",
-    status: "pending",
+    status: "Initialized",
     confirmation: 0
 }
 
