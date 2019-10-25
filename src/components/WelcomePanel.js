@@ -9,11 +9,11 @@ import axios from 'axios';
 
 // Components
 import Logo from './Logo'
-import Step_ActivateCompany from './OtoCorp/SpinUpCompanySteps/ActivateCompany'
-import Step_ApprovePayment from './OtoCorp/SpinUpCompanySteps/ApprovePayment'
-import Step_ConnectWallet from './OtoCorp/SpinUpCompanySteps/ConnectWallet'
-import Step_CheckName from './OtoCorp/SpinUpCompanySteps/CheckName'
-import Step_Nav from './OtoCorp/SpinUpCompanySteps/Nav'
+import Step_ActivateCompany from './OtoCo/SpinUpCompanySteps/ActivateCompany'
+import Step_ApprovePayment from './OtoCo/SpinUpCompanySteps/ApprovePayment'
+import Step_ConnectWallet from './OtoCo/SpinUpCompanySteps/ConnectWallet'
+import Step_CheckName from './OtoCo/SpinUpCompanySteps/CheckName'
+import Step_Nav from './OtoCo/SpinUpCompanySteps/Nav'
 
 // UI Framework
 import { Container, Button, Image, Loader, Icon, Message, Grid } from 'semantic-ui-react'
@@ -74,7 +74,7 @@ export default () => {
                 <Loader active={loading} />
                 <div style={{display: (currentStep === "ok" ? "none" : "")}}>
                     <div style={{textAlign: "left", marginBottom: "100px"}}>
-                        <h1 className="title">Welcome to Otocorp</h1>
+                        <h1 className="title">Welcome to OtoCo</h1>
                         <p className="subtitle">Instantly spin up your real-world Delaware LLC here.</p>
                     </div>
                     

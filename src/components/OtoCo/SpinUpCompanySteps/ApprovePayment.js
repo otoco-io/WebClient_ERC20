@@ -72,10 +72,10 @@ export default () => {
         <div>
             <div style={{display: (approving) ? 'none':''}}>
                 <div style={{minHeight: '200px'}}>
-                <p className="normal-text">All it takes to activate <b>{availableName}</b> is to send <b>{erc20SpinUpFee} {erc20Symbol}</b> to OtoCorp from your connected wallet.</p>
+                <p className="normal-text">All it takes to activate <b>{availableName}</b> is to send <b>{erc20SpinUpFee} {erc20Symbol}</b> to OtoCo from your connected wallet.</p>
                 <p className="normal-text">Approve <b>{erc20SpinUpFee} {erc20Symbol}</b> of total <b>{accountBalanceERC20} {erc20Symbol}</b> available</p>
                 <p className="normal-text">From Your Account: {currentAccount}</p>
-                <p className="normal-text">To Address: <b>otocorp.eth</b></p>
+                <p className="normal-text">To Address: <b>otoco.eth</b></p>
                 <p className="normal-text"><a href="#"><b>Terms of Service</b></a></p>
                 </div>
                 <p className="align-right">
