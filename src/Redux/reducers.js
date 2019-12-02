@@ -1,11 +1,17 @@
+import Web3ProviderOptionPanelState from './Web3ProviderOptionPanelState'
 import welcomePanelState from './WelcomePanelState'
-import accountState from './AccountState'
+import accountState, {series} from './AccountState'
 import txsState, {tx} from './TxsState'
+
+// Firebase
+import { myFirebase, actionCodeSettings } from "../firebase/firebase";
 
 
 export const welcomePanelReducer = function(state = welcomePanelState, action){
     switch(action.type){
-        case "Close Welcome Board":
+        case "WelcomePanel/OPEN":
+            return Object.assign({}, state, {showBoard: true})
+        case "WelcomePanel/CLOSE":
             return Object.assign({}, state, {showBoard: false})
         case "Open Welcome Board Loading":
             return Object.assign({}, state, {loading: true})
@@ -57,8 +63,25 @@ export const welcomePanelReducer = function(state = welcomePanelState, action){
     }
 }
 
+
+
 export const accountReducer = function(state = accountState, action){
     switch(action.type){
+        case "Account/SIGNEDIN":
+            return Object.assign({}, state, {
+                memberInfo: {
+                    isLoggedIn: true,
+                    emailAddress: action.user_email,
+                }
+            });
+        case "Account/SIGN_OUT":
+            myFirebase.auth().signOut();
+            return Object.assign({}, state, {
+                memberInfo: {
+                    isLoggedIn: false,
+                    emailAddress: "",
+                }
+            });
         case "Set Current Account":
             return Object.assign({}, state, {
                 currentAccount: action.currentAccount
@@ -82,6 +105,26 @@ export const accountReducer = function(state = accountState, action){
         case "Set Own Company Contracts":
             return Object.assign({}, state, {
                 ownSeriesContracts: action.ownSeriesContracts
+            });
+        case "Account/UpdateSeriesLength":
+            return Object.assign({}, state, {
+                seriesLength: action.seriesLength
+            });
+        case "Account/PushSeries":
+            
+            return Object.assign({}, state, {
+                series: [...state.series, {idx: action.idx, address: action.address, name: action.name, tatus: "Initialized"}]
+            });
+        case "Account/SeriesLoading":
+            state.series[action.idx].status = "Loading...";
+            return Object.assign({}, state, {
+                series: [...state.series]
+            });
+        case "Account/SetSeriesName":
+            state.series[action.idx].name = action.name
+            state.series[action.idx].status = "Updated";
+            return Object.assign({}, state, {
+                series: [...state.series]
             });
         default:
             return state;
@@ -107,6 +150,18 @@ export const txsReducer = function(state = txsState, action){
             return Object.assign({}, state, {
                 txs: [...state.txs]
             });
+        default:
+            return state;
+
+    }
+}
+
+export const web3ProviderOptionPanelReducer = function(state = Web3ProviderOptionPanelState, action){
+    switch(action.type){
+        case "Web3ProviderOptionPanel/OPEN":
+            return Object.assign({}, state, {showBoard: true})
+        case "Web3ProviderOptionPanel/CLOSE":
+            return Object.assign({}, state, {showBoard: false})
         default:
             return state;
 

@@ -65,7 +65,20 @@ export default () => {
     }
 
     const clickNextHandler = (e) => {
-        if(availableName) dispatch({ type: "Welcome Board Go To Step N", N: 1 });
+        if(availableName) {
+            if(currentAccount === "") {
+                dispatch({ type: "Welcome Board Go To Step N", N: 1 });
+            } else {
+                dispatch({ type: "Open Welcome Board Loading" });
+                MainContract.getContract().methods.seriesFee().call((error, seriesFee) => {
+                    // get ERC20 Symbol
+                    dispatch({ type: "Welcome Board Go To Step N", N: 2 });
+                    
+                    if(seriesFee) dispatch({ type: "Set ERC20 Spin Up Fee", erc20SpinUpFee: seriesFee / 10**decimals});
+                    if(error) console.log("Something went wrong! Please try again later!: ", error);
+                });
+            }
+        } 
     }
 
     const clickBackHandler = (e) => {

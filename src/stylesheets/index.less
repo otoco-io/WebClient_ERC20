@@ -9,7 +9,7 @@ body, html {
 /* The App Background image */
 #app {
   /* Use "linear-gradient" to add a darken background effect to the image (photographer.jpg). This will make the text easier to read */
-  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../images/default_bg.png");
+  background-image: linear-gradient(rgba(0, 0, 0, 0.88), rgba(0, 0, 0, 0.88)), url("../images/default_bg.png");
 
   /* Set a specific height */
   height: 100vh;
@@ -19,6 +19,22 @@ body, html {
   background-repeat: no-repeat;
   background-size: cover;
   position: relative;
+}
+
+.nav {
+    position: relative;
+    padding: 50px 0 25px 0;
+    margin:0 auto;
+    width: 90%;
+    border-bottom: 1px solid #555;
+
+    .button-group {
+        float: right;
+    }
+}
+
+.series-container {
+    padding: 50px 5% 25px 5%;
 }
 
 .logo {
@@ -61,20 +77,36 @@ body, html {
 }
 
 // Welcome Panel
-#welcome-pnl {
+#welcome-pnl,
+#sign-up-pnl,
+#sign-in-pnl,
+#sign-in-pnl2 {
     width: 100vw;
     height: 100vh;
     position: fixed;
     top: 0;
     left: 0;
-    background: rgba(0,0,0,.3);
+    background: rgba(0,0,0,.8);
     padding: 25px;
     .container {
         position: relative;
         text-align: center;
         padding: 55px;
     }
-    
+
+    .btn-close {
+        position: absolute;
+        top: 5%;
+        right: 5%;
+    }
+
+    .sign-in-form-container,
+    .sign-up-form-container {
+        max-width: 700px;
+        position: relative;
+        top: 20%;
+        margin: 0 auto;
+    }
 }
 
 button.animated-metamask {
@@ -99,7 +131,8 @@ button.animated-metamask {
         color: #555 !important;
     }
 } 
-#check_name {
+#check_name,
+.tran-input {
     
     &.placeholder {
 
@@ -149,6 +182,37 @@ button.animated-metamask {
         border-left: none !important;
     }
 }
+
+.tran-input-container {
+
+    margin-bottom: 15px;
+    width: 100%;
+
+    .tran-input {
+    
+        &.placeholder {
+    
+            background: transparent !important;
+            border: 1px solid #555 !important;
+            color: #bbb !important;
+    
+            &::-webkit-input-placeholder { /* Edge */
+                color: #999;
+            }
+            
+            &:-ms-input-placeholder { /* Internet Explorer 10-11 */
+                color: #999;
+            }
+            
+            &::placeholder {
+                color: #999;
+            }
+        }
+        
+    }
+}
+
+
 
 .align-right {
     text-align: right;

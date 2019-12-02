@@ -45,11 +45,11 @@ export default () => {
                                     } else {
                                         dispatch({ type: "Set Tx Confirmed", idx: 1});
                                         dispatch({ type: "Close Welcome Board Loading" });
-                                        MainContract.getContract().methods.mySeries().call({from: currentAccount}, function(error, ss){
+                                        /* MainContract.getContract().methods.mySeries().call({from: currentAccount}, function(error, ss){
                                             console.log(ss)
                                             if(ss) dispatch({ type: "Set Own Company Contracts", ownSeriesContracts: ss });
                                             if(error) alert("Something went wrong!!!!");
-                                        })
+                                        }) */
                                     }
                                 })
 

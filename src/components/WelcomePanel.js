@@ -8,7 +8,6 @@ import {useMappedState,useDispatch} from 'redux-react-hook';
 import axios from 'axios';
 
 // Components
-import Logo from './Logo'
 import Step_ActivateCompany from './OtoCo/SpinUpCompanySteps/ActivateCompany'
 import Step_ApprovePayment from './OtoCo/SpinUpCompanySteps/ApprovePayment'
 import Step_ConnectWallet from './OtoCo/SpinUpCompanySteps/ConnectWallet'
@@ -19,9 +18,11 @@ import Step_Nav from './OtoCo/SpinUpCompanySteps/Nav'
 import { Container, Button, Image, Loader, Icon, Message, Grid } from 'semantic-ui-react'
 
 export default () => {
-    const {loading, currentStep, errMsg, availableName, waitingTicktoc} = useMappedState(({welcomePanelState}) => welcomePanelState);
+    const {loading, currentStep, errMsg, availableName, waitingTicktoc, showBoard} = useMappedState(({welcomePanelState}) => welcomePanelState);
     const {txs} = useMappedState(({txsState}) => txsState);
-    const {ownSeriesContracts} = useMappedState(({accountState}) => accountState);
+    const {series} = useMappedState(({accountState}) => accountState);
+
+    const dispatch = useDispatch();
     
     const ConfirmationView = () => (
         <div>
@@ -37,9 +38,9 @@ export default () => {
                     </div>
                 </div>
                 <div className="subtitle" style={{marginTop: '20px'}}>
-                    Your Company Contract Address: <b>{(ownSeriesContracts.length > 0) ? ownSeriesContracts[ownSeriesContracts.length - 1] : `(${(txs[1]) ? (txs[1].status === "Confirmed" ? "Confirmed!" : (txs[1].status === "Pending" ? `Pending for ${waitingTicktoc}s ...` : "Initializing..")) : "Initializing.." })`}</b>
-                    <div style={{marginTop: '10px', display: (ownSeriesContracts.length > 0) ? '' : 'none'}}>
-                        ( <a href={`https://kovan.etherscan.io/address/${ownSeriesContracts[ownSeriesContracts.length - 1]}`} 
+                    Your Company Contract Address: <b>{(series.length > 0) ? series[series.length - 1] : `(${(txs[1]) ? (txs[1].status === "Confirmed" ? "Confirmed!" : (txs[1].status === "Pending" ? `Pending for ${waitingTicktoc}s ...` : "Initializing..")) : "Initializing.." })`}</b>
+                    <div style={{marginTop: '10px', display: (series.length > 0) ? '' : 'none'}}>
+                        ( <a href={`https://kovan.etherscan.io/address/${series[series.length - 1]}`} 
                             target="_blank">View Contract on Etherscan
                         </a> )
                     </div>
@@ -65,11 +66,12 @@ export default () => {
         }
     }
 
+    const onCloseClick = () =>  dispatch({type: "WelcomePanel/CLOSE"})
+    const BtnCloseBord = () => <Button className="btn-close" circular icon='close' onClick={onCloseClick} />
+
     return (
-        <div id="welcome-pnl">
-            <div className="logo-container">
-                <Logo />
-            </div>
+        <div id="welcome-pnl" style={{display: (showBoard) ? '' : 'none'}}>
+            <BtnCloseBord />
             <Container className="pnl-body">
                 <Loader active={loading} />
                 <div style={{display: (currentStep === "ok" ? "none" : "")}}>
@@ -99,7 +101,7 @@ export default () => {
                 </div>
 
                 <div style={{display: (currentStep !== "ok" ? "none" : "")}}>
-                    <ConfirmationView />
+                    
                 </div>
                 
             </Container>
