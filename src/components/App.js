@@ -77,7 +77,7 @@ export default () => {
                     console.log("currentSeries", currentSeries)
                     let imgSrc = new Identicon(currentSeries.address.replace("0x", ""), 70).toString()
                     itms.push(
-                        <Card key={`ssitem_${i}`}>
+                        <Card key={`ssitem_${i}`} target="_blank" href={`/.netlify/functions/pdf-generator?address=${currentSeries.address}&name=${currentSeries.name}`}>
                             <Card.Content>
                                 <Image
                                 floated='left'

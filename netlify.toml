@@ -1,0 +1,10 @@
+[build]
+  command = "yarn install && yarn install && yarn build:prod"
+  functions = "./functions"
+  publish = "./build"
+[dev]
+  command = "yarn start:dev"
+  port = 8888
+  targetPort = 8080 
+  functionsPort = 34567 
+  publish = "./dist"
