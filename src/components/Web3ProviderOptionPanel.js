@@ -6,9 +6,6 @@ import {useMappedState, useDispatch} from 'redux-react-hook';
 // Components
 import Button_ConnectMetamask from './OtoCo/UIComponents/Button_ConnectMetamask'
 
-// Firebase
-// import { myFirebase, actionCodeSettings } from "../firebase/firebase";
-
 import { Button, Header } from 'semantic-ui-react'
 
 

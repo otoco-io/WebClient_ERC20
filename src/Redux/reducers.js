@@ -3,10 +3,6 @@ import welcomePanelState from './WelcomePanelState'
 import accountState, {series} from './AccountState'
 import txsState, {tx} from './TxsState'
 
-// Firebase
-import { myFirebase, actionCodeSettings } from "../firebase/firebase";
-
-
 export const welcomePanelReducer = function(state = welcomePanelState, action){
     switch(action.type){
         case "WelcomePanel/OPEN":
@@ -67,21 +63,6 @@ export const welcomePanelReducer = function(state = welcomePanelState, action){
 
 export const accountReducer = function(state = accountState, action){
     switch(action.type){
-        case "Account/SIGNEDIN":
-            return Object.assign({}, state, {
-                memberInfo: {
-                    isLoggedIn: true,
-                    emailAddress: action.user_email,
-                }
-            });
-        case "Account/SIGN_OUT":
-            myFirebase.auth().signOut();
-            return Object.assign({}, state, {
-                memberInfo: {
-                    isLoggedIn: false,
-                    emailAddress: "",
-                }
-            });
         case "Set Current Account":
             return Object.assign({}, state, {
                 currentAccount: action.currentAccount
