@@ -6,6 +6,7 @@ import {useMappedState,useDispatch} from 'redux-react-hook';
 import { Button } from 'semantic-ui-react'
 
 import Logo from './Logo'
+import MySeriesDropdown from './OtoCo/UIComponents/MySeriesDropdown'
 
 
 export default () => {
@@ -20,9 +21,14 @@ export default () => {
     const onSignOut_Click = () => dispatch({type: "Account/SIGN_OUT"})
 
     return (
-        <div className="nav">
-            <Logo />
-            <div className="button-group">
+        <div className="nav clearfix">
+            
+            <div className="left-group">
+                <Logo />
+                <MySeriesDropdown />
+            </div>
+            
+            <div className="right-group">
                 <Button inverted color='teal' onClick={onGettingStarted_Click}>
                     Getting Started
                 </Button>

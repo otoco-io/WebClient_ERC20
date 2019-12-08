@@ -21,6 +21,14 @@ body, html {
   position: relative;
 }
 
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
 .nav {
     position: relative;
     padding: 50px 0 25px 0;
@@ -28,8 +36,21 @@ body, html {
     width: 90%;
     border-bottom: 1px solid #555;
 
-    .button-group {
+    .right-group {
         float: right;
+    }
+
+    .left-group {
+        float: left;
+        .series-selection {
+            top: -10px;
+            margin-left: 20px;
+        }
+        .loading {
+            margin-left: 20px;
+            display: inline-block;
+            font-size: 16px;
+        }
     }
 }
 

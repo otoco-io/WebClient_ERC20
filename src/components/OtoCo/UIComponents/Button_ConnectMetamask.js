@@ -55,10 +55,10 @@ const Button_ConnectMetamask = ({beforeAction, onConnected, onError}) => {
             console.log(ss)
             dispatch({ type: "Account/UpdateSeriesLength", seriesLength: ss.length });
             if(ss) {
-                for(let i =0, len = ss.length; i < len; i++) {
+                for(let i = 0, len = ss.length; i < len; i++) {
                     SeriesContract.getContract(ss[i]).methods.getName().call(function(error, series_name){
-                        console.log(`series: ${ss[i]}`, {idx: i, address: ss[i], name: series_name});
-                         // 
+                        // console.log(`series: ${ss[i]}`, {idx: i, address: ss[i], name: series_name});
+                        
                         if(error) { 
                             if(onError) onError(error) 
                             console.log("error!!", error)
