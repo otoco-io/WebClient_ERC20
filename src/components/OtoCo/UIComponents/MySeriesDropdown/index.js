@@ -19,36 +19,51 @@ const optionItem = ({address, name}) => {
   )
 }
 
-const genOptions = (series) => {
+const genOptions = (series, selectedIndex) => {
 
   let returnArr = [];
 
   // It started with index = 1 because default 
-  for(let i = 1, len = _.orderBy(series, ['idx']).length; i < len; i ++){
-    let imgSrc = new Identicon(series[i].address.replace("0x", ""), 70).toString();
-    returnArr.push({ key: `series_option_${i}`, text: `${(!series[i].name) ? "(No Name)" : series[i].name}`, image: { avatar: true, src: `data:image/png;base64,${imgSrc}` }});
+  for(let i = 0, len = _.orderBy(series, ['idx']).length; i < len; i ++){
+    if (i !== selectedIndex) {
+        let imgSrc = new Identicon(series[i].address.replace("0x", ""), 70).toString();
+        returnArr.push({ key: `series_option_${i}`, text: `${(!series[i].name) ? "(No Name)" : series[i].name}`, value: series[i].address, image: { avatar: true, src: `data:image/png;base64,${imgSrc}` }});
+    }
   }
 
   return returnArr;
 
 } 
 
+
+
 export default () => {
   const {series, seriesLength} = useMappedState(({accountState}) => accountState);
-  //console.log(series);
-  //console.log(_.orderBy(series, ['idx']));
+  const {currentSeries} = useMappedState(({dashpanelState}) => dashpanelState);
+  const dispatch = useDispatch();
+
+  const handleChange = (e, { value }) => {
+    dispatch({ type: "Dashpanel/SetCurrentSeries", currentSeries: value });
+  }
   
   if(series.length > 0) {
     if(seriesLength === series.length) {
-      const options = genOptions(_.orderBy(series, ['idx']));
-      const defaultOption = optionItem(_.orderBy(series, ['idx'])[0])
+      const sortedSeriesArr = _.orderBy(series, ['idx']);
+
+      const selectedSeriesIndex = (currentSeries) ? _.findIndex(sortedSeriesArr, { address: currentSeries }): 0
+
+      if(!currentSeries) dispatch({ type: "Dashpanel/SetCurrentSeries", currentSeries: sortedSeriesArr[selectedSeriesIndex].address });
+
+      const options = genOptions(sortedSeriesArr, selectedSeriesIndex);
+      const selectedSeries = optionItem(sortedSeriesArr[selectedSeriesIndex]);
       return (
         <Dropdown
-        openOnFocus
-        className="series-selection"
-        trigger={defaultOption}
-        options={options}
-        pointing='top left'
+          openOnFocus
+          className="series-selection"
+          trigger={selectedSeries}
+          options={options}
+          pointing='top left'
+          onChange={handleChange}
         />
       );
     } else {

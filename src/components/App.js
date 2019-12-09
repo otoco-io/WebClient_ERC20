@@ -4,6 +4,8 @@ import React from 'react'
 import WelcomePanel from './WelcomePanel'
 import Web3ProviderOptionPanel from './Web3ProviderOptionPanel'
 import Nav from './Nav'
+import NetworkInfo from './OtoCo/UIComponents/NetworkInfo'
+import SeriesPanel from './OtoCo/UIComponents/SeriesPanel'
 
 import { Container } from 'semantic-ui-react'
 
@@ -14,7 +16,10 @@ export default () => {
 
     return (
         <Container fluid>
+            <NetworkInfo />
             <Nav />
+            <SeriesPanel />
+            
             <WelcomePanel />
             <Web3ProviderOptionPanel />
         </Container>

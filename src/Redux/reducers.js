@@ -2,6 +2,7 @@ import Web3ProviderOptionPanelState from './Web3ProviderOptionPanelState'
 import welcomePanelState from './WelcomePanelState'
 import accountState, {series} from './AccountState'
 import txsState, {tx} from './TxsState'
+import dashpanelState from './DashpanelState'
 
 export const welcomePanelReducer = function(state = welcomePanelState, action){
     switch(action.type){
@@ -59,7 +60,16 @@ export const welcomePanelReducer = function(state = welcomePanelState, action){
     }
 }
 
-
+export const dashpanelReducer = function(state = dashpanelState, action) {
+    switch(action.type) {
+        case "Dashpanel/SetCurrentSeries":
+            return Object.assign({}, state, {
+                currentSeries: action.currentSeries
+            });
+        default:
+            return state;
+    }
+}
 
 export const accountReducer = function(state = accountState, action){
     switch(action.type){

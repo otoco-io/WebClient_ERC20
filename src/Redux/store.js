@@ -3,14 +3,16 @@ import {
     web3ProviderOptionPanelReducer,
     welcomePanelReducer, 
     accountReducer,
-    txsReducer
+    txsReducer,
+    dashpanelReducer
 } from './reducers';
 
 const reducers = combineReducers({
     web3ProviderOptionPanelState: web3ProviderOptionPanelReducer,
     welcomePanelState: welcomePanelReducer,
     accountState: accountReducer,
-    txsState: txsReducer
+    txsState: txsReducer,
+    dashpanelState: dashpanelReducer
 })
 
 export const store  = createStore(reducers);
