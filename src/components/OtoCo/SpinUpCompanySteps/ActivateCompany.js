@@ -9,6 +9,7 @@ import { Input, Image, Button } from 'semantic-ui-react';
 
 // Smart Contract
 import MainContract from '../SmartContracts/MainContract';
+import SeriesContract from '../SmartContracts/SeriesContract';
 
 export default () => { 
 
@@ -45,11 +46,24 @@ export default () => {
                                     } else {
                                         dispatch({ type: "Set Tx Confirmed", idx: 1});
                                         dispatch({ type: "Close Welcome Board Loading" });
-                                        /* MainContract.getContract().methods.mySeries().call({from: currentAccount}, function(error, ss){
-                                            console.log(ss)
-                                            if(ss) dispatch({ type: "Set Own Company Contracts", ownSeriesContracts: ss });
-                                            if(error) alert("Something went wrong!!!!");
-                                        }) */
+                                        MainContract.getContract().methods.mySeries().call({from: currentAccount}, function(error, ss){
+                                            if(error) {
+                                                alert("Something went wrong!!!!");
+                                                return;
+                                            } 
+                                            SeriesContract.getContract(ss[ss.length - 1]).methods.getName().call(function(error, series_name){
+
+                                                if(error) { 
+                                                    console.log("error!!", error)
+                                                } else {
+                                                    dispatch({ type: "Account/PushSeries", idx: ss.length - 1, address: ss[ss.length - 1], name: series_name });
+                                                    dispatch({ type: "Account/UpdateSeriesLength", seriesLength: ss.length });
+                                                    dispatch({ type: "Dashpanel/SetCurrentSeries", currentSeries: ss[ss.length - 1] });
+                                                    dispatch({ type: "WelcomePanel/CLOSE" });
+                                                }
+                                            })
+                                            
+                                        })
                                     }
                                 })
 

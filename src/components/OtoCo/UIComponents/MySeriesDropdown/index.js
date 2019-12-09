@@ -24,7 +24,7 @@ const genOptions = (series, selectedIndex) => {
   let returnArr = [];
 
   // It started with index = 1 because default 
-  for(let i = 0, len = _.orderBy(series, ['idx']).length; i < len; i ++){
+  for(let i = 0, len = series.length; i < len; i ++){
     if (i !== selectedIndex) {
         let imgSrc = new Identicon(series[i].address.replace("0x", ""), 70).toString();
         returnArr.push({ key: `series_option_${i}`, text: `${(!series[i].name) ? "(No Name)" : series[i].name}`, value: series[i].address, image: { avatar: true, src: `data:image/png;base64,${imgSrc}` }});
@@ -48,7 +48,7 @@ export default () => {
   
   if(series.length > 0) {
     if(seriesLength === series.length) {
-      const sortedSeriesArr = _.orderBy(series, ['idx']);
+      const sortedSeriesArr = _.orderBy(series, ['idx'], ['desc']);
 
       const selectedSeriesIndex = (currentSeries) ? _.findIndex(sortedSeriesArr, { address: currentSeries }): 0
 
@@ -58,7 +58,7 @@ export default () => {
       const selectedSeries = optionItem(sortedSeriesArr[selectedSeriesIndex]);
       return (
         <Dropdown
-          openOnFocus
+          closeOnBlur
           className="series-selection"
           trigger={selectedSeries}
           options={options}

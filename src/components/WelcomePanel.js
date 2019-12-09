@@ -20,61 +20,40 @@ import { Container, Button, Image, Loader, Icon, Message, Grid } from 'semantic-
 export default () => {
     const {loading, currentStep, errMsg, availableName, waitingTicktoc, showBoard} = useMappedState(({welcomePanelState}) => welcomePanelState);
     const {txs} = useMappedState(({txsState}) => txsState);
-    const {series} = useMappedState(({accountState}) => accountState);
+    const {newestSeries} = useMappedState(({accountState}) => accountState);
 
     const dispatch = useDispatch();
     
-    const ConfirmationView = () => (
-        <div>
-            <div style={{textAlign: "left", marginBottom: "100px"}}>
-                <h1 className="title">Confirmation</h1>
-                <p className="subtitle">Your company <b>{availableName}</b> was validly formed! You can find proof of its existence here:</p>
-                <div className="subtitle">
-                    Transaction ID: <b>{(txs[1]) ? txs[1].id : ""}</b>
-                    <div style={{marginTop: '10px'}}>
-                        ( <a href={`https://kovan.etherscan.io/tx/${(txs[1]) ? txs[1].id : ""}`} 
-                            target="_blank">View Transaction on Etherscan
-                        </a> )
+    const PanelContent = () => {
+
+        if(currentStep === "ok") {
+            return (
+                <div>
+                    <div style={{textAlign: "left", marginBottom: "100px"}}>
+                        <h1 className="title">Confirmation</h1>
+                        <p className="subtitle">Your company <b>{availableName}</b> was validly formed! You can find proof of its existence here:</p>
+                        <div className="subtitle">
+                            Transaction ID: <b>{(txs[1]) ? txs[1].id : ""}</b>
+                            <div style={{marginTop: '10px'}}>
+                                ( <a href={`https://kovan.etherscan.io/tx/${(txs[1]) ? txs[1].id : ""}`} 
+                                    target="_blank">View Transaction on Etherscan
+                                </a> )
+                            </div>
+                        </div>
+                        <div className="subtitle" style={{marginTop: '20px'}}>
+                            Your Company Contract Address: <b>{(newestSeries) ? newestSeries : `(${(txs[1]) ? (txs[1].status === "Confirmed" ? "Confirmed!...Please wait..." : (txs[1].status === "Pending" ? `Pending for ${waitingTicktoc}s ...` : "Initializing..")) : "Initializing.." })`}</b>
+                            <div style={{marginTop: '10px', display: (newestSeries) ? '' : 'none'}}>
+                                ( <a href={`https://kovan.etherscan.io/address/${newestSeries}`} 
+                                    target="_blank">View Contract on Etherscan
+                                </a> )
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div className="subtitle" style={{marginTop: '20px'}}>
-                    Your Company Contract Address: <b>{(series.length > 0) ? series[series.length - 1] : `(${(txs[1]) ? (txs[1].status === "Confirmed" ? "Confirmed!" : (txs[1].status === "Pending" ? `Pending for ${waitingTicktoc}s ...` : "Initializing..")) : "Initializing.." })`}</b>
-                    <div style={{marginTop: '10px', display: (series.length > 0) ? '' : 'none'}}>
-                        ( <a href={`https://kovan.etherscan.io/address/${series[series.length - 1]}`} 
-                            target="_blank">View Contract on Etherscan
-                        </a> )
-                    </div>
-                </div>
-            </div>
-            <h2></h2>
-            
-        </div>
-    )
-
-    const StepBoard = () => {
-        switch (currentStep) {
-            case 1: 
-                return <Step_ConnectWallet />
-            case 2: 
-                return <Step_ApprovePayment />
-            case 3: 
-                return <Step_ActivateCompany />
-            default:
-                return (
-                    <Step_CheckName />
-                ) 
-        }
-    }
-
-    const onCloseClick = () =>  dispatch({type: "WelcomePanel/CLOSE"})
-    const BtnCloseBord = () => <Button className="btn-close" circular icon='close' onClick={onCloseClick} />
-
-    return (
-        <div id="welcome-pnl" style={{display: (showBoard) ? '' : 'none'}}>
-            <BtnCloseBord />
-            <Container className="pnl-body">
-                <Loader active={loading} />
-                <div style={{display: (currentStep === "ok" ? "none" : "")}}>
+            )
+        } else {
+            return (
+                <div>
                     <div style={{textAlign: "left", marginBottom: "100px"}}>
                         <h1 className="title">Welcome to OtoCo</h1>
                         <p className="subtitle">Instantly spin up your real-world Delaware LLC here.</p>
@@ -99,11 +78,34 @@ export default () => {
                         </Grid.Row>
                     </Grid>
                 </div>
+            )
+        }
+    }
 
-                <div style={{display: (currentStep !== "ok" ? "none" : "")}}>
-                    
-                </div>
-                
+    const StepBoard = () => {
+        switch (currentStep) {
+            case 1: 
+                return <Step_ConnectWallet />
+            case 2: 
+                return <Step_ApprovePayment />
+            case 3: 
+                return <Step_ActivateCompany />
+            default:
+                return (
+                    <Step_CheckName />
+                ) 
+        }
+    }
+
+    const onCloseClick = () =>  dispatch({type: "WelcomePanel/CLOSE"})
+    const BtnCloseBord = () => <Button className="btn-close" circular icon='close' onClick={onCloseClick} />
+
+    return (
+        <div id="welcome-pnl" style={{display: (showBoard) ? '' : 'none'}}>
+            <BtnCloseBord />
+            <Container className="pnl-body">
+                <Loader active={loading} />
+                <PanelContent />
             </Container>
         </div>
     )

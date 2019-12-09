@@ -39,18 +39,35 @@ const Button_ConnectMetamask = ({beforeAction, onConnected, onError}) => {
         // Call balanceOf function
         ERC20Contract.getContract().methods.balanceOf(accounts[0]).call((error, balance) => {
             
+            if(error) { 
+                if(onError) onError(error) 
+                return;
+            }
+
             // Get decimals
             ERC20Contract.getContract().methods.decimals().call((error, decimals) => {
-                
-                if(decimals) dispatch({ type: "Set Account ERC20 Balance", accountBalanceERC20: balance / 10**decimals});
+                                
+                if(decimals) {
+                    dispatch({ type: "Set ERC20 Decimals", erc20Decimals: decimals });
+                    dispatch({ type: "Set Account ERC20 Balance", accountBalanceERC20: balance / 10**decimals});
+
+                    MainContract.getContract().methods.seriesFee().call((error1, seriesFee) => {
+                        // get Fee from Main Contract
+                        
+                        if (seriesFee) dispatch({ type: "Set ERC20 Spin Up Fee", erc20SpinUpFee: seriesFee / 10**18});
+            
+                        if(error1) { if(onError) onError(error1) }
+                    });
+                } 
                 
                 if(error) { if(onError) onError(error) }
                 else{ if(onConnected) onConnected(); }
                 
             });
+            
         });
 
-        // Get Symbol
+        // Get ERC20 Symbol
         ERC20Contract.getContract().methods.symbol().call((error, symbol) => {
             // get ERC20 Symbol
             if(symbol) dispatch({ type: "Set ERC20 Symbol", erc20Symbol: web3.utils.hexToUtf8(symbol)});
@@ -59,7 +76,7 @@ const Button_ConnectMetamask = ({beforeAction, onConnected, onError}) => {
 
         // Get Created Series
         MainContract.getContract().methods.mySeries().call({from: accounts[0]}, function(error, ss){
-            console.log(ss)
+            // console.log(ss)
             dispatch({ type: "Account/UpdateSeriesLength", seriesLength: ss.length });
             if(ss) {
                 for(let i = 0, len = ss.length; i < len; i++) {

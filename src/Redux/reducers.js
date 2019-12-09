@@ -89,22 +89,21 @@ export const accountReducer = function(state = accountState, action){
             return Object.assign({}, state, {
                 erc20Symbol: action.erc20Symbol
             });
+        case "Set ERC20 Decimals":
+            return Object.assign({}, state, {
+                erc20Decimals: action.erc20Decimals
+            });
         case "Set ERC20 Spin Up Fee":
             return Object.assign({}, state, {
                 erc20SpinUpFee: action.erc20SpinUpFee
-            });
-        case "Set Own Company Contracts":
-            return Object.assign({}, state, {
-                ownSeriesContracts: action.ownSeriesContracts
             });
         case "Account/UpdateSeriesLength":
             return Object.assign({}, state, {
                 seriesLength: action.seriesLength
             });
         case "Account/PushSeries":
-            
             return Object.assign({}, state, {
-                series: [...state.series, {idx: action.idx, address: action.address, name: action.name, tatus: "Initialized"}]
+                series: [...state.series, {idx: action.idx, address: action.address, name: action.name, status: "Initialized"}]
             });
         case "Account/SeriesLoading":
             state.series[action.idx].status = "Loading...";
