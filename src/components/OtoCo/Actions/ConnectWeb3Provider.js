@@ -16,22 +16,3 @@ export const doWeb3ProviderConnect = (onSuccess, onError) => {
     console.log("doWeb3ProviderConnect!");
     enableAccounts().then(onSuccess).catch(onError);
 }
-
-
-
-/* Success
-(accounts) => {
-        ethereum.on('accountsChanged', function (accounts) {
-            setAccount(accounts);
-        })
-        setAccount(accounts);
-
-    }
-*/
-
-/* Error
-(error) => {
-        dispatch({ type: "Close Welcome Board Loading" });
-        console.log("Something went wrong! Please try again later!: ", error)
-    }
-*/
