@@ -22,6 +22,13 @@ const Button_ConnectMetamask = ({beforeAction, onConnected, onError}) => {
     const dispatch = useDispatch();
 
     const setAccount = (accounts) => {
+
+        if(!accounts[0]) {
+            // If metamask is logged out!
+            location.reload();
+            return;
+        }
+
         dispatch({ type: "Set Current Account", currentAccount: accounts[0] });
 
         web3.eth.getBalance(accounts[0], function(error, result){
@@ -76,15 +83,23 @@ const Button_ConnectMetamask = ({beforeAction, onConnected, onError}) => {
     const onMetaMask_Click = (e) => {
         
         if(beforeAction) beforeAction();
-
+        
         doWeb3ProviderConnect(
             (accounts) => {
 
-                // Put Account Info into UI
-                setAccount(accounts);
+                web3.eth.net.getId().then(function(currentNetwork){
+                    dispatch({ type: "Account/SetNetwork", currentNetwork });
+                    if(currentNetwork == 42) {
+                        // Put Account Info into UI
+                        setAccount(accounts);
+    
+                        // Listen Account Change Event
+                        ethereum.on('accountsChanged', setAccount);
+                    } else {
+                        alert("We haven't supported the ETH network your Metamask selected yet, please change it to `Kovan` then connect again.")
+                    }
 
-                // Listen Account Change Event
-                ethereum.on('accountsChanged', setAccount);
+                });
 
             }, 
             (error) => {

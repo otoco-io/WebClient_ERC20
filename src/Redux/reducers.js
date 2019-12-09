@@ -117,6 +117,10 @@ export const accountReducer = function(state = accountState, action){
             return Object.assign({}, state, {
                 series: [...state.series]
             });
+        case "Account/SetNetwork":
+            return Object.assign({}, state, {
+                currentNetwork: action.currentNetwork
+            });
         default:
             return state;
 
