@@ -54,8 +54,7 @@ export default ({setStepNum}) => {
         // Get Symbol
         ERC20Contract.getContract().methods.symbol().call((error, symbol) => {
             // get ERC20 Symbol
-            // dispatch({ type: "Close Welcome Board Loading" });
-            if(symbol) dispatch({ type: "Set ERC20 Symbol", erc20Symbol: web3.utils.hexToUtf8(symbol)});
+            if(symbol) dispatch({ type: "Set ERC20 Symbol", erc20Symbol: symbol});
             if(error) console.log("Something went wrong! Please try again later!: ", error);
         });
     }
