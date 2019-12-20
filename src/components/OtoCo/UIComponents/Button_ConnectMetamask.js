@@ -70,7 +70,7 @@ const Button_ConnectMetamask = ({beforeAction, onConnected, onError}) => {
         // Get ERC20 Symbol
         ERC20Contract.getContract().methods.symbol().call((error, symbol) => {
             // get ERC20 Symbol
-            if(symbol) dispatch({ type: "Set ERC20 Symbol", erc20Symbol: web3.utils.hexToUtf8(symbol)});
+            if(symbol) dispatch({ type: "Set ERC20 Symbol", erc20Symbol: symbol});
             if(error) { if(onError) onError(error) }
         });
 
