@@ -2,6 +2,7 @@ import welcomePanelState from './WelcomePanelState'
 import accountState from './AccountState'
 import txsState, {tx} from './TxsState'
 
+import TagManager from 'react-gtm-module'
 
 export const welcomePanelReducer = function(state = welcomePanelState, action){
     switch(action.type){
@@ -20,6 +21,8 @@ export const welcomePanelReducer = function(state = welcomePanelState, action){
         case "Reset Waiting Ticktoc":
             return Object.assign({}, state, {waitingTicktoc: 0})
         case "Welcome Board Go To Step N":
+            TagManager.dataLayer({dataLayer: { event: 'Step N Visited', N: action.N }});
+            console.log(dataLayer);
             return Object.assign({}, state, {currentStep: action.N})
         case "Enter Company Name on Welcome Board":
             return Object.assign({}, state, {
