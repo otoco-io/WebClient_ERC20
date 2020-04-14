@@ -94,9 +94,15 @@ export default () => {
 
                             </Grid.Column>
                             <Grid.Column width={7} style={{textAlign: "left", minHeight: '280px', }}>
-                                <Message negative style={{display: (errMsg.show) ? "" : "none"}}>
-                                    <Message.Header>{errMsg.title}</Message.Header>
-                                    <p>{errMsg.content}</p>
+                                <Message style={{ display: (errMsg.show) ? "" : "none", backgroundColor: "transparent", padding: "0px"}}>
+                                    
+                                    <Message.Content>
+                                        <Message.Header style={{ color: "#f71100" }}>
+                                            <Icon name='exclamation triangle notched' />
+                                            &nbsp;&nbsp;
+                                            {errMsg.title}
+                                        </Message.Header>
+                                    </Message.Content>
                                 </Message>
                                 
                                 <StepBoard /> 
