@@ -74,12 +74,18 @@ export default () => {
             <Container className="pnl-body">
                 <Loader active={loading} />
                 <div style={{display: (currentStep === "ok" ? "none" : "")}}>
-                    <div style={{textAlign: "left", marginBottom: "100px"}}>
+                    <div style={{textAlign: "left", marginBottom: "30px"}}>
                         <h1 className="title">Welcome to OtoCo</h1>
                         <p className="subtitle">Instantly spin up your real-world Delaware LLC here.</p>
                         <p className="subtitle">(Please, read our <PublicBetaDisclaimerModal />！)</p>
+                        <Message icon style={{ backgroundColor: "transparent", border: "1px solid #eee", lineHeight: "25px" }}>
+                            <Icon name='attention notched' />
+                            <Message.Content>
+                                <Message.Header><b>Before You Getting Started.</b></Message.Header>
+                                Current version only supports Kovan Test Network for testing. Check your Metamask and ensure you are on the Kovan Test Network before you getting started.
+                            </Message.Content>
+                        </Message>
                     </div>
-                    
                     <Grid>
                         <Grid.Row>
                             <Grid.Column width={4} style={{textAlign: "right"}}>
