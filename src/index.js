@@ -17,9 +17,17 @@ import App from './components/App';
 import './stylesheets/index.less'
 import 'semantic-ui-less/semantic.less'
 
+import TagManager from 'react-gtm-module'
+
 
 
 if(supported){
+  const tagManagerArgs = {
+    gtmId: 'GTM-NT2CJB3'
+  }
+
+  TagManager.initialize(tagManagerArgs)
+  
   ReactDOM.render(
     <StoreContext.Provider value={store}>
         <App />

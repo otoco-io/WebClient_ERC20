@@ -13,6 +13,7 @@ import Step_ApprovePayment from './OtoCo/SpinUpCompanySteps/ApprovePayment'
 import Step_ConnectWallet from './OtoCo/SpinUpCompanySteps/ConnectWallet'
 import Step_CheckName from './OtoCo/SpinUpCompanySteps/CheckName'
 import Step_Nav from './OtoCo/SpinUpCompanySteps/Nav'
+import PublicBetaDisclaimerModal from './PublicBetaDisclaimerModal'
 
 // UI Framework
 import { Container, Button, Image, Loader, Icon, Message, Grid } from 'semantic-ui-react'
@@ -57,6 +58,7 @@ export default () => {
                     <div style={{textAlign: "left", marginBottom: "100px"}}>
                         <h1 className="title">Welcome to OtoCo</h1>
                         <p className="subtitle">Instantly spin up your real-world Delaware LLC here.</p>
+                        <p className="subtitle">(Please, read our <PublicBetaDisclaimerModal />！)</p>
                     </div>
                     
                     <Grid>
