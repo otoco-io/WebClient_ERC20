@@ -1,9 +1,24 @@
-# This is a simple web dapp with Smart Contract POC
-## This is ERC20 Payment version
-## Currently, It's an beta version.
-## **Kovan** Test Net Only.
-## There are some points included to verify:
-- ReactJS
-- Yarn
-- Webpack
-- semantic-ui
+# Otoco.io DApp Web Client
+
+## Website URL
+> https://otoco.io
+
+## Hosting
+> Netlify
+
+## Development
+> Dependency installation
+```
+$> yarn
+```
+
+## Build
+```
+$> yarn build:prod
+```
+
+## Running project locally
+```
+$> yarn start:dev
+```
+Surf URL using browser with `Metamask`: http://localhost:8080
