@@ -68,7 +68,7 @@ export default () => {
         <div>
             <div style={{minHeight: '200px'}}>
             <p className="normal-text">Click `<b>Activate</b>` to spin up `<b>{availableName}</b>`.</p>
-            <p className="normal-text">( Your Current {erc20Symbol} Balance: <b>{accountBalanceERC20} {erc20Symbol}</b> )</p>
+            {/* <p className="normal-text">( Your Current {erc20Symbol} Balance: <b>{accountBalanceERC20} {erc20Symbol}</b> )</p> */}
             <p className="normal-text"><a href="#"><b>Terms of Service</b></a></p>
             </div>
             <p className="align-right">

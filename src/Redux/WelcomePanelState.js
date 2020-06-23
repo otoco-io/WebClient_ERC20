@@ -4,9 +4,10 @@ export const initWelcomePanelState = {
     approving: false,
     waitingTicktoc: 0,
     currentStep: 0,
-    inputCompanyName: '',
+    selectedCompanyName: '',
     availableName: '',
-    focusInputCompanyName: false,
+    jurisdictionSelected: 'us_de',
+    jurisdictionName: 'Delaware',
     errMsg: {
         show: false,
         title: "",

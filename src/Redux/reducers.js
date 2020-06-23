@@ -26,17 +26,17 @@ export const welcomePanelReducer = function(state = welcomePanelState, action){
             return Object.assign({}, state, {currentStep: action.N})
         case "Enter Company Name on Welcome Board":
             return Object.assign({}, state, {
-                inputCompanyName: action.value, 
-                focusInputCompanyName: true
-            });
-        case "Unfocus Input-CompanyName on Welcome Board":
-            return Object.assign({}, state, {
-                focusInputCompanyName: false
+                selectedCompanyName: action.value
             });
         case "Store Available Company Name":
             return Object.assign({}, state, {
-                availableName: state.inputCompanyName + " LLC",
+                availableName: state.selectedCompanyName + " LLC",
             });    
+        case "Select Jurisdiction":
+            return Object.assign({}, state, {
+                jurisdictionSelected: action.value,
+                jurisdictionName: action.name
+            });
         case "Show Error Msg on Welcome Board":
             return Object.assign({}, state, {
                 errMsg: {
@@ -70,18 +70,18 @@ export const accountReducer = function(state = accountState, action){
             return Object.assign({}, state, {
                 accountBalanceETH: action.accountBalanceETH
             });
-        case "Set Account ERC20 Balance":
-            return Object.assign({}, state, {
-                accountBalanceERC20: action.accountBalanceERC20
-            });
-        case "Set ERC20 Symbol":
-            return Object.assign({}, state, {
-                erc20Symbol: action.erc20Symbol
-            });
-        case "Set ERC20 Spin Up Fee":
-            return Object.assign({}, state, {
-                erc20SpinUpFee: action.erc20SpinUpFee
-            });
+        // case "Set Account ERC20 Balance":
+        //     return Object.assign({}, state, {
+        //         accountBalanceERC20: action.accountBalanceERC20
+        //     });
+        // case "Set ERC20 Symbol":
+        //     return Object.assign({}, state, {
+        //         erc20Symbol: action.erc20Symbol
+        //     });
+        // case "Set ERC20 Spin Up Fee":
+        //     return Object.assign({}, state, {
+        //         erc20SpinUpFee: action.erc20SpinUpFee
+        //     });
         case "Set Own Company Contracts":
             return Object.assign({}, state, {
                 ownSeriesContracts: action.ownSeriesContracts

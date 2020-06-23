@@ -10,7 +10,7 @@ import axios from 'axios';
 // Components
 import Logo from './Logo'
 import Step_ActivateCompany from './OtoCo/SpinUpCompanySteps/ActivateCompany'
-import Step_ApprovePayment from './OtoCo/SpinUpCompanySteps/ApprovePayment'
+// import Step_ApprovePayment from './OtoCo/SpinUpCompanySteps/ApprovePayment'
 import Step_ConnectWallet from './OtoCo/SpinUpCompanySteps/ConnectWallet'
 import Step_CheckName from './OtoCo/SpinUpCompanySteps/CheckName'
 import Step_Nav from './OtoCo/SpinUpCompanySteps/Nav'
@@ -55,9 +55,9 @@ export default () => {
         switch (currentStep) {
             case 1: 
                 return <Step_ConnectWallet />
+            // case 2: 
+            //     return <Step_ApprovePayment />
             case 2: 
-                return <Step_ApprovePayment />
-            case 3: 
                 return <Step_ActivateCompany />
             default:
                 return (
@@ -76,15 +76,15 @@ export default () => {
                 <div style={{display: (currentStep === "ok" ? "none" : "")}}>
                     <div style={{textAlign: "left", marginBottom: "30px"}}>
                         <h1 className="title">Welcome to OtoCo</h1>
-                        <p className="subtitle">Instantly spin up your real-world Delaware LLC here.</p>
-                        <Message icon style={{ backgroundColor: "transparent", border: "1px solid #eee", lineHeight: "25px" }}>
+                        <p className="subtitle">Instantly spin up your real-world LLC here.</p>
+                        {/* <Message icon style={{ backgroundColor: "transparent", border: "1px solid #eee", lineHeight: "25px" }}>
                             <Icon name='attention notched' />
                             <Message.Content>
                                 <Message.Header><b>Before You Start</b></Message.Header>
                                 Current version only supports Kovan Test Network. Please check your Metamask to make sure you are on Kovan before you start.
                                 (Read our <PublicBetaDisclaimerModal />！)
                             </Message.Content>
-                        </Message>
+                        </Message> */}
                     </div>
                     <Grid>
                         <Grid.Row>

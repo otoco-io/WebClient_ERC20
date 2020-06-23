@@ -53,9 +53,7 @@ export default () => {
                                             dispatch({ type: "Reset Waiting Ticktoc" });
                                         }
                                     })
-
-                                }
-                                
+                                }     
                             })
                         }, 2000);
                     }
