@@ -66,22 +66,30 @@ export default () => {
         dispatch({type: 'Hide Error Msg on Welcome Board'});
 
         console.log('selected', selectedCompanyName,'input', compName)
-        // axios.get(`http://api.opencorporates.com/v0.4.8/companies/search?q=${encodeURIComponent(compName + " LLC")}&jurisdiction_code=${jurisdictionSelected}`)
-        // .then(function({data}){
+        axios.get(`http://api.opencorporates.com/v0.4.8/companies/search?q=${encodeURIComponent(compName + " LLC")}&jurisdiction_code=${jurisdictionSelected}`)
+        .then(function({data}){
 
-        //     if (data.results.total_count === 0) dispatch({type: 'Store Available Company Name'});
-        //     else dispatch({type: 'Show Error Msg on Welcome Board', title: "Sorry! " + compName + " LLC has been used at " + jurisdictionName + ".", msg: "Please Enter Another Company Name."});
+            if (data.results.total_count === 0) dispatch({type: 'Store Available Company Name'});
+            else dispatch({type: 'Show Error Msg on Welcome Board', title: "Sorry! " + compName + " LLC has been used at " + jurisdictionName + ".", msg: "Please Enter Another Company Name."});
             
-        //     closeLoading();
-            
-        // }).catch(function(resp){
-        //     dispatch({type: 'Show Error Msg on Welcome Board', title: "Sorry, Please try again later.", msg: "Ooooops, Service is busy now."});
-        //     closeLoading();
-        // });
-        setTimeout(() => {
-            dispatch({type: 'Store Available Company Name'});
             closeLoading();
-        }, 1000);
+            
+        }).catch(function(resp){
+            dispatch({type: 'Show Error Msg on Welcome Board', title: "Sorry, Please try again later.", msg: "Ooooops, Service is busy now."});
+            closeLoading();
+        });
+        // setTimeout(() => {
+        //     dispatch({type: 'Store Available Company Name'});
+        //     closeLoading();
+        // }, 1000);
+    }
+
+    const clickDashboardHandler = async (e) => {
+        
+        await ethereum.enable();
+        dispatch({type: 'Hide Error Msg on Welcome Board'});
+        closeLoading();
+        dispatch({ type: "Welcome Board Go To Step N", N: 'dashboard' });
     }
 
     const clickNextHandler = (e) => {
@@ -127,8 +135,10 @@ export default () => {
             </Message>
             <p className="normal-text">Enter your company name exactly as you want it registered.</p>
             <p className="normal-text">Click <b>`Check`</b> to verify if your preferred name is available.</p>
+            <p className="normal-text">Click <b>`My Dashboard`</b> if you want to manage your deployed LCCs.</p>
             </div>
             <p className="align-right">
+                <Button id="btn-check-nmae" className="primary" type="submit" onClick={clickDashboardHandler}>My Dashboard</Button>
                 <Button id="btn-check-nmae" className="primary" type="submit" onClick={clickCheckHandler}>Check</Button>
             </p>
         </div>
