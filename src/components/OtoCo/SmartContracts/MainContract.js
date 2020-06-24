@@ -304,8 +304,10 @@ const mainContractABI = [
 export default {
     addresses: {
         dev: "",
-        kovan: "0xbc8006E109CA3Cb5b2a88aDD9F87BDf9a7fB924E",
-        mainNet: ""
+		kovan_de: "0xbc8006E109CA3Cb5b2a88aDD9F87BDf9a7fB924E",
+		kovan_wy: "0xbc8006E109CA3Cb5b2a88aDD9F87BDf9a7fB924E",
+		main_de: "0x24870e04F2573a132B695c48eB9ff2F3C8b0f410",
+		main_wy: "0x366e6a4e17875049670c9714CA33dC2F20cD1d37"
     },
     abi: mainContractABI,
     getContract: function(network = "kovan") {
