@@ -66,6 +66,7 @@ export default ({setStepNum}) => {
     const clickMetaMaskHandler = (e) => {
         dispatch({ type: "Open Welcome Board Loading" });
         getAccounts_MetaMask().then((accounts) => {
+            dispatch({ type: "Set Current Network", network: ethereum.networkVersion });
             ethereum.on('accountsChanged', function (accounts) {
                 setAccount(accounts);
             })

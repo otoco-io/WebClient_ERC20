@@ -43,6 +43,16 @@ export default () => {
         dispatch({type: 'Enter Company Name on Welcome Board', value: compName})
     }
 
+    const clickDashboardHandler = async (e) => {
+        
+        let accounts = await ethereum.enable();
+        dispatch({ type: "Set Current Account", currentAccount: accounts[0] });
+        dispatch({ type: "Set Current Network", network: ethereum.networkVersion });
+        dispatch({type: 'Hide Error Msg on Welcome Board'});
+        closeLoading();
+        dispatch({ type: "Welcome Board Go To Step N", N: 'dashboard' });
+    }
+
     const validate_input = () => {
         if(compName === "") return false;
         return true;
@@ -82,14 +92,6 @@ export default () => {
         //     dispatch({type: 'Store Available Company Name'});
         //     closeLoading();
         // }, 1000);
-    }
-
-    const clickDashboardHandler = async (e) => {
-        
-        await ethereum.enable();
-        dispatch({type: 'Hide Error Msg on Welcome Board'});
-        closeLoading();
-        dispatch({ type: "Welcome Board Go To Step N", N: 'dashboard' });
     }
 
     const clickNextHandler = (e) => {

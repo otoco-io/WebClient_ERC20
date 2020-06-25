@@ -3,11 +3,22 @@ import React from 'react'
 // Redux Hook
 import {useMappedState,useDispatch} from 'redux-react-hook';
 
+// Semantic UI for React
+import { Button } from 'semantic-ui-react'
+
 export default () => {
 
     const {availableName, waitingTicktoc} = useMappedState(({welcomePanelState}) => welcomePanelState);
     const {txs} = useMappedState(({txsState}) => txsState);
-    const {ownSeriesContracts} = useMappedState(({accountState}) => accountState);
+    const {ownSeriesContracts, network} = useMappedState(({accountState}) => accountState);
+
+    const clickDashboardHandler = async (e) => {
+        let accounts = await ethereum.enable();
+        dispatch({ type: "Set Current Account", currentAccount: accounts[0] });
+        dispatch({ type: "Set Current Network", network: ethereum.networkVersion });
+        dispatch({type: 'Hide Error Msg on Welcome Board'});
+        dispatch({ type: "Welcome Board Go To Step N", N: 'dashboard' });
+    }
 
     return (
         <div>
@@ -17,18 +28,19 @@ export default () => {
                 <div className="subtitle">
                     Transaction ID: <b>{(txs[1]) ? txs[1].id : ""}</b>
                     <div style={{marginTop: '10px'}}>
-                        ( <a href={`https://kovan.etherscan.io/tx/${(txs[1]) ? txs[1].id : ""}`} 
+                        <a href={`https://${network === 'kovan' ? 'kovan.' : ''}etherscan.io/tx/${(txs[1]) ? txs[1].id : ""}`} 
                             target="_blank">View Transaction on Etherscan
-                        </a> )
+                        </a>
                     </div>
                 </div>
                 <div className="subtitle" style={{marginTop: '20px'}}>
                     Your Company Contract Address: <b>{(ownSeriesContracts.length > 0) ? ownSeriesContracts[ownSeriesContracts.length - 1] : `(${(txs[1]) ? (txs[1].status === "Confirmed" ? "Confirmed!" : (txs[1].status === "Pending" ? `Pending for ${waitingTicktoc}s ...` : "Initializing..")) : "Initializing.." })`}</b>
                     <div style={{marginTop: '10px', display: (ownSeriesContracts.length > 0) ? '' : 'none'}}>
-                        ( <a href={`https://kovan.etherscan.io/address/${ownSeriesContracts[ownSeriesContracts.length - 1]}`} 
+                        <a href={`https://${network === 'kovan' ? 'kovan.' : ''}etherscan.io/address/${ownSeriesContracts[ownSeriesContracts.length - 1]}`} 
                             target="_blank">View Contract on Etherscan
-                        </a> )
+                        </a>
                     </div>
+                    <Button id="btn-check-nmae" className="ui right floated button primary" type="submit" onClick={clickDashboardHandler} style={{display: (ownSeriesContracts.length > 0) ? '' : 'none'}}>Go to Dashboard</Button>
                 </div>
             </div>
             <h2></h2>

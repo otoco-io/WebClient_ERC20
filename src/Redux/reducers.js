@@ -1,5 +1,6 @@
 import welcomePanelState from './WelcomePanelState'
 import accountState from './AccountState'
+import dashboardState from './DashboardState'
 import txsState, {tx} from './TxsState'
 
 import TagManager from 'react-gtm-module'
@@ -66,6 +67,13 @@ export const accountReducer = function(state = accountState, action){
             return Object.assign({}, state, {
                 currentAccount: action.currentAccount
             });
+        case "Set Current Network":
+            if (action.network === '42') action.network = 'kovan';
+            if (action.network === '1') action.network = 'main';
+            console.log('network',action.network);
+            return Object.assign({}, state, {
+                network: action.network
+            });
         case "Set Account ETH Balance":
             return Object.assign({}, state, {
                 accountBalanceETH: action.accountBalanceETH
@@ -113,5 +121,20 @@ export const txsReducer = function(state = txsState, action){
         default:
             return state;
 
+    }
+}
+
+export const dashboardReducer = function(state = dashboardState, action){
+    switch(action.type){
+        case "Set Dashboard Loading":
+            return Object.assign({}, state, {
+                loading: action.loading
+            });
+        case "Set Own Series Contracts":
+            return Object.assign({}, state, {
+                ownSeriesContracts: action.ownSeriesContracts
+            });
+        default:
+            return state;
     }
 }

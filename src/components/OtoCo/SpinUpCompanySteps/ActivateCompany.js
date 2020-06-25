@@ -13,8 +13,8 @@ import MainContract from '../SmartContracts/MainContract';
 export default () => { 
 
     const dispatch = useDispatch();
-    const {currentAccount, erc20Symbol, accountBalanceERC20} = useMappedState(({accountState}) => accountState)
-    const {availableName} = useMappedState(({welcomePanelState}) => welcomePanelState);
+    const {currentAccount, network, erc20Symbol, accountBalanceERC20} = useMappedState(({accountState}) => accountState)
+    const {availableName, jurisdictionSelected} = useMappedState(({welcomePanelState}) => welcomePanelState);
     
     const clickCancelHandler = (e) => {
         dispatch({ type: "Resume Welcome Board" });
@@ -22,12 +22,12 @@ export default () => {
 
     const clickActivateHandler = (e) => {
         dispatch({ type: "Open Welcome Board Loading" });
-        MainContract.getContract().methods.createSeries(availableName).send({from: currentAccount}, function(error, result){
+        MainContract.getContract(network,jurisdictionSelected).methods.createSeries(availableName).send({from: currentAccount}, function(error, result){
             if(error) alert("Something went wrong! Please Try Again Later!")
             else {
                 // dispatch({ type: "Close Welcome Board Loading" });
                 dispatch({ type: "Push Tx", txID: result });
-                dispatch({ type: "Welcome Board Go To Step N", N: "ok" });
+                dispatch({ type: "Welcome Board Go To Step N", N: "confirmation" });
                 function polling() {
                     setTimeout(function(){
                         web3.eth.getTransactionReceipt(result, function(error, tx){
@@ -45,7 +45,7 @@ export default () => {
                                     } else {
                                         dispatch({ type: "Set Tx Confirmed", idx: 1});
                                         dispatch({ type: "Close Welcome Board Loading" });
-                                        MainContract.getContract().methods.mySeries().call({from: currentAccount}, function(error, ss){
+                                        MainContract.getContract(network,jurisdictionSelected).methods.mySeries().call({from: currentAccount}, function(error, ss){
                                             console.log(ss)
                                             if(ss) dispatch({ type: "Set Own Company Contracts", ownSeriesContracts: ss });
                                             if(error) alert("Something went wrong!!!!");
