@@ -8,8 +8,10 @@ import { Button } from 'semantic-ui-react'
 
 export default () => {
 
+    const dispatch = useDispatch();
+
     const {availableName, waitingTicktoc} = useMappedState(({welcomePanelState}) => welcomePanelState);
-    const {txs} = useMappedState(({txsState}) => txsState);
+    const {id, status} = useMappedState(({txsState}) => txsState);
     const {ownSeriesContracts, network} = useMappedState(({accountState}) => accountState);
 
     const clickDashboardHandler = async (e) => {
@@ -26,15 +28,15 @@ export default () => {
                 <h1 className="title">Confirmation</h1>
                 <p className="subtitle">Your company <b>{availableName}</b> was validly formed! You can find proof of its existence here:</p>
                 <div className="subtitle">
-                    Transaction ID: <b>{(txs[1]) ? txs[1].id : ""}</b>
+                    Transaction ID: <b>{id}</b>
                     <div style={{marginTop: '10px'}}>
-                        <a href={`https://${network === 'kovan' ? 'kovan.' : ''}etherscan.io/tx/${(txs[1]) ? txs[1].id : ""}`} 
+                        <a href={`https://${network === 'kovan' ? 'kovan.' : ''}etherscan.io/tx/${id}`} 
                             target="_blank">View Transaction on Etherscan
                         </a>
                     </div>
                 </div>
                 <div className="subtitle" style={{marginTop: '20px'}}>
-                    Your Company Contract Address: <b>{(ownSeriesContracts.length > 0) ? ownSeriesContracts[ownSeriesContracts.length - 1] : `(${(txs[1]) ? (txs[1].status === "Confirmed" ? "Confirmed!" : (txs[1].status === "Pending" ? `Pending for ${waitingTicktoc}s ...` : "Initializing..")) : "Initializing.." })`}</b>
+                    Your Company Contract Address: <b>{(ownSeriesContracts.length > 0) ? ownSeriesContracts[ownSeriesContracts.length - 1] : `(${id ? (status === "Confirmed" ? "Confirmed!" : (status === "Pending" ? `Pending for ${waitingTicktoc}s ...` : "Initializing..")) : "Initializing.." })`}</b>
                     <div style={{marginTop: '10px', display: (ownSeriesContracts.length > 0) ? '' : 'none'}}>
                         <a href={`https://${network === 'kovan' ? 'kovan.' : ''}etherscan.io/address/${ownSeriesContracts[ownSeriesContracts.length - 1]}`} 
                             target="_blank">View Contract on Etherscan

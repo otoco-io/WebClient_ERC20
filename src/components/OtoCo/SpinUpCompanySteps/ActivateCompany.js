@@ -35,7 +35,7 @@ export default () => {
                             if(!tx){
                                 polling();
                             } else { 
-                                dispatch({ type: "Set Tx Pending", idx: 1});
+                                dispatch({ type: "Set Tx", status: "Pending"});
                                 web3.eth.getBlockNumber(function(error, blockNum){
                                     console.log("blockNum", blockNum)
                                     console.log("confirmed", blockNum - tx.blockNumber)
@@ -43,7 +43,7 @@ export default () => {
                                         dispatch({ type: "Increase Waiting Ticktoc" });
                                         polling();
                                     } else {
-                                        dispatch({ type: "Set Tx Confirmed", idx: 1});
+                                        dispatch({ type: "Set Tx", status: "Confirmed"});
                                         dispatch({ type: "Close Welcome Board Loading" });
                                         MainContract.getContract(network,jurisdictionSelected).methods.mySeries().call({from: currentAccount}, function(error, ss){
                                             console.log(ss)

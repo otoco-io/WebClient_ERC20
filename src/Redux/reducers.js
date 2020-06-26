@@ -103,24 +103,16 @@ export const accountReducer = function(state = accountState, action){
 export const txsReducer = function(state = txsState, action){
     switch(action.type){
         case "Push Tx":
-            tx.id = action.txID;
-            tx.status = "Initialized";
             return Object.assign({}, state, {
-                txs: [...state.txs, tx]
+                id: action.txID,
+                status: 'Initialized'
             });
-        case "Set Tx Confirmed":
-            state.txs[action.idx].status = "Confirmed";
+        case "Set Tx":
             return Object.assign({}, state, {
-                txs: [...state.txs]
-            });
-        case "Set Tx Pending":
-            state.txs[action.idx].status = "Pending";
-            return Object.assign({}, state, {
-                txs: [...state.txs]
+                status: action.status
             });
         default:
             return state;
-
     }
 }
 
