@@ -52,14 +52,14 @@ export default () => {
                     <div style={{textAlign: "left", marginBottom: "30px"}}>
                         <h1 className="title">Welcome to OtoCo</h1>
                         <p className="subtitle">Instantly spin up your real-world LLC here.</p>
-                        {/* <Message icon style={{ backgroundColor: "transparent", border: "1px solid #eee", lineHeight: "25px" }}>
+                        <Message icon style={{ backgroundColor: "transparent", border: "1px solid #eee", lineHeight: "25px" }}>
                             <Icon name='attention notched' />
                             <Message.Content>
                                 <Message.Header><b>Before You Start</b></Message.Header>
-                                Current version only supports Kovan Test Network. Please check your Metamask to make sure you are on Kovan before you start.
-                                (Read our <PublicBetaDisclaimerModal />！)
+                                Current version only supports Main and Kovan Test Network. Please check your Metamask to make sure you are connected to the correct one.
+                                {/* (Read our <PublicBetaDisclaimerModal />！) */}
                             </Message.Content>
-                        </Message> */}
+                        </Message>
                     </div>
                     <Grid>
                         <Grid.Row>
