@@ -8,6 +8,22 @@ export const initWelcomePanelState = {
     availableName: '',
     jurisdictionSelected: 'us_de',
     jurisdictionName: 'Delaware',
+    jurisdictionOptions: [
+        {
+            key: '0',
+            text: 'Delaware',
+            value: 'us_de',
+        },
+        {
+            key: '1',
+            text: 'Wyoming',
+            value: 'us_wy',
+        }
+    ],
+    jurisdictionStreet: {
+        'us_de': '1201 N. Orange Street, Suite 7160, Wilmington, 19801 Delaware.',
+        'us_wy': '30 N. Gould St Ste R, Sheridan, 82801 Wyoming'
+    },
     errMsg: {
         show: false,
         title: "",

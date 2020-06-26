@@ -12,20 +12,7 @@ import axios from 'axios';
 export default () => { 
 
     const dispatch = useDispatch();
-    const {selectedCompanyName, jurisdictionSelected, jurisdictionName, availableName} = useMappedState(({welcomePanelState}) => welcomePanelState);
-
-    const jurisdictionOptions = [
-        {
-            key: '0',
-            text: 'Delaware',
-            value: 'us_de',
-        },
-        {
-            key: '1',
-            text: 'Wyoming',
-            value: 'us_wy',
-        }
-    ]
+    const {selectedCompanyName, jurisdictionSelected, jurisdictionName, jurisdictionOptions, jurisdictionStreet, availableName} = useMappedState(({welcomePanelState}) => welcomePanelState);
 
     let compName = ""
 
@@ -39,7 +26,7 @@ export default () => {
 
     const handleJurisdictionChange = (e, data) => {
         let name = data.options.find( o => { return o.value == data.value }).text;
-        dispatch({type: 'Select Jurisdiction', value: data.value, name: name})
+        dispatch({type: 'Select Jurisdiction', value: data.value, name: name, street: data.street})
         dispatch({type: 'Enter Company Name on Welcome Board', value: compName})
     }
 
@@ -60,7 +47,7 @@ export default () => {
 
     const clickCheckHandler = (e) => {
         
-        console.log('selected', selectedCompanyName,'input', compName)
+        //console.log('selected', selectedCompanyName,'input', compName)
         if (compName == '') compName = selectedCompanyName;
         dispatch({type: 'Enter Company Name on Welcome Board', value: compName})
         if(!validate_input()) {
@@ -75,7 +62,7 @@ export default () => {
         dispatch({type: 'Open Welcome Board Loading'});
         dispatch({type: 'Hide Error Msg on Welcome Board'});
 
-        console.log('selected', selectedCompanyName,'input', compName)
+        //console.log('selected', selectedCompanyName,'input', compName)
         axios.get(`http://api.opencorporates.com/v0.4.8/companies/search?q=${encodeURIComponent(compName + " LLC")}&jurisdiction_code=${jurisdictionSelected}`)
         .then(function({data}){
 
@@ -149,8 +136,8 @@ export default () => {
     const AvailableResult = () => (
         <div>
             <div style={{minHeight: '200px'}}>
-                <p className="normal-text">Congrats! <b>{availableName}</b> is available for registration with Delaware State Registry.</p>
-                <p className="normal-text"><b>{availableName}</b>  will have its registered address at: <br/> <b>1201 N. Orange Street, Suite 7160, Wilmington, 19801 Delaware.</b></p>
+                <p className="normal-text">Congrats! <b>{availableName}</b> is available for registration with <b>{jurisdictionName}</b> State Registry.</p>
+                <p className="normal-text"><b>{availableName}</b>  will have its registered address at: <br/> <b>{jurisdictionStreet[jurisdictionSelected]}</b></p>
                 <p className="normal-text">Click `<b>Next</b>` to proceed or go `Back` to try a different name.</p>
             </div>
             <p className="align-right">
