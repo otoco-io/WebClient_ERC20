@@ -128,12 +128,12 @@ export default () => {
                 <table class="ui celled table" style={{ display: (ownSeriesContracts.length > 0) ? "" : "none"}}>
                 <thead>
                     <tr>
-                        <th>name</th>
-                        <th>jurisdiction</th>
-                        <th>creation date</th>
-                        <th>owner</th>
-                        <th>contract</th>
-                        <th>legal</th>
+                        <th>Name</th>
+                        <th>Jurisdiction</th>
+                        <th>Creation date</th>
+                        <th>Owner</th>
+                        <th>Contract</th>
+                        <th>Legal</th>
                     </tr>
                 </thead>
                 <tbody>
