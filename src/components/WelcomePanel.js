@@ -14,8 +14,8 @@ import Step_ActivateCompany from './OtoCo/SpinUpCompanySteps/ActivateCompany'
 import Step_ConnectWallet from './OtoCo/SpinUpCompanySteps/ConnectWallet'
 import Step_CheckName from './OtoCo/SpinUpCompanySteps/CheckName'
 import Step_Nav from './OtoCo/SpinUpCompanySteps/Nav'
-import Confirmation from './Otoco/Dashboard/Confirmation'
-import Dashboard from './Otoco/Dashboard/Dashboard'
+import Confirmation from './OtoCo/Dashboard/Confirmation'
+import Dashboard from './OtoCo/Dashboard/Dashboard'
 import PublicBetaDisclaimerModal from './PublicBetaDisclaimerModal'
 
 // UI Framework

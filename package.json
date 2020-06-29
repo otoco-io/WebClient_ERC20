@@ -5,7 +5,9 @@
   },
   "dependencies": {
     "axios": "^0.19.0",
+    "file-saver": "^2.0.2",
     "jquery": "^3.4.1",
+    "pdfassembler": "0.1.0-beta.8",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-gtm-module": "^2.0.8",

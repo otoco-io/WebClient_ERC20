@@ -43,7 +43,7 @@ var config = {
                 }
             },
             {
-                test: /\.(woff|woff2|eot|ttf|otf|png|svg|jpg|gif)$/,
+                test: /\.(woff|woff2|eot|ttf|otf|png|svg|jpg|gif|pdf)$/,
                 use: {
                     loader: 'url-loader',
                     options: {
