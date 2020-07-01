@@ -9,16 +9,25 @@ body, html {
 /* The App Background image */
 #app {
   /* Use "linear-gradient" to add a darken background effect to the image (photographer.jpg). This will make the text easier to read */
-  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../images/default_bg.png");
+  background-image: url("../images/bg.png");
 
   /* Set a specific height */
   min-height: 100vh;
 
   /* Position and center the image to scale nicely on all screens */
     background-repeat: no-repeat;
-    background-size: auto 100%;
-    background-position: center top;
+    background-size: 100% auto;
+    background-position: 50% bottom;
     background-attachment: fixed;
+
+    a {
+        color: #cccccc;
+        text-decoration: underline !important;
+
+        &:hover {
+            color: #2EE8CF;
+        }
+    }
 }
 
 .logo {
@@ -26,6 +35,10 @@ body, html {
     &:hover, &:active, &:focus {
         text-decoration: none;
     }
+}
+
+.ui.button {
+    color: black !important;
 }
 
 #left-panel {
@@ -148,8 +161,8 @@ button.animated-metamask {
     border-radius: 12px;
     padding: 3px;
     background: transparent;
-    border: 2px solid #aaa;
-    color: #aaa;
+    border: 2px solid white;
+    color: white !important;
     font-weight: 600;
 }
 
@@ -209,7 +222,7 @@ button.animated-metamask {
         border-radius: 10px;
         border: solid 1px white;
         th {
-            background: #00cccc;
+            background: #2EE8CF;
             color: #fff;
         }
         td {

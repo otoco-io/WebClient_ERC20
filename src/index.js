@@ -15,8 +15,8 @@ import App from './components/App';
 import Logo from './components/Logo';
 
 // Style Sheets
-import './stylesheets/index.less'
 import 'semantic-ui-less/semantic.less'
+import './stylesheets/index.less'
 
 import TagManager from 'react-gtm-module'
 

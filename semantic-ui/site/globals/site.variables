@@ -6,7 +6,9 @@
     Brand Colors
 --------------------*/
 
-@primaryColor: rgba(13, 223, 225, .8);
+@primaryColor: #2EE8CF;
+@mainColorActive  : #2EE8CF;
+
 
 /*-------------------
        Fonts
