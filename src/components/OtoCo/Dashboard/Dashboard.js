@@ -2,9 +2,10 @@ import React from 'react'
 
 // Redux Hook
 import {useMappedState,useDispatch} from 'redux-react-hook';
+import { useHistory } from "react-router-dom";
 
 // Semantic UI for React
-import { Button } from 'semantic-ui-react'
+import { Button, Container } from 'semantic-ui-react'
 
 // Smart Contract
 import MainContract from '../SmartContracts/MainContract';
@@ -19,14 +20,15 @@ import page21DE from '../../../images/page21_de.pdf'
 export default () => {
 
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const {network, currentAccount} = useMappedState(({accountState}) => accountState);
     const {loading, jurisdictionsList, ownSeriesContracts} = useMappedState(({dashboardState}) => dashboardState);
-    const {currentStep} = useMappedState(({welcomePanelState}) => welcomePanelState);
 
     const clickBackHandler = async (e) => {
         dispatch({ type: "Welcome Board Go To Step N", N: 0 });
         dispatch({ type: "Set Dashboard Loading", loading: true });
+        history.push('/');
     }
     
     const exportPDF = async (info) => { 
@@ -81,7 +83,13 @@ export default () => {
     React.useEffect(() => {
         // When enter dashboard page
         async function populateTable(){
-            if (currentStep === 'dashboard' && network !== '') {
+            if (network === ''){
+                await ethereum.enable();
+                let accounts =  await web3.eth.getAccounts();
+                dispatch({ type: "Set Current Account", currentAccount: accounts[0] });
+                dispatch({ type: "Set Current Network", network: await web3.eth.net.getNetworkType() })
+            }
+            if (history.location.pathname === '/dashboard' && network !== '') {
                 let ownSeries = [];
                 for (let j of jurisdictionsList){
                     
@@ -109,7 +117,6 @@ export default () => {
                         //console.log(newSeries);
                     }
                 }
-                console.log(ownSeries)
                 dispatch({ type: "Set Own Series Contracts", ownSeriesContracts:ownSeries });
                 dispatch({ type: "Set Dashboard Loading", loading: false });
             } else {
@@ -117,10 +124,10 @@ export default () => {
             }
         }
         populateTable();
-    },[currentStep, network])
+    },[history.location.pathname, network])
 
     return (
-        <div>
+        <Container className="pnl-body">
             <div style={{textAlign: "left", marginBottom: "100px"}}>
                 <h1 className="title">Dashboard</h1>
                 <p class="subtitle">Here you can manage your companies.</p>
@@ -157,6 +164,6 @@ export default () => {
                 </div>
             </div>
             <h2></h2>
-        </div>
+        </Container>
     )
 }

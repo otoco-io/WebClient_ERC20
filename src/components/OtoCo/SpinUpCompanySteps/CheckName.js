@@ -3,6 +3,7 @@ import React, {useEffect, createRef} from 'react';
 
 // Redux Hook
 import {useMappedState,useDispatch} from 'redux-react-hook';
+import { useHistory } from "react-router-dom";
 
 // Semantic UI for React
 import { Input, Label, Button, Message, Dropdown } from 'semantic-ui-react'
@@ -12,6 +13,7 @@ import axios from 'axios';
 export default () => { 
 
     const dispatch = useDispatch();
+    const history = useHistory();
     const {selectedCompanyName, jurisdictionSelected, jurisdictionName, jurisdictionOptions, jurisdictionStreet, availableName} = useMappedState(({welcomePanelState}) => welcomePanelState);
 
     let compName = ""
@@ -31,13 +33,10 @@ export default () => {
     }
 
     const clickDashboardHandler = async (e) => {
-        
-        let accounts = await ethereum.enable();
-        dispatch({ type: "Set Current Account", currentAccount: accounts[0] });
-        dispatch({ type: "Set Current Network", network: ethereum.networkVersion });
         dispatch({type: 'Hide Error Msg on Welcome Board'});
         closeLoading();
         dispatch({ type: "Welcome Board Go To Step N", N: 'dashboard' });
+        history.push("/dashboard");
     }
 
     const validate_input = () => {

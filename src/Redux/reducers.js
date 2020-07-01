@@ -68,8 +68,6 @@ export const accountReducer = function(state = accountState, action){
                 currentAccount: action.currentAccount
             });
         case "Set Current Network":
-            if (action.network === '42') action.network = 'kovan';
-            if (action.network === '1') action.network = 'main';
             console.log('network',action.network);
             return Object.assign({}, state, {
                 network: action.network

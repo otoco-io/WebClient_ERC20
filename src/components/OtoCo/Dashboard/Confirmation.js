@@ -15,11 +15,9 @@ export default () => {
     const {ownSeriesContracts, network} = useMappedState(({accountState}) => accountState);
 
     const clickDashboardHandler = async (e) => {
-        let accounts = await ethereum.enable();
-        dispatch({ type: "Set Current Account", currentAccount: accounts[0] });
-        dispatch({ type: "Set Current Network", network: ethereum.networkVersion });
         dispatch({type: 'Hide Error Msg on Welcome Board'});
         dispatch({ type: "Welcome Board Go To Step N", N: 'dashboard' });
+        history.push("/dashboard");
     }
 
     return (

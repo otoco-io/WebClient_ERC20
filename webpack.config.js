@@ -61,7 +61,8 @@ var config = {
         }),
     ],
     devServer: {
-      contentBase: './dist'
+      contentBase: './dist',
+      historyApiFallback: true
     }
 }
 

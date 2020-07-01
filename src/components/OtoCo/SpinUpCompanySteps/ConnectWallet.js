@@ -15,8 +15,8 @@ import MainContract from '../SmartContracts/MainContract';
 export default ({setStepNum}) => { 
 
     const getAccounts_MetaMask = async () => {
-        const accounts = await ethereum.enable();
-        return accounts;
+        await ethereum.enable();
+        return await web3.eth.getAccounts();
     }
 
     const dispatch = useDispatch();
@@ -65,13 +65,9 @@ export default ({setStepNum}) => {
 
     const clickMetaMaskHandler = (e) => {
         dispatch({ type: "Open Welcome Board Loading" });
-        getAccounts_MetaMask().then((accounts) => {
-            dispatch({ type: "Set Current Network", network: ethereum.networkVersion });
-            ethereum.on('accountsChanged', function (accounts) {
-                setAccount(accounts);
-            })
+        getAccounts_MetaMask().then(async (accounts) => {
+            dispatch({ type: "Set Current Network", network: await web3.eth.net.getNetworkType() });
             setAccount(accounts);
-
         }).catch((error) => {
             dispatch({ type: "Close Welcome Board Loading" });
             console.log("Something went wrong! Please try again later!: ", error)

@@ -12,13 +12,13 @@ body, html {
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../images/default_bg.png");
 
   /* Set a specific height */
-  height: 100vh;
+  min-height: 100vh;
 
   /* Position and center the image to scale nicely on all screens */
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  position: relative;
+    background-repeat: no-repeat;
+    background-size: auto 100%;
+    background-position: center top;
+    background-attachment: fixed;
 }
 
 .logo {
@@ -54,7 +54,7 @@ body, html {
 }
 
 .frames {
-    height: 100vh;
+    //height: 100vh;
     &#left-frame {
         border-right: 1px solid #cccccc;
     }
@@ -63,8 +63,7 @@ body, html {
 // Welcome Panel
 #welcome-pnl {
     width: 100vw;
-    height: 100vh;
-    position: fixed;
+    min-height: 100vh;
     top: 0;
     left: 0;
     background: rgba(0,0,0,.3);
@@ -185,3 +184,43 @@ button.animated-metamask {
     }
 }
 
+.terms {
+    .c3 {
+        font-weight: 600;
+        font-family: Arial, Helvetica, sans-serif;
+        margin: 14pt 0px;
+    }
+}
+
+.policy {
+    .c23 {
+        font-style: italic;
+    }
+
+    .c9, .c6 {
+        font-weight: 800;
+    }
+
+    .c13 {
+        font-weight: 800;
+        margin: 30pt 0px;
+    }
+
+    table {
+        border-radius: 10px;
+        border: solid 1px white;
+        th {
+            background: #00cccc;
+            color: #fff;
+        }
+        td {
+            padding: 8px;
+        }
+        .c15 {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        .c16 {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+    }
+}
