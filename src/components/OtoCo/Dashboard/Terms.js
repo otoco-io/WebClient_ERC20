@@ -15,7 +15,7 @@ export default () => {
     return (
         <Container className="pnl-body">
             <div class="terms" style={{textAlign: "left", marginBottom: "100px"}}>
-                <h1 className="title">Terms</h1>
+                <h1 className="title">TERMS OF USE</h1>
                 <span class="c12">Welcome to OtoCo! Please read these Terms of Use (the “Agreement” or “Terms”) carefully, along with any other policies or notices and our Privacy Policy (defined below) located at&nbsp;</span><span class="c5"><Link to="/privacy">Privacy</Link></span><span class="c12">, as they lay out the rules, terms, and guidelines for you to follow when using and accessing our website&nbsp;</span><span class="c5"><a class="c8" href="">otoco.io</a></span>
                 <span class="c4">&nbsp;(“OtoCo” or the “Site”) (collectively, the “Services”). This Agreement governs your use of OtoCo and constitutes a legally binding agreement between each user (“you,” “your,” or “User”) and Otonomos LLC (“we,” “us,” or “our”).
                 </span>

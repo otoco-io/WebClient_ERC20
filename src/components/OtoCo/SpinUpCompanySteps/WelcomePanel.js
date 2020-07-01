@@ -49,8 +49,8 @@ export default () => {
                         <Icon name='attention notched' />
                         <Message.Content>
                             <Message.Header><b>Before You Start</b></Message.Header>
-                            Current version only supports Main and Kovan Test Network. Please check your Metamask to make sure you are connected to the correct one.
-                            (Read our <Link to="/terms">Terms</Link>！)
+                            Current version only supports Main and Kovan Test Network. Please check your dapp browser to make sure you are connected to the correct one.
+                            (Read our <Link to="/terms">Terms of Use</Link>！)
                         </Message.Content>
                     </Message>
                 </div>
