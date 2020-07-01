@@ -36,7 +36,7 @@
         Page
 --------------------*/
 
-@pageBackground      : #000000;
+@pageBackground      : #0F0F0F;
 @pageOverflowX       : hidden;
 
 @lineHeight          : 1.4285em;
