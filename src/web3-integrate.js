@@ -11,12 +11,6 @@ export default {
             // Using Web3 v1.0
             window.web3 = new Web3(window.web3.currentProvider);
             return true;
-        } else {
-            document.getElementById("app").innerText = "You browser does not support web3 currently."
-            document.getElementById("app").style.padding = '10px';
-            document.getElementById("app").style.textAlign = 'center';
-            document.getElementById("app").style.background = 'none';
-            return false;
         }
     }
 }
