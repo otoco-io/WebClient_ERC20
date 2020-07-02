@@ -38,6 +38,12 @@ export const welcomePanelReducer = function(state = welcomePanelState, action){
                 jurisdictionSelected: action.value,
                 jurisdictionName: action.name
             });
+        case "Set Fees":
+            return Object.assign({}, state, {
+                fastFee: action.fast,
+                totalCost: action.total
+            });
+
         case "Show Error Msg on Welcome Board":
             return Object.assign({}, state, {
                 errMsg: {
@@ -68,7 +74,7 @@ export const accountReducer = function(state = accountState, action){
                 currentAccount: action.currentAccount
             });
         case "Set Current Network":
-            console.log('network',action.network);
+            // console.log('network',action.network);
             return Object.assign({}, state, {
                 network: action.network
             });

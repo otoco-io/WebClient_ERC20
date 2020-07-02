@@ -6,6 +6,8 @@ export const initWelcomePanelState = {
     currentStep: 0,
     selectedCompanyName: '',
     availableName: '',
+    fastFee: 0,
+    totalCost: '',
     jurisdictionSelected: 'us_de',
     jurisdictionName: 'Delaware',
     jurisdictionOptions: [
