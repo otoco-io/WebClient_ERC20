@@ -34,13 +34,8 @@ if(supported){
             <Logo />
         </div>
         <App />
-        {/* <Router>
-          <Route path="/" component={App}/>
-          <Route path="/dashboard" component={Dashboard}/>
-          <Route path="/terms" component={Dashboard}/>
-          <Route path="/policy" component={Dashboard}/>
-        </Router> */}
       </div>
+      <div class='footer'>©️ 2020 Otonomos Blockchain Technologies Ltd.</div>
     </StoreContext.Provider>,
     document.getElementById('app')
   );

@@ -1,7 +1,8 @@
 import React from 'react'
 
 // Redux Hook
-import {useMappedState,useDispatch} from 'redux-react-hook';
+import {useMappedState, useDispatch} from 'redux-react-hook';
+import { useHistory } from "react-router-dom";
 
 // Semantic UI for React
 import { Button } from 'semantic-ui-react'
@@ -9,6 +10,7 @@ import { Button } from 'semantic-ui-react'
 export default () => {
 
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const {availableName, waitingTicktoc} = useMappedState(({welcomePanelState}) => welcomePanelState);
     const {id, status} = useMappedState(({txsState}) => txsState);
