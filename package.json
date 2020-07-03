@@ -1,7 +1,8 @@
 {
   "scripts": {
     "build:prod": "webpack --mode=production",
-    "start:dev": "webpack-dev-server"
+    "start:dev": "webpack-dev-server",
+    "start:prod": "webpack-dev-server --mode=production --host=0.0.0.0"
   },
   "dependencies": {
     "axios": "^0.19.0",
