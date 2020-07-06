@@ -25,7 +25,7 @@ export default {
             };
 
             const web3Modal = new Web3Modal({
-                network: "kovan", // optional
+                // network: "kovan", // optional
                 // cacheProvider: true, // optional
                 providerOptions, // required
                 theme: "dark"

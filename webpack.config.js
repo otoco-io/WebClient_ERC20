@@ -2,6 +2,17 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 var config = {
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                commons: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: "vendors",
+                    chunks: "all"
+                }
+            }
+        }
+    },
     entry: './src/index.js',
     output: {
         filename: 'bundle.js',
@@ -58,10 +69,7 @@ var config = {
     plugins: [
         new HtmlWebpackPlugin({
             template: 'src/html_templates/index.html'
-        }),
-        new webpack.optimize.DedupePlugin(), //dedupe similar code 
-        new webpack.optimize.UglifyJsPlugin(), //minify everything
-        new webpack.optimize.AggressiveMergingPlugin() //Merge chunks 
+        }), 
     ],
     devServer: {
       contentBase: './dist',
