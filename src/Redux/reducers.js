@@ -82,22 +82,15 @@ export const accountReducer = function(state = accountState, action){
             return Object.assign({}, state, {
                 accountBalanceETH: action.accountBalanceETH
             });
-        // case "Set Account ERC20 Balance":
-        //     return Object.assign({}, state, {
-        //         accountBalanceERC20: action.accountBalanceERC20
-        //     });
-        // case "Set ERC20 Symbol":
-        //     return Object.assign({}, state, {
-        //         erc20Symbol: action.erc20Symbol
-        //     });
-        // case "Set ERC20 Spin Up Fee":
-        //     return Object.assign({}, state, {
-        //         erc20SpinUpFee: action.erc20SpinUpFee
-        //     });
         case "Set Own Company Contracts":
             return Object.assign({}, state, {
                 ownSeriesContracts: action.ownSeriesContracts
             });
+        case "Disconnect":
+            return Object.assign({}, state, {
+                network: '',
+                currentAccount: ''
+            })
         default:
             return state;
 

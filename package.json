@@ -5,6 +5,8 @@
     "start:prod": "webpack-dev-server --mode=production --host=0.0.0.0"
   },
   "dependencies": {
+    "@walletconnect/web3-provider": "^1.0.13",
+    "authereum": "0.0.4-beta.164",
     "axios": "^0.19.0",
     "file-saver": "^2.0.2",
     "pdfassembler": "0.1.0-beta.8",
@@ -15,7 +17,8 @@
     "redux": "^4.0.4",
     "redux-react-hook": "^3.3.2",
     "semantic-ui-react": "^0.87.2",
-    "web3": "^1.2.1"
+    "web3": "^1.2.1",
+    "web3modal": "^1.7.0"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",

@@ -26,13 +26,14 @@ export default () => {
 
     const clickActivateHandler = async (e) => {
         dispatch({ type: "Open Welcome Board Loading" });
-        let requestInfo = {from: currentAccount};
+        let requestInfo = {from: currentAccount, gas:2000000};
         try {
             const gasFees = await axios.get(`https://ethgasstation.info/api/ethgasAPI.json`);
             requestInfo.gasPrice = web3.utils.toWei((gasFees.data.fast*0.1).toString(), 'gwei');
         } catch (err){
             console.log('Could not fetch gas fee for transaction.');
         }
+        console.log(network, requestInfo)
         MainContract.getContract(network, jurisdictionSelected, jurisdictionName).methods.createSeries(availableName).send(requestInfo, function(error, result){
             if(error) alert("Something went wrong! Please Try Again Later!")
             else {

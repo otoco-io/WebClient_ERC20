@@ -11,6 +11,8 @@ import { Button, Container } from 'semantic-ui-react'
 import MainContract from '../SmartContracts/MainContract';
 import SeriesContract from '../SmartContracts/SeriesContract';
 
+import Web3Integrate from './../../../web3-integrate';
+
 import {PDFAssembler} from 'pdfassembler';
 import fileSaver from 'file-saver';
 import pdfFile from '../../../images/DOA_de.pdf'
@@ -84,8 +86,9 @@ export default () => {
         // When enter dashboard page
         async function populateTable(){
             if (network === ''){
-                await ethereum.enable();
+                await Web3Integrate.callModal();
                 let accounts =  await web3.eth.getAccounts();
+                console.log(accounts)
                 dispatch({ type: "Set Current Account", currentAccount: accounts[0] });
                 dispatch({ type: "Set Current Network", network: await web3.eth.net.getNetworkType() })
             }
@@ -98,7 +101,7 @@ export default () => {
                     if (j == 'us_wy') jurisdictionName = 'Wyoming';
 
                     let series = await MainContract.getContract(network, j).methods.mySeries().call({from: currentAccount})// , function(error, series){
-                    //console.log(series);
+                    console.log(series);
                     for (let s of series) {
                         let newSeries = {
                             jurisdiction: jurisdictionName,
@@ -145,25 +148,11 @@ export default () => {
                 </thead>
                 <tbody>
                     <ListItems/>
-                    {/* <tr>
-                        <td>Doiim LCC</td>
-                        <td><button class="ui mini button jurisdiction">Delaware</button></td>
-                        <td>10/10/2019 20:20 UTC</td>
-                        <td><a class="primary" href="">0xE7b7323...</a><i class="copy icon"></i></td>
-                        <td><a class="primary" href="">0xE7b7323...</a><i class="copy icon"></i></td>
-                        <td>
-                            <button class="ui mini button ui button primary"><i class="download icon"></i>Series Operation Agreement</button>
-                        </td>
-                    </tr> */}
-
                 </tbody>
                 </table>
+                <div class="ui active centered inline text loader" style={{ display: (loading) ? "" : "none", 'z-index' : 0 }}>Loading Companies</div>
                 <Button id="btn-check-nmae" className="ui right floated button primary" type="submit" onClick={clickBackHandler}>Set up a new company</Button>
-                <div class="ui active dimmer" style={{ display: (loading) ? "" : "none"}}>
-                    <div class="ui indeterminate text loader">Loading Companies</div>
-                </div>
             </div>
-            <h2></h2>
         </Container>
     )
 }
