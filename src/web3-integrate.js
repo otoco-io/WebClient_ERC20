@@ -16,9 +16,6 @@ export default {
                 authereum: {
                     package: Authereum
                 },
-                unilogin: {
-                    package: UniLogin
-                },
                 walletconnect: {
                     package: WalletConnectProvider, // required
                     options: {
@@ -28,7 +25,7 @@ export default {
             };
 
             const web3Modal = new Web3Modal({
-                // network: "mainnet", // optional
+                network: "kovan", // optional
                 // cacheProvider: true, // optional
                 providerOptions, // required
                 theme: "dark"
