@@ -2,7 +2,7 @@ q Q q 0 0 612 792 re W n /Cs1 cs 1 1 1 sc 0 792 m 612 792 l 612 0 l 0 0 l
 h f Q q 68.67773 722.5723 474.6445 36.75 re W n /Cs1 cs 0 0 0 sc q 1 0 0 1 421.5625 729
 cm BT 12 0 0 12 0 0 Tm /TT1 1 Tf ( ) Tj ET Q Q q 359.25 726 180.75 33 re W
 n /Perceptual ri q 118.4229 0 0 27.02703 421.5771 728.9865 cm /Im1 Do Q Q
-q 68.67773 72 480.1095 651.3223 re W n /Cs1 cs 0 0 0 sc q 1 0 0 1 108 708.1055
+q 68.67773 72 474.6445 651.3223 re W n /Cs1 cs 0 0 0 sc q 1 0 0 1 108 708.1055
 cm BT 12 0 0 12 0 0 Tm /TT2 1 Tf [ (Entir) 18.2 (e )
 -50.8 (Agr) 18.2 (eement) ] TJ ET Q q
 1 0 0 1 108 708.1055 cm BT 12 0 0 12 92.47331 0 Tm /TT1 1 Tf [ (. ) -87.9
@@ -15,14 +15,17 @@ Q q 1 0 0 1 108 651.1055 cm BT 12 0 0 12 0 0 Tm /TT1 1 Tf [ (IN )
 -267.4 (WITNESS ) -267.4 (WHEREOF) 79.9 (, ) -285.4 (the ) -285.4 (undersigned ) -285.4 (has ) -285.4 (executed ) -285.4 (this ) -285.4 (Operating ) -230.3 (Agreement ) ] TJ
 ET Q q 1 0 0 1 72 636.1055 cm BT 12 0 0 12 0 0 Tm /TT1 1 Tf [ (ef)
 18.1 (fective as of the Ef) 18.1 (fective Date. ) ] TJ ET Q /Cs3 cs 0 sc q 1 0 0 1 288 609.1055
-cm BT ET Q /Cs1 cs 0 0 0 sc q 1 0 0 1 180 582.1055 cm BT 12 0 0 12 0 0 Tm
+cm BT ET Q /Cs1 cs 0 0 0 sc q 1 0 0 1 288 582.1055 cm BT 12 0 0 12 0 0 Tm
 /TT2 1 Tf [ (COMP) 74.4 (ANY) 91.6 (:  )
 ] TJ ET Q /Cs3 cs 0 sc q 1 0 0 1 288 555.1055 cm BT ET Q /Cs1 cs 0 0 0 sc
-q 1 0 0 1 180 540.1055 cm BT 12 0 0 12 0 0 Tm /TT1 1 Tf [ (By: ) ]
-TJ ET Q q 1 0 0 1 180 540.1055 cm BT 12 0 0 12 20.33789 0 Tm /TT2 1 Tf [ (0xXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX) ] TJ ET Q q 1 0 0 1 180 540.1055
-cm BT 12 0 0 12 309.6504 0 Tm /TT1 1 Tf [ (, Manager ) ] TJ ET Q /Cs3 cs 0 sc q 1 0 0 1 288 517.8604 cm BT ET Q q 1 0 0 1 288 495.6152
-cm BT ET Q q 1 0 0 1 72 480.6152 cm BT ET Q q 1 0 0 1 72 465.6152 cm BT ET
-Q Q q 69.23145 32.80664 473.5371 16.53711 re W n /Cs1 cs 0 0 0 sc q 1 0 0 1 72 38.16309
-cm BT 10 0 0 10 0 0 Tm /TT1 1 Tf [ (V) 110.7 (ersion 1.2 \(27-Sep-19\) ) -15312.8 ( ) ] TJ ET Q q 1 0 0 1 72 38.16309 cm BT
-10 0 0 10 457 0 Tm /TT1 1 Tf ( ) Tj ET Q q 1 0 0 1 529 38.16309 cm BT 10 0 0 10 0 0
-Tm /TT1 1 Tf (21) Tj ET Q Q
+q 1 0 0 1 155.9055 540.1055 cm BT 12 0 0 12 0 0 Tm /TT1 1 Tf [ (By:  )
+] TJ ET Q q 1 0 0 1 155.9055 540.1055 cm BT 12 0 0 12 24.09449 0 Tm /TT2 1
+Tf [ (0xXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX) ] TJ ET Q q
+1 0 0 1 155.9055 540.1055 cm BT 12 0 0 12 313.407 0 Tm /TT1 1 Tf [ (, Manager ) ] TJ ET Q /Cs3 cs 0 sc q 1 0 0 1 288 517.8604
+cm BT ET Q q 1 0 0 1 288 495.6152 cm BT ET Q q 1 0 0 1 72 480.6152 cm BT ET
+Q q 1 0 0 1 72 465.6152 cm BT ET Q Q q 69.23145 32.80664 473.5371 16.53711
+re W n /Cs1 cs 0 0 0 sc q 1 0 0 1 72 38.16309 cm BT 10 0 0 10 0 0 Tm /TT1
+1 Tf [ (V) 110.7 (ersion 2.0 \(14-Jul-20\) )
+-15645.8 ( ) ] TJ ET Q q 1 0 0 1 72 38.16309 cm BT 10 0 0 10 457 0 Tm /TT1
+1 Tf ( ) Tj ET Q q 1 0 0 1 529 38.16309 cm BT 10 0 0 10 0 0 Tm /TT1 1 Tf (21)
+Tj ET Q Q
