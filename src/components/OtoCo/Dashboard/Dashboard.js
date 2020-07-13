@@ -15,7 +15,7 @@ import Web3Integrate from './../../../web3-integrate';
 
 import {PDFAssembler} from 'pdfassembler';
 import fileSaver from 'file-saver';
-import pdfFile from '../../../images/DOA_de2.pdf'
+import pdfFile from '../../../images/DOA_de.pdf'
 import page1DE from '../../../images/page1_de.pdf'
 import page21DE from '../../../images/page21_de.pdf'
 
@@ -51,7 +51,7 @@ export default () => {
             //console.log(pdf['/Root']['/Pages']['/Kids'][0]['/Contents']['stream']);
             //console.log(pdf['/Root']['/Pages']['/Kids'][20]['/Contents']['stream']);
             // Replace agreement pages for new ones
-            console.log(page1);
+            //console.log(page1);
             pdf['/Root']['/Pages']['/Kids'][0]['/Contents']['stream'] = page1;
             pdf['/Root']['/Pages']['/Kids'][20]['/Contents']['stream'] = page21;
             //Remove last page from Source file
