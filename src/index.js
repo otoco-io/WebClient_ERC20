@@ -32,7 +32,10 @@ ReactDOM.render(
       <App />
     </div>
     <AccountDetails />
-    <div class='footer'>©️ 2020 Otonomos Blockchain Technologies Ltd.</div>
+    <div class='footer'>
+      <a href="http://otoco.otonomos.com" target="blank">Documentation and FAQs</a><br/>
+      ©️ 2020 Otonomos Blockchain Technologies Ltd.
+      </div>
   </StoreContext.Provider>,
   document.getElementById('app')
 );

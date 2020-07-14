@@ -44,7 +44,7 @@ export default ({setStepNum}) => {
 
     return (
         <div>
-            <p>Choose a wallet to connect and spin up.</p>
+            <p>Connect a wallet that will own your company.</p>
             <Button  className="primary" onClick={clickConnectkHandler}>Connect Wallet</Button>
         </div>
     );
