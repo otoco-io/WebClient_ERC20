@@ -1,4 +1,5 @@
 export const initAccountState = {
+    network: "",
     currentAccount: "",
     accountBalanceETH: 0,
     accountBalanceERC20: 0,

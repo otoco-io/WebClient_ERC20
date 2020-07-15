@@ -2,6 +2,17 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 var config = {
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                commons: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: "vendors",
+                    chunks: "all"
+                }
+            }
+        }
+    },
     entry: './src/index.js',
     output: {
         filename: 'bundle.js',
@@ -43,7 +54,7 @@ var config = {
                 }
             },
             {
-                test: /\.(woff|woff2|eot|ttf|otf|png|svg|jpg|gif)$/,
+                test: /\.(woff|woff2|eot|ttf|otf|png|svg|jpg|gif|pdf)$/,
                 use: {
                     loader: 'url-loader',
                     options: {
@@ -58,10 +69,11 @@ var config = {
     plugins: [
         new HtmlWebpackPlugin({
             template: 'src/html_templates/index.html'
-        }),
+        }), 
     ],
     devServer: {
-      contentBase: './dist'
+      contentBase: './dist',
+      historyApiFallback: true
     }
 }
 

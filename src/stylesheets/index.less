@@ -6,19 +6,33 @@ body, html {
     letter-spacing: 0.1rem;
 }
 
+body {
+    background: transparent !important;
+}
+
 /* The App Background image */
 #app {
   /* Use "linear-gradient" to add a darken background effect to the image (photographer.jpg). This will make the text easier to read */
-  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../images/default_bg.png");
+  background-image: url("../images/bg.png");
 
   /* Set a specific height */
-  height: 100vh;
+  min-height: 100vh;
 
   /* Position and center the image to scale nicely on all screens */
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  position: relative;
+    background-repeat: no-repeat;
+    background-size: 100% 40%;
+    background-position: 0px calc(80vh - 5vw);
+    background-attachment: fixed;
+    background-blend-mode: lighten;
+
+    a {
+        color: #cccccc;
+        text-decoration: underline !important;
+
+        &:hover {
+            color: #2EE8CF;
+        }
+    }
 }
 
 .logo {
@@ -26,6 +40,10 @@ body, html {
     &:hover, &:active, &:focus {
         text-decoration: none;
     }
+}
+
+.ui.button {
+    color: black !important;
 }
 
 #left-panel {
@@ -54,7 +72,7 @@ body, html {
 }
 
 .frames {
-    height: 100vh;
+    //height: 100vh;
     &#left-frame {
         border-right: 1px solid #cccccc;
     }
@@ -63,11 +81,9 @@ body, html {
 // Welcome Panel
 #welcome-pnl {
     width: 100vw;
-    height: 100vh;
-    position: fixed;
+    min-height: 100vh;
     top: 0;
     left: 0;
-    background: rgba(0,0,0,.3);
     padding: 25px;
     .container {
         position: relative;
@@ -77,16 +93,6 @@ body, html {
     
 }
 
-button.animated-metamask {
-    .hidden.content {
-        top: 9px !important;
-        text-align: center;
-        img {
-            width: 32px;
-            margin: 0 auto;
-        }
-    }
-}
 .ui.dropdown {
     .menu {
         > .item {
@@ -129,6 +135,31 @@ button.animated-metamask {
     border-left: none !important;
 }
 
+.ui.celled.table{
+    
+    background: transparent !important;
+    border: 1px solid #555 !important;
+    font-size: 12px;
+    font-weight: 200;
+
+    th {
+        background: transparent !important;
+    }
+}
+
+.ui.dimmer{
+    background: transparent !important;
+}
+
+.ui.mini.button.jurisdiction {
+    border-radius: 12px;
+    padding: 3px;
+    background: transparent;
+    border: 2px solid white;
+    color: white !important;
+    font-weight: 600;
+}
+
 .subtitle {
     font-size: 18px;
     font-weight: @normal;
@@ -160,3 +191,73 @@ button.animated-metamask {
     }
 }
 
+.terms {
+    .c3 {
+        font-weight: 600;
+        margin: 14pt 0px;
+    }
+}
+
+.policy {
+    .c23 {
+        font-style: italic;
+    }
+
+    .c9, .c6 {
+        font-weight: 800;
+    }
+
+    .c13 {
+        font-weight: 800;
+        margin: 30pt 0px;
+    }
+
+    table {
+        border-radius: 10px;
+        border: solid 1px white;
+        th {
+            background: #2EE8CF;
+            color: #fff;
+        }
+        td {
+            padding: 8px;
+        }
+        .c15 {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        .c16 {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+    }
+}
+
+.footer {
+    color: white;
+    font-size: 10px;
+    position: fixed;
+    text-align: right;
+    right: 10px;
+    bottom: 10px;
+}
+
+.account-details {
+    color: white;
+    float: right;
+    font-size: 10px;
+    position: fixed;
+    top: 25px;
+    right: 25px;
+    cursor: pointer;
+    p {
+        text-align: right;
+    }
+    .network {
+        background: #2EE8CF;
+        border-radius: 2px;
+        padding: 2px 4px;
+        color: black;
+    }
+    .button {
+        color: #2EE8CF;
+    }
+}

@@ -17,6 +17,11 @@ $> yarn
 $> yarn build:prod
 ```
 
+### In Case of lack of memory
+```
+$> export NODE_OPTIONS=--max_old_space_size=4096
+```
+
 ## Running project locally
 ```
 $> yarn start:dev

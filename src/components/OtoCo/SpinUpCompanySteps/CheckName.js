@@ -3,36 +3,52 @@ import React, {useEffect, createRef} from 'react';
 
 // Redux Hook
 import {useMappedState,useDispatch} from 'redux-react-hook';
+import { useHistory } from "react-router-dom";
 
 // Semantic UI for React
-import { Input, Label, Button, Message } from 'semantic-ui-react'
+import { Input, Label, Button, Message, Dropdown } from 'semantic-ui-react'
 
 import axios from 'axios';
 
 export default () => { 
 
     const dispatch = useDispatch();
-    const {inputCompanyName, focusInputCompanyName, availableName} = useMappedState(({welcomePanelState}) => welcomePanelState);
+    const history = useHistory();
+    const {selectedCompanyName, jurisdictionSelected, jurisdictionName, jurisdictionOptions, jurisdictionStreet, availableName} = useMappedState(({welcomePanelState}) => welcomePanelState);
 
-    const inputRef = createRef();
-
-    useEffect(() => {if(focusInputCompanyName) inputRef.current.focus()}, []);
+    let compName = ""
 
     const closeLoading = () => {
         dispatch({type: 'Close Welcome Board Loading'});
     }
 
-    const handleInputChange = (e) => {
-        dispatch({type: 'Enter Company Name on Welcome Board', value: e.target.value})
+    const handleInputChange = (e, data) => {
+        compName = e.target.value;
+    }
+
+    const handleJurisdictionChange = (e, data) => {
+        let name = data.options.find( o => { return o.value == data.value }).text;
+        dispatch({type: 'Select Jurisdiction', value: data.value, name: name, street: data.street})
+        dispatch({type: 'Enter Company Name on Welcome Board', value: compName})
+    }
+
+    const clickDashboardHandler = async (e) => {
+        dispatch({type: 'Hide Error Msg on Welcome Board'});
+        closeLoading();
+        dispatch({ type: "Welcome Board Go To Step N", N: 'dashboard' });
+        history.push("/dashboard");
     }
 
     const validate_input = () => {
-        if(inputCompanyName === "") return false;
+        if(compName === "") return false;
         return true;
     }
 
-    const clickCheckHandler = (e) => {
-
+    const clickCheckHandler = async (e) => {
+        
+        //console.log('selected', selectedCompanyName,'input', compName)
+        if (compName == '') compName = selectedCompanyName;
+        dispatch({type: 'Enter Company Name on Welcome Board', value: compName})
         if(!validate_input()) {
             dispatch({
                 type: 'Show Error Msg on Welcome Board', 
@@ -41,27 +57,27 @@ export default () => {
             });
             return;
         }
-
-        dispatch({type: 'Unfocus Input-CompanyName on Welcome Board'});
+    
         dispatch({type: 'Open Welcome Board Loading'});
         dispatch({type: 'Hide Error Msg on Welcome Board'});
 
-        setTimeout(function(){
-            axios.get(`https://api.opencorporates.com/v0.4.8/companies/search?q=${encodeURIComponent(inputCompanyName + " LLC")}&jurisdiction_code=us_de`)
-            .then(function({data}){
+        //console.log('selected', selectedCompanyName,'input', compName)
+        // axios.get(`http://api.opencorporates.com/v0.4.8/companies/search?q=${encodeURIComponent(compName + " LLC")}&jurisdiction_code=${jurisdictionSelected}`)
+        // .then(function({data}){
 
-                if (data.results.total_count === 0) dispatch({type: 'Store Available Company Name'});
-                else dispatch({type: 'Show Error Msg on Welcome Board', title: "Sorry! This name has been used.", msg: "Please Enter Another Company Name."});
-                
-                closeLoading();
-                
-            }).catch(function(resp){
-                dispatch({type: 'Show Error Msg on Welcome Board', title: "Sorry, Please try again later.", msg: "Ooooops, Service is busy now."});
-                closeLoading();
-            });
+        //     if (data.results.total_count === 0) dispatch({type: 'Store Available Company Name'});
+        //     else dispatch({type: 'Show Error Msg on Welcome Board', title: "Sorry! " + compName + " LLC has been used at " + jurisdictionName + ".", msg: "Please Enter Another Company Name."});
             
-        }, 2000)
-
+        //     closeLoading();
+            
+        // }).catch(function(resp){
+        //     dispatch({type: 'Show Error Msg on Welcome Board', title: "Sorry, Please try again later.", msg: "Ooooops, Service is busy now."});
+        //     closeLoading();
+        // });
+        setTimeout(() => {
+            dispatch({type: 'Store Available Company Name'});
+            closeLoading();
+        }, 1000);
     }
 
     const clickNextHandler = (e) => {
@@ -79,14 +95,23 @@ export default () => {
                 type='text' 
                 className="checkname-input-container" 
                 labelPosition='right' 
-                id="check_name" 
-                placeholder='Search...' 
-                ref={inputRef}
-                value={inputCompanyName}
+                id="check_name"
+                defaultValue={selectedCompanyName}
+                placeholder='Search...'
                 onChange={handleInputChange}
-                action>
+            >
                 <input className="placeholder" />
-                <Label basic>&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;LLC&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;Delaware&nbsp;&nbsp;&nbsp;&nbsp;</Label>
+                <Label basic>&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;LLC&nbsp;&nbsp;&nbsp;&nbsp;|
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <Dropdown
+                        placeholder={jurisdictionName}
+                        inline
+                        onChange={handleJurisdictionChange}
+                        options={jurisdictionOptions}
+                        defaultValue={jurisdictionSelected}
+                    />
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                </Label>
             </Input>
             <Message negative style={{display: "none"}}>
                 <Message.Header>Sorry! This name has been used.</Message.Header>
@@ -98,9 +123,11 @@ export default () => {
             </Message>
             <p className="normal-text">Enter your company name exactly as you want it registered.</p>
             <p className="normal-text">Click <b>`Check`</b> to verify if your preferred name is available.</p>
+            <p className="normal-text">Click <b>`My Dashboard`</b> if you want to manage your deployed LCCs.</p>
             </div>
             <p className="align-right">
-                <Button id="btn-check-nmae" className="primary" onClick={clickCheckHandler}>Check</Button>
+                <Button id="btn-check-nmae" className="primary" type="submit" onClick={clickDashboardHandler}>My Dashboard</Button>
+                <Button id="btn-check-nmae" className="primary" type="submit" onClick={clickCheckHandler}>Check</Button>
             </p>
         </div>
     )
@@ -108,8 +135,8 @@ export default () => {
     const AvailableResult = () => (
         <div>
             <div style={{minHeight: '200px'}}>
-                <p className="normal-text">Congrats! <b>{availableName}</b> is available for registration with Delaware State Registry.</p>
-                <p className="normal-text"><b>{availableName}</b>  will have its registered address at: <br/> <b>1201 N. Orange Street, Suite 7160, Wilmington, 19801 Delaware.</b></p>
+                <p className="normal-text">Congrats! <b>{availableName}</b> is available for registration with <b>{jurisdictionName}</b> State Registry.</p>
+                <p className="normal-text"><b>{availableName}</b>  will have its registered address at: <br/> <b>{jurisdictionStreet[jurisdictionSelected]}</b></p>
                 <p className="normal-text">Click `<b>Next</b>` to proceed or go `Back` to try a different name.</p>
             </div>
             <p className="align-right">

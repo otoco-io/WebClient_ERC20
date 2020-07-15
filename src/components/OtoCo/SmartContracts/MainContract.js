@@ -304,11 +304,14 @@ const mainContractABI = [
 export default {
     addresses: {
         dev: "",
-        kovan: "0xbc8006E109CA3Cb5b2a88aDD9F87BDf9a7fB924E",
-        mainNet: ""
+		//kovan_us_de: "0xbc8006E109CA3Cb5b2a88aDD9F87BDf9a7fB924E",
+		kovan_us_de: "0x7353CAe6fCcA50bE63e4685D7Dbb9b3B44c8eF51",
+		kovan_us_wy: "0x6EdCf827C035dcf0FC6beb255ac532304B594671",
+		main_us_de: "0x24870e04F2573a132B695c48eB9ff2F3C8b0f410",
+		main_us_wy: "0x366e6a4e17875049670c9714CA33dC2F20cD1d37"
     },
     abi: mainContractABI,
-    getContract: function(network = "kovan") {
-        return new web3.eth.Contract(this.abi, this.addresses[network]) 
+    getContract: function(network = "kovan", jurisdiction = "de") {
+        return new web3.eth.Contract(this.abi, this.addresses[network+'_'+jurisdiction]) 
     },
 }
