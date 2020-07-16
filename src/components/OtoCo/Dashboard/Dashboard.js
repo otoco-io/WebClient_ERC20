@@ -18,6 +18,7 @@ import fileSaver from 'file-saver';
 import pdfFile from '../../../images/DOA_de.pdf'
 import page1DE from '../../../images/page1_de.pdf'
 import page21DE from '../../../images/page21_de.pdf'
+import page22DE from '../../../images/page22_de.pdf'
 
 export default () => {
 
@@ -38,6 +39,7 @@ export default () => {
         let blob = await fetch(pdfFile).then(r => r.blob())
         let page1 = await fetch(page1DE).then(r => r.text());
         let page21 = await fetch(page21DE).then(r => r.text());
+        let page22 = await fetch(page22DE).then(r => r.text());
         // Replace texts on placeholders
         console.log(info.name, info.contract)
         page1 = page1.replace('{SERIES}', (info.name.length*300-3000)+' ('+info.name);
@@ -45,6 +47,7 @@ export default () => {
         page1 = page1.replace('DD/MM/YYYY', info.created.getUTCDate()+'/'+(info.created.getUTCMonth()+1)+'/'+info.created.getUTCFullYear());
         page1 = page1.replace('HH:MM',info.created.getUTCHours()+':'+(info.created.getUTCMinutes() < 10 ? '0'+info.created.getUTCMinutes() : info.created.getUTCMinutes()));
         page21 = page21.replace('0xXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', info.owner);
+        page22 = page22.replace('0xXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', info.owner);
         // Create a new pdf based on Agreeement file
         const newPdf = new PDFAssembler(blob);
         newPdf.getPDFStructure().then(function(pdf) {
@@ -54,6 +57,7 @@ export default () => {
             //console.log(page1);
             pdf['/Root']['/Pages']['/Kids'][0]['/Contents']['stream'] = page1;
             pdf['/Root']['/Pages']['/Kids'][20]['/Contents']['stream'] = page21;
+            pdf['/Root']['/Pages']['/Kids'][21]['/Contents']['stream'] = page22;
             //Remove last page from Source file
             pdf['/Root']['/Pages']['/Kids'].splice(-1);
             newPdf.assemblePdf('Series_Operation_Agreement.pdf')
