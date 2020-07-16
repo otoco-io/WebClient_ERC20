@@ -26,7 +26,7 @@ export default () => {
 
     const clickActivateHandler = async (e) => {
         dispatch({ type: "Open Welcome Board Loading" });
-        let requestInfo = {from: currentAccount, gas:2000000};
+        let requestInfo = {from: currentAccount, gas:800000};
         try {
             const gasFees = await axios.get(`https://ethgasstation.info/api/ethgasAPI.json`);
             requestInfo.gasPrice = web3.utils.toWei((gasFees.data.fast*0.1).toString(), 'gwei');
