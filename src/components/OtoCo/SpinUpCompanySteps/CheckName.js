@@ -137,6 +137,7 @@ export default () => {
             <div style={{minHeight: '200px'}}>
                 <p className="normal-text">Congrats! <b>{availableName}</b> is available for registration with <b>{jurisdictionName}</b> State Registry.</p>
                 <p className="normal-text"><b>{availableName}</b>  will have its registered address at: <br/> <b>{jurisdictionStreet[jurisdictionSelected]}</b></p>
+                { (jurisdictionSelected == 'us_wy') && <p className="normal-text">Wyoming jurisdiction has a suffix in name with the series index, in this case would be `{availableName} Series XX` where XX is the numeric index.</p> }
                 <p className="normal-text">Click `<b>Next</b>` to proceed or go `Back` to try a different name.</p>
             </div>
             <p className="align-right">
