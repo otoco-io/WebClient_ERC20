@@ -66,7 +66,7 @@ export default () => {
         .then(function({data}){
 
             if (data.results.total_count === 0) dispatch({type: 'Store Available Company Name'});
-            else dispatch({type: 'Show Error Msg on Welcome Board', title: "Sorry! " + compName + " is taken at " + jurisdictionName + ".", msg: "Please Enter Another Company Name."});
+            else dispatch({type: 'Show Error Msg on Welcome Board', title: "Sorry! " + compName + " is taken in " + jurisdictionName + ".", msg: "Please Enter Another Company Name."});
             
             closeLoading();
             
