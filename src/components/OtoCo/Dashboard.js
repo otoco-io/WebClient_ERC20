@@ -52,7 +52,8 @@ export default () => {
         let page21 = await fetch(pdfs[prefix].page21).then(r => r.text());
         let page22 = await fetch(pdfs[prefix].page22).then(r => r.text());
         // Replace texts on placeholders
-        page1 = page1.replace('{SERIES}', (info.name.length*300-3000)+' ('+info.name);
+        if (prefix === 'de') page1 = page1.replace('{SERIES}', (info.name.length*300-3000)+' ('+info.name);
+        if (prefix === 'wy') page1 = page1.replace('OTOCO WY LLC - {SERIES}', (info.name.length*300-3000)+' (OTOCO WY LLC - '+info.name);
         page1 = page1.replace('0xXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', info.contract);
         page1 = page1.replace('DD/MM/YYYY', info.created.getUTCDate()+'/'+(info.created.getUTCMonth()+1)+'/'+info.created.getUTCFullYear());
         page1 = page1.replace('HH:MM',info.created.getUTCHours()+':'+(info.created.getUTCMinutes() < 10 ? '0'+info.created.getUTCMinutes() : info.created.getUTCMinutes()));

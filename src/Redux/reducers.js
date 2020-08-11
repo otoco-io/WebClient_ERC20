@@ -30,8 +30,9 @@ export const welcomePanelReducer = function(state = welcomePanelState, action){
                 selectedCompanyName: action.value
             });
         case "Store Available Company Name":
+            if (state.jurisdictionSelected == "us_de") state.selectedCompanyName += " LLC"
             return Object.assign({}, state, {
-                availableName: state.selectedCompanyName + " LLC",
+                availableName: state.selectedCompanyName,
             });    
         case "Select Jurisdiction":
             return Object.assign({}, state, {

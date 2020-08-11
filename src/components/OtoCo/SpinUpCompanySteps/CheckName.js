@@ -66,7 +66,7 @@ export default () => {
         .then(function({data}){
 
             if (data.results.total_count === 0) dispatch({type: 'Store Available Company Name'});
-            else dispatch({type: 'Show Error Msg on Welcome Board', title: "Sorry! " + compName + " LLC has been used at " + jurisdictionName + ".", msg: "Please Enter Another Company Name."});
+            else dispatch({type: 'Show Error Msg on Welcome Board', title: "Sorry! " + compName + " is taken at " + jurisdictionName + ".", msg: "Please Enter Another Company Name."});
             
             closeLoading();
             
@@ -133,7 +133,7 @@ export default () => {
             <div style={{minHeight: '200px'}}>
                 <p className="normal-text">Congrats! <b>{availableName}</b> is available for registration with <b>{jurisdictionName}</b> State Registry.</p>
                 <p className="normal-text">Your new company will have its registered address at: <br/> <b>{jurisdictionStreet[jurisdictionSelected]}</b></p>
-                { (jurisdictionSelected == 'us_wy') && <p className="bold-text">The full legal name is `<b>OtoCo WY LLC - {availableName} Series #</b>` (the series number).</p> }
+                { (jurisdictionSelected == 'us_wy') && <p className="bold-text">The full legal name is `<b>OtoCo WY LLC - {availableName} - Series #</b>` (the series number).</p> }
                 <p className="normal-text">Click `<b>Next</b>` to proceed or go `Back` to try a different name.</p>
             </div>
             <p className="align-right">
