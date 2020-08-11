@@ -62,7 +62,7 @@ export default () => {
         dispatch({type: 'Hide Error Msg on Welcome Board'});
 
         //console.log('selected', selectedCompanyName,'input', compName)
-        axios.get(`http://api.opencorporates.com/v0.4.8/companies/search?q=${encodeURIComponent(compName + " LLC")}&jurisdiction_code=${jurisdictionSelected}`)
+        axios.get(`https://api.opencorporates.com/v0.4.8/companies/search?q=${encodeURIComponent(compName + " LLC")}&jurisdiction_code=${jurisdictionSelected}`)
         .then(function({data}){
 
             if (data.results.total_count === 0) dispatch({type: 'Store Available Company Name'});
