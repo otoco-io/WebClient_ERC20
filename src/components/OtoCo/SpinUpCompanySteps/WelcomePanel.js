@@ -13,8 +13,6 @@ import Step_ConnectWallet from './ConnectWallet'
 import Step_CheckName from './CheckName'
 import Step_Nav from './Nav'
 import Confirmation from '../Dashboard/Confirmation'
-import Dashboard from '../Dashboard/Dashboard'
-import PublicBetaDisclaimerModal from '../UIComponents/PublicBetaDisclaimerModal'
 
 // UI Framework
 import { Container, Button, Image, Loader, Icon, Message, Grid } from 'semantic-ui-react'

@@ -62,22 +62,18 @@ export default () => {
         dispatch({type: 'Hide Error Msg on Welcome Board'});
 
         //console.log('selected', selectedCompanyName,'input', compName)
-        // axios.get(`http://api.opencorporates.com/v0.4.8/companies/search?q=${encodeURIComponent(compName + " LLC")}&jurisdiction_code=${jurisdictionSelected}`)
-        // .then(function({data}){
+        axios.get(`http://api.opencorporates.com/v0.4.8/companies/search?q=${encodeURIComponent(compName + " LLC")}&jurisdiction_code=${jurisdictionSelected}`)
+        .then(function({data}){
 
-        //     if (data.results.total_count === 0) dispatch({type: 'Store Available Company Name'});
-        //     else dispatch({type: 'Show Error Msg on Welcome Board', title: "Sorry! " + compName + " LLC has been used at " + jurisdictionName + ".", msg: "Please Enter Another Company Name."});
+            if (data.results.total_count === 0) dispatch({type: 'Store Available Company Name'});
+            else dispatch({type: 'Show Error Msg on Welcome Board', title: "Sorry! " + compName + " LLC has been used at " + jurisdictionName + ".", msg: "Please Enter Another Company Name."});
             
-        //     closeLoading();
-            
-        // }).catch(function(resp){
-        //     dispatch({type: 'Show Error Msg on Welcome Board', title: "Sorry, Please try again later.", msg: "Ooooops, Service is busy now."});
-        //     closeLoading();
-        // });
-        setTimeout(() => {
-            dispatch({type: 'Store Available Company Name'});
             closeLoading();
-        }, 1000);
+            
+        }).catch(function(resp){
+            dispatch({type: 'Show Error Msg on Welcome Board', title: "Sorry, Please try again later.", msg: "Ooooops, Service is busy now."});
+            closeLoading();
+        });
     }
 
     const clickNextHandler = (e) => {

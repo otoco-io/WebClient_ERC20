@@ -2,9 +2,9 @@ import React from 'react'
 
 // Components
 import WelcomePanel from './OtoCo/SpinUpCompanySteps/WelcomePanel'
-import Dashboard from './OtoCo/Dashboard/Dashboard'
-import Terms from './OtoCo/Dashboard/Terms'
-import Privacy from './OtoCo/Dashboard/Privacy'
+import Dashboard from './OtoCo/Dashboard'
+import Terms from './OtoCo/Terms'
+import Privacy from './OtoCo/Privacy'
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 export default () => {

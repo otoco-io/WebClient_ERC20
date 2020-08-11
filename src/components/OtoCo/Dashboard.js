@@ -8,26 +8,26 @@ import { useHistory } from "react-router-dom";
 import { Button, Container } from 'semantic-ui-react'
 
 // Smart Contract
-import MainContract from '../SmartContracts/MainContract';
-import SeriesContract from '../SmartContracts/SeriesContract';
+import MainContract from './SmartContracts/MainContract';
+import SeriesContract from './SmartContracts/SeriesContract';
 
-import Web3Integrate from './../../../web3-integrate';
+import Web3Integrate from '../../web3-integrate';
 
 import {PDFAssembler} from 'pdfassembler';
 import fileSaver from 'file-saver';
 
 const pdfs = {
     de: {
-        agreement: require('../../../images/DOA_de.pdf'),
-        page1: require('../../../images/page1_de.pdf'),
-        page21: require('../../../images/page21_de.pdf'),
-        page22: require('../../../images/page22_de.pdf'),
+        agreement: require('../../images/DOA_de.pdf'),
+        page1: require('../../images/page1_de.pdf'),
+        page21: require('../../images/page21_de.pdf'),
+        page22: require('../../images/page22_de.pdf'),
     },
     wy: {
-        agreement: require('../../../images/DOA_wy.pdf'),
-        page1: require('../../../images/page1_wy.pdf'),
-        page21: require('../../../images/page21_wy.pdf'),
-        page22: require('../../../images/page22_wy.pdf'),
+        agreement: require('../../images/DOA_wy.pdf'),
+        page1: require('../../images/page1_wy.pdf'),
+        page21: require('../../images/page21_wy.pdf'),
+        page22: require('../../images/page22_wy.pdf'),
     },
 }
 
@@ -52,7 +52,7 @@ export default () => {
         let page21 = await fetch(pdfs[prefix].page21).then(r => r.text());
         let page22 = await fetch(pdfs[prefix].page22).then(r => r.text());
         // Replace texts on placeholders
-        page1 = page1.replace('{SERIES}', (info.name.length*350-3000)+' ('+info.name);
+        page1 = page1.replace('{SERIES}', (info.name.length*300-3000)+' ('+info.name);
         page1 = page1.replace('0xXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', info.contract);
         page1 = page1.replace('DD/MM/YYYY', info.created.getUTCDate()+'/'+(info.created.getUTCMonth()+1)+'/'+info.created.getUTCFullYear());
         page1 = page1.replace('HH:MM',info.created.getUTCHours()+':'+(info.created.getUTCMinutes() < 10 ? '0'+info.created.getUTCMinutes() : info.created.getUTCMinutes()));
