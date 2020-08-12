@@ -1,6 +1,7 @@
 import welcomePanelState from './WelcomePanelState'
 import accountState from './AccountState'
 import dashboardState from './DashboardState'
+import managementState from './ManagementState'
 import txsState, {tx} from './TxsState'
 
 import TagManager from 'react-gtm-module'
@@ -123,6 +124,26 @@ export const dashboardReducer = function(state = dashboardState, action){
         case "Set Own Series Contracts":
             return Object.assign({}, state, {
                 ownSeriesContracts: action.ownSeriesContracts
+            });
+        default:
+            return state;
+    }
+}
+
+export const managementReducer = function(state = managementState, action){
+    switch(action.type){
+        case "Select Manage Series":
+            console.log(action.series)
+            return Object.assign({}, state, {
+                manageSeries: action.series
+            });
+        case "Clear Manage Series":
+            return Object.assign({}, state, {
+                manageSeries: {}
+            });
+        case "Set Manage Option":
+            return Object.assign({}, state, {
+                manageOption: action.option
             });
         default:
             return state;

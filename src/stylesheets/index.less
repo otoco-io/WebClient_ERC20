@@ -1,5 +1,7 @@
 @import '../../semantic-ui/site/globals/site.variables';
 
+@blue:   #2EE8CF;
+
 body, html {
     height: 100%;
     margin: 0px;
@@ -27,10 +29,10 @@ body {
 
     a {
         color: #cccccc;
-        text-decoration: underline !important;
+        text-decoration: underline;
 
         &:hover {
-            color: #2EE8CF;
+            color: @blue;
         }
     }
 }
@@ -145,6 +147,15 @@ body {
     th {
         background: transparent !important;
     }
+
+    tr.selected:not(:last-child) {
+        td {
+            border-bottom: 1px dashed #555;
+        }
+        i, .name {
+            color: @blue;
+        }
+    }
 }
 
 .ui.dimmer{
@@ -189,6 +200,9 @@ body {
     .otoco-step-item:not(.active) {
         border-right-color: rgba(255,255,255,.3) !important;
     }
+    .otoco-step-item.active {
+        color: @blue !important;
+    }
 }
 
 .terms {
@@ -216,7 +230,7 @@ body {
         border-radius: 10px;
         border: solid 1px white;
         th {
-            background: #2EE8CF;
+            background: @blue;
             color: #fff;
         }
         td {
@@ -252,12 +266,63 @@ body {
         text-align: right;
     }
     .network {
-        background: #2EE8CF;
+        background: @blue;
         border-radius: 2px;
         padding: 2px 4px;
         color: black;
     }
     .button {
-        color: #2EE8CF;
+        color: @blue;
     }
+}
+
+.series-step-wrap {
+    
+    border-right: 2px solid rgba(255,255,255,.3) !important;
+    height: 100%;
+    
+    .series-step-item {
+        
+        font-size: 12px;
+        text-decoration: none !important;
+
+        &:not(.active) {
+            border-right-color: rgba(255,255,255,.3) !important;
+        }
+        &.active {
+            color: @blue !important;
+        }
+    }
+}
+
+.deploy-steps {
+
+    width: 100%;
+
+    .completed {
+        &:before{
+            color:@blue !important;
+        }
+    }
+
+    .active {
+        &:before, .title{
+            color:@blue !important;
+        }
+    }
+
+    .step {
+        background: none !important;
+        border: 1px solid rgba(255,255,255,.3) !important;
+
+        .content::after{
+            background-color: #0F0F0F !important;
+            border-color: rgba(255,255,255,.3) !important;
+        }
+        &::after{
+            background-color: #0F0F0F !important;
+            border-color: rgba(255,255,255,.3) !important;
+        }
+    }
+
 }

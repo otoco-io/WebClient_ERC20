@@ -3,14 +3,16 @@ import {
     welcomePanelReducer, 
     accountReducer,
     txsReducer,
-    dashboardReducer
+    dashboardReducer,
+    managementReducer
 } from './reducers';
 
 const reducers = combineReducers({
     welcomePanelState: welcomePanelReducer,
     accountState: accountReducer,
     txsState: txsReducer,
-    dashboardState: dashboardReducer
+    dashboardState: dashboardReducer,
+    managementState: managementReducer,
 })
 
 export const store  = createStore(reducers);

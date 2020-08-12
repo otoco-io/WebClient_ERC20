@@ -38,7 +38,7 @@ export default () => {
 
     return (
         <Container className="pnl-body">
-            <Loader active={loading} style={{'z-index': 0}} />
+            <Loader active={loading} style={{zIndex: 0}} />
             <div style={{display: (typeof currentStep === 'string' ? "none" : "")}}>
                 <div style={{textAlign: "left", marginBottom: "30px"}}>
                     <h1 className="title">Welcome to OtoCo</h1>

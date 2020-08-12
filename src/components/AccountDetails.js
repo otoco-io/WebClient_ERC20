@@ -27,12 +27,12 @@ export default () => {
 
     return (
         <div>
-            <div class="account-details" style={{display: (currentAccount !== "") ? '' : 'none'}}>
-                <p onClick={handleManage}>{currentAccount.substring(0,8)}... <span class='network'>{network}</span></p>
-                <p class="button"><span onClick={handleDisconnect}>disconnect</span></p>
+            <div className="account-details" style={{display: (currentAccount !== "") ? '' : 'none'}}>
+                <p onClick={handleManage}>{currentAccount.substring(0,8)}... <span className='network'>{network}</span></p>
+                <p className="button"><span onClick={handleDisconnect}>disconnect</span></p>
             </div>
-            <div class="account-details" style={{display: (currentAccount === "") ? '' : 'none'}}>
-                <p class="button"><span onClick={handleConnect}>disconnected</span></p>
+            <div className="account-details" style={{display: (currentAccount === "") ? '' : 'none'}}>
+                <p className="button"><span onClick={handleConnect}>disconnected</span></p>
             </div>
         </div>
     );
