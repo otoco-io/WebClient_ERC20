@@ -26,6 +26,8 @@ export default () => {
     const clickBackHandler = async (e) => {
         dispatch({ type: "Welcome Board Go To Step N", N: 0 });
         dispatch({ type: "Set Dashboard Loading", loading: true });
+        dispatch({ type: "Clear Manage Series" });
+        dispatch({ type: "Set Manage Option", option: 0 });
         history.push('/');
     }
     
@@ -46,7 +48,7 @@ export default () => {
                 <td><a className="primary" href={linkSearch+s.owner} target="blank">{s.owner.substring(0,6)}...</a><i className="copy icon"></i></td>
                 <td><a className="primary" href={linkSearch+s.contract} target="blank">{s.contract.substring(0,6)}...</a><i className="copy icon"></i></td>
                 <td style={{textAlign:'center'}}>
-                    <i className="cog link icon" onClick={dispatch.bind(undefined, { type: "Select Manage Series", series:s })}></i>
+                    <i className="cog big link icon" onClick={dispatch.bind(undefined, { type: "Select Manage Series", series:s })}></i>
                 </td>
             </tr>
         )
@@ -98,6 +100,8 @@ export default () => {
                 dispatch({ type: "Set Dashboard Loading", loading: false });
             } else {
                 dispatch({ type: "Set Dashboard Loading", loading: true });
+                dispatch({ type: "Clear Manage Series" });
+                dispatch({ type: "Set Manage Option", option: 0 });
             }
         }
         populateTable();
