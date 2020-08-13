@@ -64,20 +64,15 @@ export default () => {
         //console.log('selected', selectedCompanyName,'input', compName)
         axios.get(`https://api.opencorporates.com/v0.4.8/companies/search?q=${encodeURIComponent(compName + " LLC")}&jurisdiction_code=${jurisdictionSelected}`)
         .then(function({data}){
-
-             if (data.results.total_count === 0) dispatch({type: 'Store Available Company Name'});
-             else dispatch({type: 'Show Error Msg on Welcome Board', title: "Sorry! " + compName + " has used in " + jurisdictionName + ".", msg: "Please Enter Another Company Name."});
+            if (data.results.total_count === 0) dispatch({type: 'Store Available Company Name'});
+            else dispatch({type: 'Show Error Msg on Welcome Board', title: "Sorry! " + compName + " is taken in " + jurisdictionName + ".", msg: "Please Enter Another Company Name."});
             
-             closeLoading();
+            closeLoading();
             
-         }).catch(function(resp){
-             dispatch({type: 'Show Error Msg on Welcome Board', title: "Sorry, Please try again later.", msg: "Ooooops, Service is busy now."});
-             closeLoading();
-         });
-        //setTimeout(() => {
-        //    dispatch({type: 'Store Available Company Name'});
-        //    closeLoading();
-        //}, 1000);
+        }).catch(function(resp){
+            dispatch({type: 'Show Error Msg on Welcome Board', title: "Sorry, Please try again later.", msg: "Ooooops, Service is busy now."});
+            closeLoading();
+        });
     }
 
     const clickNextHandler = (e) => {
@@ -136,7 +131,8 @@ export default () => {
         <div>
             <div style={{minHeight: '200px'}}>
                 <p className="normal-text">Congrats! <b>{availableName}</b> is available for registration with <b>{jurisdictionName}</b> State Registry.</p>
-                <p className="normal-text"><b>{availableName}</b>  will have its registered address at: <br/> <b>{jurisdictionStreet[jurisdictionSelected]}</b></p>
+                <p className="normal-text">Your new company will have its registered address at: <br/> <b>{jurisdictionStreet[jurisdictionSelected]}</b></p>
+                { (jurisdictionSelected == 'us_wy') && <p className="bold-text">The full legal name is `<b>OtoCo WY LLC - {availableName} - Series #</b>` (the series number).</p> }
                 <p className="normal-text">Click `<b>Next</b>` to proceed or go `Back` to try a different name.</p>
             </div>
             <p className="align-right">

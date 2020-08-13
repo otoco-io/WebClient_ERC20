@@ -64,6 +64,17 @@ var config = {
                     }
                 }
             }
+            // {
+            //     test: /\.(pdf)$/,
+            //     use: {
+            //         loader: 'file-loader',
+            //         options: {
+            //             limit: 5000, //bytes
+            //             name: '[name].[ext]',
+            //             outputPath: 'pdfs'
+            //         }
+            //     }
+            // }
         ]
     },
     plugins: [

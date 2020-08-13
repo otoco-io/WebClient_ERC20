@@ -16,11 +16,11 @@ export const initWelcomePanelState = {
             text: 'Delaware',
             value: 'us_de',
         },
-        // {
-        //     key: '1',
-        //     text: 'Wyoming',
-        //     value: 'us_wy',
-        // }
+        {
+            key: '1',
+            text: 'Wyoming',
+            value: 'us_wy',
+        }
     ],
     jurisdictionStreet: {
         'us_de': '1201 N. Orange Street, Suite 7160, Wilmington, 19801 Delaware.',

@@ -8,17 +8,28 @@ import { useHistory } from "react-router-dom";
 import { Button, Container } from 'semantic-ui-react'
 
 // Smart Contract
-import MainContract from '../SmartContracts/MainContract';
-import SeriesContract from '../SmartContracts/SeriesContract';
+import MainContract from './SmartContracts/MainContract';
+import SeriesContract from './SmartContracts/SeriesContract';
 
-import Web3Integrate from './../../../web3-integrate';
+import Web3Integrate from '../../web3-integrate';
 
 import {PDFAssembler} from 'pdfassembler';
 import fileSaver from 'file-saver';
-import pdfFile from '../../../images/DOA_de.pdf'
-import page1DE from '../../../images/page1_de.pdf'
-import page21DE from '../../../images/page21_de.pdf'
-import page22DE from '../../../images/page22_de.pdf'
+
+const pdfs = {
+    de: {
+        agreement: require('../../images/DOA_de.pdf'),
+        page1: require('../../images/page1_de.pdf'),
+        page21: require('../../images/page21_de.pdf'),
+        page22: require('../../images/page22_de.pdf'),
+    },
+    wy: {
+        agreement: require('../../images/DOA_wy.pdf'),
+        page1: require('../../images/page1_wy.pdf'),
+        page21: require('../../images/page21_wy.pdf'),
+        page22: require('../../images/page22_wy.pdf'),
+    },
+}
 
 export default () => {
 
@@ -35,14 +46,14 @@ export default () => {
     }
     
     const exportPDF = async (info) => { 
-        //console.log(info);
-        let blob = await fetch(pdfFile).then(r => r.blob())
-        let page1 = await fetch(page1DE).then(r => r.text());
-        let page21 = await fetch(page21DE).then(r => r.text());
-        let page22 = await fetch(page22DE).then(r => r.text());
+        const prefix = info.jurisdiction.substring(0,2).toLowerCase();
+        let blob = await fetch(pdfs[prefix].agreement).then(r => r.blob())
+        let page1 = await fetch(pdfs[prefix].page1).then(r => r.text());
+        let page21 = await fetch(pdfs[prefix].page21).then(r => r.text());
+        let page22 = await fetch(pdfs[prefix].page22).then(r => r.text());
         // Replace texts on placeholders
-        console.log(info.name, info.contract)
-        page1 = page1.replace('{SERIES}', (info.name.length*300-3000)+' ('+info.name);
+        if (prefix === 'de') page1 = page1.replace('{SERIES}', (info.name.length*300-3000)+' ('+info.name);
+        if (prefix === 'wy') page1 = page1.replace('OTOCO WY LLC - {SERIES}', (info.name.length*300-3000)+' (OTOCO WY LLC - '+info.name);
         page1 = page1.replace('0xXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', info.contract);
         page1 = page1.replace('DD/MM/YYYY', info.created.getUTCDate()+'/'+(info.created.getUTCMonth()+1)+'/'+info.created.getUTCFullYear());
         page1 = page1.replace('HH:MM',info.created.getUTCHours()+':'+(info.created.getUTCMinutes() < 10 ? '0'+info.created.getUTCMinutes() : info.created.getUTCMinutes()));
@@ -51,10 +62,10 @@ export default () => {
         // Create a new pdf based on Agreeement file
         const newPdf = new PDFAssembler(blob);
         newPdf.getPDFStructure().then(function(pdf) {
-            //console.log(pdf['/Root']['/Pages']['/Kids'][0]['/Contents']['stream']);
-            //console.log(pdf['/Root']['/Pages']['/Kids'][20]['/Contents']['stream']);
+            // console.log(pdf['/Root']['/Pages']['/Kids'][0]['/Contents']['stream']);
+            // console.log(pdf['/Root']['/Pages']['/Kids'][21]['/Contents']['stream']);
             // Replace agreement pages for new ones
-            //console.log(page1);
+            // console.log(page1);
             pdf['/Root']['/Pages']['/Kids'][0]['/Contents']['stream'] = page1;
             pdf['/Root']['/Pages']['/Kids'][20]['/Contents']['stream'] = page21;
             pdf['/Root']['/Pages']['/Kids'][21]['/Contents']['stream'] = page22;
