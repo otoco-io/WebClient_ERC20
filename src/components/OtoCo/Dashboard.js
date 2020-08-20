@@ -8,11 +8,10 @@ import { useHistory } from "react-router-dom";
 import { Button, Container } from 'semantic-ui-react'
 
 // Smart Contract
+import Management from './Dashboard/Management';
 import MainContract from './SmartContracts/MainContract';
 import SeriesContract from './SmartContracts/SeriesContract';
-
 import Web3Integrate from '../../web3-integrate';
-import Management from './Dashboard/Management';
 
 export default () => {
 
@@ -24,13 +23,9 @@ export default () => {
     const {manageSeries} = useMappedState(({managementState}) => managementState);
 
     const clickBackHandler = async (e) => {
-        dispatch({ type: "Welcome Board Go To Step N", N: 0 });
-        dispatch({ type: "Set Dashboard Loading", loading: true });
-        dispatch({ type: "Clear Manage Series" });
-        dispatch({ type: "Set Manage Option", option: 0 });
+        dispatch({ type: "Resume Welcome Board" });
         history.push('/');
     }
-    
 
     const ListItems = () => {
         
@@ -39,7 +34,7 @@ export default () => {
         if (network === 'main') linkSearch = 'https://etherscan.io/address/';
 
         const managingIndex = ownSeriesContracts.findIndex(s => s.contract == manageSeries.contract)
-
+        
         const series = ownSeriesContracts.map( (s, idx) =>
             <tr className={managingIndex === idx ? 'selected' : ''}>
                 <td className="name">{s.name}</td>
@@ -64,7 +59,7 @@ export default () => {
             if (network === ''){
                 await Web3Integrate.callModal();
                 let accounts =  await web3.eth.getAccounts();
-                console.log(accounts)
+                // console.log(accounts)
                 dispatch({ type: "Set Current Account", currentAccount: accounts[0] });
                 dispatch({ type: "Set Current Network", network: await web3.eth.net.getNetworkType() })
             }
@@ -77,7 +72,7 @@ export default () => {
                     if (j == 'us_wy') jurisdictionName = 'Wyoming';
 
                     let series = await MainContract.getContract(network, j).methods.mySeries().call({from: currentAccount})// , function(error, series){
-                    console.log(series);
+                    // console.log(series);
                     for (let s of series) {
                         let newSeries = {
                             jurisdiction: jurisdictionName,

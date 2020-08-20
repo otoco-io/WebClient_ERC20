@@ -16,6 +16,7 @@ var config = {
     entry: './src/index.js',
     output: {
         filename: 'bundle.js',
+        publicPath: '/',
         path: path.resolve(__dirname,'dist')
     },
     resolve: {
@@ -64,17 +65,6 @@ var config = {
                     }
                 }
             }
-            // {
-            //     test: /\.(pdf)$/,
-            //     use: {
-            //         loader: 'file-loader',
-            //         options: {
-            //             limit: 5000, //bytes
-            //             name: '[name].[ext]',
-            //             outputPath: 'pdfs'
-            //         }
-            //     }
-            // }
         ]
     },
     plugins: [

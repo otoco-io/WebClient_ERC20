@@ -16,7 +16,7 @@ export default () => {
         <tr className="selected">
             <td colSpan="6">
                 <Grid>
-                    <Grid.Row style={{height: "300px"}}>
+                    <Grid.Row style={{height: "500px"}}>
                         <Grid.Column width={4} style={{textAlign: "right"}}>
                             <SeriesStep />
                         </Grid.Column>

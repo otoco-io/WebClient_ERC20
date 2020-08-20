@@ -1,7 +1,5 @@
 export const initTxsState = {
-    id: "",
-    status: "Initialized",
-    confirmation: 0,
+    id: ""
 }
 
 export default initTxsState

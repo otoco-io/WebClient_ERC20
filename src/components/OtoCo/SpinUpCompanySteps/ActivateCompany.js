@@ -3,6 +3,7 @@ import React from 'react';
 
 // Redux Hook
 import {useMappedState,useDispatch} from 'redux-react-hook';
+import { useHistory } from "react-router-dom";
 
 // Semantic UI for React
 import { Input, Image, Button } from 'semantic-ui-react';
@@ -15,7 +16,9 @@ import axios from 'axios';
 export default () => { 
 
     const dispatch = useDispatch();
-    const {currentAccount, network, erc20Symbol, accountBalanceERC20} = useMappedState(({accountState}) => accountState)
+    const history = useHistory();
+
+    const {currentAccount, network} = useMappedState(({accountState}) => accountState)
     const {availableName, jurisdictionSelected, jurisdictionName, currentStep, fastFee, totalCost} = useMappedState(({welcomePanelState}) => welcomePanelState);
     
     const gasCost = 710000;
@@ -34,45 +37,12 @@ export default () => {
             console.log('Could not fetch gas fee for transaction.');
         }
         console.log(network, requestInfo)
-        MainContract.getContract(network, jurisdictionSelected, jurisdictionName).methods.createSeries(availableName).send(requestInfo, function(error, result){
+        MainContract.getContract(network, jurisdictionSelected, jurisdictionName).methods.createSeries(availableName).send(requestInfo, (error, result) => {
             if(error) alert("Something went wrong! Please Try Again Later!")
             else {
-                // dispatch({ type: "Close Welcome Board Loading" });
                 dispatch({ type: "Push Tx", txID: result });
-                dispatch({ type: "Welcome Board Go To Step N", N: "confirmation" });
-                function polling() {
-                    setTimeout(function(){
-                        web3.eth.getTransactionReceipt(result, function(error, tx){
-                            console.log("tx_info", tx);
-                            if(!tx){
-                                polling();
-                            } else { 
-                                dispatch({ type: "Set Tx", status: "Pending"});
-                                web3.eth.getBlockNumber(function(error, blockNum){
-                                    console.log("blockNum", blockNum)
-                                    console.log("confirmed", blockNum - tx.blockNumber)
-                                    if(blockNum - tx.blockNumber < 1){
-                                        dispatch({ type: "Increase Waiting Ticktoc" });
-                                        polling();
-                                    } else {
-                                        dispatch({ type: "Set Tx", status: "Confirmed"});
-                                        dispatch({ type: "Close Welcome Board Loading" });
-                                        MainContract.getContract(network,jurisdictionSelected).methods.mySeries().call({from: currentAccount}, function(error, ss){
-                                            console.log(ss)
-                                            if(ss) dispatch({ type: "Set Own Company Contracts", ownSeriesContracts: ss });
-                                            if(error) alert("Something went wrong!!!!");
-                                        })
-                                    }
-                                })
-
-                            }
-                            
-                        })
-                    }, 2000);
-                }
-                polling();
-            }
-            
+                history.push('/confirmation');
+            } 
         });
     }
 

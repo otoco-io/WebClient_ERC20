@@ -103,12 +103,7 @@ export const txsReducer = function(state = txsState, action){
     switch(action.type){
         case "Push Tx":
             return Object.assign({}, state, {
-                id: action.txID,
-                status: 'Initialized'
-            });
-        case "Set Tx":
-            return Object.assign({}, state, {
-                status: action.status
+                id: action.txID
             });
         default:
             return state;
@@ -131,17 +126,51 @@ export const dashboardReducer = function(state = dashboardState, action){
 }
 
 export const managementReducer = function(state = managementState, action){
+    let obj = {};
     switch(action.type){
         case "Select Manage Series":
-            console.log(action.series)
+            let shares = {
+                shares: 0,
+                name: '',
+                symbol: '',
+                contract: ''
+            }
             return Object.assign({}, state, {
-                manageSeries: action.series
+                manageSeries: action.series,
+                manageShares: shares,
+                sharesStep: 0
             });
         case "Clear Manage Series":
             return Object.assign({}, state, {
                 manageSeries: {}
             });
         case "Set Manage Option":
+            return Object.assign({}, state, {
+                manageOption: action.option
+            });
+        case "Set Shares Config":
+            obj = state.manageShares;
+            obj.name = action.token.name;
+            obj.symbol = action.token.symbol;
+            obj.shares = action.token.shares
+            return Object.assign({}, state, {
+                manageShares: obj
+            });
+        case "Set Shares Contract":
+            obj = state.manageShares;
+            obj.contract = action.contract;
+            return Object.assign({}, state, {
+                manageShares: obj
+            });
+        case "Set Shares Step":
+            return Object.assign({}, state, {
+                sharesStep: action.step
+            });
+        case "Set Shares Contract":
+            obj = state.manageShares;
+            obj.contract = action.contract;
+            return Object.assign({}, state, obj);
+        case "Set Config Shares":
             return Object.assign({}, state, {
                 manageOption: action.option
             });

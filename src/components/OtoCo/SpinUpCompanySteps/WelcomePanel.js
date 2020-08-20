@@ -12,7 +12,7 @@ import Step_ActivateCompany from './ActivateCompany'
 import Step_ConnectWallet from './ConnectWallet'
 import Step_CheckName from './CheckName'
 import Step_Nav from './Nav'
-import Confirmation from '../Dashboard/Confirmation'
+import Confirmation from '../Confirmation'
 
 // UI Framework
 import { Container, Button, Image, Loader, Icon, Message, Grid } from 'semantic-ui-react'
@@ -76,11 +76,6 @@ export default () => {
                     </Grid.Row>
                 </Grid>
             </div>
-
-            <div style={{display: (currentStep !== "confirmation" ? "none" : "")}}>
-                <Confirmation />
-            </div>
-            
         </Container>
     )
 
