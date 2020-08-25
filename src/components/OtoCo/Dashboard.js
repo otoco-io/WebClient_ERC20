@@ -5,7 +5,9 @@ import {useMappedState,useDispatch} from 'redux-react-hook';
 import { useHistory } from "react-router-dom";
 
 // Semantic UI for React
-import { Button, Container } from 'semantic-ui-react'
+import Button from 'semantic-ui-react/dist/commonjs/elements/Button'
+import Container from 'semantic-ui-react/dist/commonjs/elements/Container'
+
 
 // Smart Contract
 import Management from './Dashboard/Management';
@@ -27,6 +29,10 @@ export default () => {
         history.push('/');
     }
 
+    const clickCopyHandler = (info) => {
+        navigator.clipboard.writeText(info);
+    }
+
     const ListItems = () => {
         
         let linkSearch = '';
@@ -36,14 +42,20 @@ export default () => {
         const managingIndex = ownSeriesContracts.findIndex(s => s.contract == manageSeries.contract)
         
         const series = ownSeriesContracts.map( (s, idx) =>
-            <tr className={managingIndex === idx ? 'selected' : ''}>
+            <tr key={idx} className={managingIndex === idx ? 'selected' : ''}>
                 <td className="name">{s.name}</td>
                 <td><button className="ui mini button jurisdiction">{s.jurisdiction}</button></td>
                 <td>{s.created.getUTCDate()}/{s.created.getUTCMonth()+1}/{s.created.getUTCFullYear()} {s.created.getUTCHours()}:{s.created.getUTCMinutes()} UTC</td>
-                <td><a className="primary" href={linkSearch+s.owner} target="blank">{s.owner.substring(0,6)}...</a><i className="copy icon"></i></td>
-                <td><a className="primary" href={linkSearch+s.contract} target="blank">{s.contract.substring(0,6)}...</a><i className="copy icon"></i></td>
+                <td>
+                    <a className="primary" href={linkSearch+s.owner} target="blank">{s.owner.substring(0,6)}...</a>
+                    <i className="copy link icon" onClick={clickCopyHandler.bind(undefined, s.owner)}></i>
+                </td>
+                <td>
+                    <a className="primary" href={linkSearch+s.contract} target="blank">{s.contract.substring(0,6)}...</a>
+                    <i className="copy link icon" onClick={clickCopyHandler.bind(undefined, s.contract)}></i>
+                </td>
                 <td style={{textAlign:'center'}}>
-                    <i className="cog big link icon" onClick={dispatch.bind(undefined, { type: "Select Manage Series", series:s })}></i>
+                    <Button className="primary mini" onClick={dispatch.bind(undefined, { type: "Select Manage Series", series:s })}><i className="cog icon" ></i> Manage</Button>
                 </td>
             </tr>
         )
@@ -55,7 +67,7 @@ export default () => {
 
     React.useEffect(() => {
         // When enter dashboard page
-        async function populateTable(){
+        setTimeout( async () => {
             if (network === ''){
                 await Web3Integrate.callModal();
                 let accounts =  await web3.eth.getAccounts();
@@ -98,9 +110,8 @@ export default () => {
                 dispatch({ type: "Clear Manage Series" });
                 dispatch({ type: "Set Manage Option", option: 0 });
             }
-        }
-        populateTable();
-    },[history.location.pathname, network])
+        }, 0)
+    },[network])
 
     return (
         <Container className="pnl-body">
@@ -116,7 +127,7 @@ export default () => {
                         <th>Creation date</th>
                         <th>Owner</th>
                         <th>Contract</th>
-                        <th  style={{textAlign:'center'}}>Manage</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>

@@ -5,7 +5,9 @@ import React from 'react';
 import {useMappedState,useDispatch} from 'redux-react-hook';
 
 // Semantic UI for React
-import { Input, Image, Button } from 'semantic-ui-react';
+import Button from 'semantic-ui-react/dist/commonjs/elements/Button'
+import Image from 'semantic-ui-react/dist/commonjs/elements/Image'
+import Input from 'semantic-ui-react/dist/commonjs/elements/Input'
 
 // Smart Contract
 import MainContract from '../SmartContracts/MainContract';

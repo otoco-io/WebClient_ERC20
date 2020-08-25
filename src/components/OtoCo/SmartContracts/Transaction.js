@@ -1,5 +1,8 @@
 import React, { useState } from 'react'
-import { Card, Icon, Popup } from 'semantic-ui-react'
+
+import Card from 'semantic-ui-react/dist/commonjs/views/Card'
+import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon'
+
 import {useMappedState} from 'redux-react-hook'
 
 export default (props) => {

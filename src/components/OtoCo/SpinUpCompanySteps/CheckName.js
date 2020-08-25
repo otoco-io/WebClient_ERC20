@@ -6,7 +6,11 @@ import {useMappedState,useDispatch} from 'redux-react-hook';
 import { useHistory } from "react-router-dom";
 
 // Semantic UI for React
-import { Input, Label, Button, Message, Dropdown } from 'semantic-ui-react'
+import Button from 'semantic-ui-react/dist/commonjs/elements/Button'
+import Message from 'semantic-ui-react/dist/commonjs/collections/Message'
+import Label from 'semantic-ui-react/dist/commonjs/elements/Label'
+import Input from 'semantic-ui-react/dist/commonjs/elements/Input'
+import Dropdown from 'semantic-ui-react/dist/commonjs/modules/Dropdown'
 
 import axios from 'axios';
 

@@ -6,7 +6,7 @@ import {useMappedState,useDispatch} from 'redux-react-hook';
 import { useHistory } from "react-router-dom";
 
 // Semantic UI for React
-import { Input, Image, Button } from 'semantic-ui-react';
+import Button from 'semantic-ui-react/dist/commonjs/elements/Button'
 
 // Smart Contract
 import MainContract from '../SmartContracts/MainContract';
@@ -60,7 +60,7 @@ export default () => {
             }
         }
         populateFees();
-    },[currentStep])
+    },[])
 
     return (
         <div>

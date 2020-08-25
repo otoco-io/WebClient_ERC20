@@ -5,7 +5,8 @@ import {useMappedState, useDispatch} from 'redux-react-hook';
 import { useHistory } from "react-router-dom";
 
 // Semantic UI for React
-import { Button, Container } from 'semantic-ui-react'
+import Button from 'semantic-ui-react/dist/commonjs/elements/Button'
+import Container from 'semantic-ui-react/dist/commonjs/elements/Container'
 
 import Transaction from './SmartContracts/Transaction'
 

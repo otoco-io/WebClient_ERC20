@@ -162,6 +162,12 @@ export const managementReducer = function(state = managementState, action){
             return Object.assign({}, state, {
                 manageShares: obj
             });
+        case "Set Shares Creation":
+            obj = state.manageShares;
+            obj.creation = action.creation;
+            return Object.assign({}, state, {
+                manageShares: obj
+            });
         case "Set Shares Step":
             return Object.assign({}, state, {
                 sharesStep: action.step

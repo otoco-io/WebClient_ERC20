@@ -6,17 +6,21 @@ import Shares from './Shares/Base'
 // Redux Hook
 import {useMappedState} from 'redux-react-hook';
 
-import { Container, Button, Image, Loader, Icon, Message, Grid } from 'semantic-ui-react'
+import Grid from 'semantic-ui-react/dist/commonjs/collections/Grid'
 
 export default () => {
 
-    const {manageOption, manageSeries} = useMappedState(({managementState}) => managementState);
+    const {manageOption} = useMappedState(({managementState}) => managementState);
+
+    React.useEffect(() => {
+        console.log('REDRAW MANAGEMENT');
+    }, [])
 
     return (
         <tr className="selected">
             <td colSpan="6">
                 <Grid>
-                    <Grid.Row style={{height: "500px"}}>
+                    <Grid.Row style={{minHeight: "500px"}}>
                         <Grid.Column width={4} style={{textAlign: "right"}}>
                             <SeriesStep />
                         </Grid.Column>

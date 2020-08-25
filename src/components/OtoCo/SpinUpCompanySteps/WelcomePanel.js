@@ -8,14 +8,16 @@ import { useHistory, Link } from "react-router-dom";
 // Components
 import Logo from '../../Logo'
 import Step_ActivateCompany from './ActivateCompany'
-// import Step_ApprovePayment from './OtoCo/SpinUpCompanySteps/ApprovePayment'
 import Step_ConnectWallet from './ConnectWallet'
 import Step_CheckName from './CheckName'
 import Step_Nav from './Nav'
-import Confirmation from '../Confirmation'
 
 // UI Framework
-import { Container, Button, Image, Loader, Icon, Message, Grid } from 'semantic-ui-react'
+import Loader from 'semantic-ui-react/dist/commonjs/elements/Loader'
+import Container from 'semantic-ui-react/dist/commonjs/elements/Container'
+import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon'
+import Message from 'semantic-ui-react/dist/commonjs/collections/Message'
+import Grid from 'semantic-ui-react/dist/commonjs/collections/Grid'
 
 export default () => {
     const {loading, currentStep, errMsg} = useMappedState(({welcomePanelState}) => welcomePanelState);

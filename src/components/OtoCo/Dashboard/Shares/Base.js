@@ -4,6 +4,7 @@ import Config from './Config'
 import Deploy from './Deploy'
 import Ownership from './Ownership'
 import Shares from './Shares'
+import Unlink from './Unlink'
 // Redux Hook
 import {useMappedState,useDispatch} from 'redux-react-hook';
 
@@ -12,14 +13,17 @@ import SharesContract from '../../SmartContracts/ERC20Shares'
 export default () => {
 
     const dispatch = useDispatch();
-    const {manageSeries, sharesStep} = useMappedState(({managementState}) => managementState);
+    const {manageSeries, manageShares, sharesStep} = useMappedState(({managementState}) => managementState);
     const {currentAccount} = useMappedState(({accountState}) => accountState);
     const [loading, setLoading] = useState(true);
 
     React.useEffect(() => {
         setTimeout(async () => {
+            if (manageShares.contract) {
+                setLoading(false);
+                return;
+            }
             try {
-                await SharesContract.getContract(manageSeries.owner).methods.balanceOf(currentAccount).call({from: currentAccount})
                 dispatch({type:'Set Shares Config', token:{
                     name: await SharesContract.getContract(manageSeries.owner).methods.name().call({from: currentAccount}),
                     symbol: await SharesContract.getContract(manageSeries.owner).methods.symbol().call({from: currentAccount}),
@@ -32,8 +36,8 @@ export default () => {
                 console.log(err);
                 setLoading(false)
             }
-        }, 10);
-    },[sharesStep])
+        }, 0);
+    }, [])
 
     return (
         <div>
@@ -46,6 +50,7 @@ export default () => {
                 {sharesStep === 1 && <Deploy></Deploy>}
                 {sharesStep === 2 && <Ownership></Ownership>}
                 {sharesStep === 3 && <Shares></Shares>}
+                {sharesStep === 4 && <Unlink></Unlink>}
             </div>}
         </div>
     )

@@ -6,12 +6,12 @@ import Transaction from '../../SmartContracts/Transaction'
 import SharesContract from '../../SmartContracts/ERC20Shares'
 
 // Semantic UI for React
-import { Input, Label, Message, Button} from 'semantic-ui-react'
+import Button from 'semantic-ui-react/dist/commonjs/elements/Button'
 
 export default () => {
 
     const dispatch = useDispatch();
-    const {manageShares, sharesStep} = useMappedState(({managementState}) => managementState);
+    const {manageShares, manageSeries, sharesStep} = useMappedState(({managementState}) => managementState);
     const {network, currentAccount} = useMappedState(({accountState}) => accountState);
 
     const [transaction, setTransaction] = useState(null);
@@ -26,7 +26,14 @@ export default () => {
         }
         console.log(network, requestInfo)
         try {
-            const hash = await SharesContract.deployContract(network, currentAccount);
+            const hash = await SharesContract.deployContract(
+                network,
+                currentAccount,
+                manageShares.name,
+                manageShares.symbol,
+                manageShares.shares,
+                manageSeries.contract
+            );
             setTransaction(hash);
         } catch (err) {
             console.log(err);
@@ -55,8 +62,8 @@ export default () => {
 
     return (
         <div>
-            <p>A new token named {manageShares.name}, with symbol {manageShares.symbol} and a total supply of {manageShares.supply} will be deployed.</p>
-            <p>Deploy ERC20 token smart contracts containing all company shares.</p>
+            <p>A new token named {manageShares.name}, with the symbol {manageShares.symbol} and a total supply of {manageShares.shares} will be deployed.</p>
+            <p>First, we need to deploy the ERC20 contract managing the membership tokens.</p>
             <Form></Form>
         </div>
     )

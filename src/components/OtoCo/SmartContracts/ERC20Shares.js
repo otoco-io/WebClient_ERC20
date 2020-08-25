@@ -379,16 +379,15 @@ export default {
 	getContract: function(address) {
         return new web3.eth.Contract(this.abi, address) 
     },
-    deployContract: function(network = "kovan", from) {
+    deployContract: function(network = "kovan", from, name, symbol, shares, series) {
         if (!from) return;
         const myContract = new web3.eth.Contract(this.abi);
         return new Promise( (resolve, reject) => {
             myContract.deploy({data:this.bytecode.object,arguments:[
-                'teste',
-                'TOK',
-                1000000,
-                from,
-                '0x6512a267aD28dFE41a5846E7aD0B2501633cB3f2'
+                name,
+                symbol,
+                shares,
+                series
             ]}).send({
                 from: from,
                 gas: 1000000

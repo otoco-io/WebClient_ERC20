@@ -7,7 +7,7 @@ import {useDispatch} from 'redux-react-hook';
 import Web3Integrate from './../../../web3-integrate';
 
 // Semantic UI for React
-import { Button } from 'semantic-ui-react'
+import Button from 'semantic-ui-react/dist/commonjs/elements/Button'
 
 export default ({setStepNum}) => { 
 

@@ -7,7 +7,7 @@ import Transaction from '../../SmartContracts/Transaction'
 import SeriesContract from '../../SmartContracts/SeriesContract'
 
 // Semantic UI for React
-import { Input, Label, Message, Button} from 'semantic-ui-react'
+import Button from 'semantic-ui-react/dist/commonjs/elements/Button'
 
 export default () => {
 
@@ -39,14 +39,16 @@ export default () => {
         if (transaction) {
             return <Transaction hash={transaction} callback={nextStepHandler} ></Transaction>;
         }
-        return <Button className="primary" onClick={clickTransferOwnership}>Transfer Ownership</Button>;
+        return <div>
+            <p style={{paddingTop: '30px'}}>You have successfully deployed shares token.</p>
+            <p>Now is time to transfer series ownership to token. So we could track membership shares. <b>This could be undone at any moment as you wish.</b></p>
+            <Button className="primary" onClick={clickTransferOwnership}>Transfer Ownership</Button>
+        </div>;
     }
 
     return (
         <div>
-            <p style={{paddingTop: '30px'}}>You have successfully deployed shares token.</p>
             <p>Shares Token address: {manageShares.contract}</p>
-            <p>Now is time to transfer series ownership to token. So we could track membership shares. <b>This could be undone at any moment as you wish.</b></p>
             <Form></Form>
         </div>
     )

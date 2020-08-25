@@ -12,10 +12,19 @@ body {
     background: transparent !important;
 }
 
+@media only screen and (max-width: 1800px) {
+    #app {
+        background-image: url("../images/bg_small.png");
+    }
+}
+@media only screen and (min-width: 1801px) {
+    #app {
+        background-image: url("../images/bg.png");
+    }
+}
+
 /* The App Background image */
 #app {
-  /* Use "linear-gradient" to add a darken background effect to the image (photographer.jpg). This will make the text easier to read */
-  background-image: url("../images/bg.png");
 
   /* Set a specific height */
   min-height: 100vh;
@@ -46,6 +55,12 @@ body {
 
 .ui.button {
     color: black !important;
+}
+
+.ui.message {
+    box-shadow: 0px 1px 3px 0px rgba(255,255,255,.3), 0px 0px 0px 1px rgba(255,255,255,.3);
+    background: transparent;
+    background-color: transparent !important;
 }
 
 #left-panel {
@@ -149,7 +164,7 @@ body {
         td:not(.noborder) {
             border-bottom: 1px dashed #555;
         }
-        i, .name {
+        .name {
             color: @blue;
         }
     }
@@ -381,4 +396,14 @@ body {
             color: red;
         }
     }
+}
+
+.transfer-card {
+
+    padding: 16px;
+    border-radius: 10px;
+    max-width: 500px;
+    background: transparent !important;
+    box-shadow: 0px 1px 3px 0px rgba(255,255,255,.3), 0px 0px 0px 1px rgba(255,255,255,.3) !important;
+
 }

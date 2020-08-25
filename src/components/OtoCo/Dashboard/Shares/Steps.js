@@ -1,5 +1,7 @@
 import React from 'react'
-import { Step } from 'semantic-ui-react'
+
+import Step from 'semantic-ui-react/dist/commonjs/elements/Step'
+
 import {useMappedState} from 'redux-react-hook';
 
 export default () => {
@@ -17,14 +19,14 @@ export default () => {
             </Step>
             <Step completed={sharesStep > 1} active={sharesStep === 1}>
             <Step.Content>
-                <Step.Title>Deploy Tokens</Step.Title>
-                <Step.Description>Create token contract</Step.Description>
+                <Step.Title>Deployment</Step.Title>
+                <Step.Description>Create the token contract</Step.Description>
             </Step.Content>
             </Step>
             <Step completed={sharesStep > 2} active={sharesStep === 2}>
             <Step.Content>
-                <Step.Title>Ownership</Step.Title>
-                <Step.Description>to the tokens</Step.Description>
+                <Step.Title>Transfer</Step.Title>
+                <Step.Description>to the controlling wallet</Step.Description>
             </Step.Content>
             </Step>
         </Step.Group>

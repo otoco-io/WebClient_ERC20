@@ -1,7 +1,8 @@
 import React from 'react'
 
 // Semantic UI for React
-import { Button, Container } from 'semantic-ui-react'
+import Button from 'semantic-ui-react/dist/commonjs/elements/Button'
+import Container from 'semantic-ui-react/dist/commonjs/elements/Container'
 import { useHistory, Link } from "react-router-dom";
 
 export default () => {
