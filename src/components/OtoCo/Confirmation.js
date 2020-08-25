@@ -35,7 +35,7 @@ export default () => {
                 <p className="subtitle">Your company <b>{availableName}</b> was validly formed! Once deployed you will be redirected to Dashboard...</p>
                 <div class="ui two column centered grid">
                     <div class="column">
-                        <Transaction hash={id} title="" callback={clickDashboardHandler} error={errorHandler}></Transaction>
+                        <Transaction hash={id} title="Deploying Series Contract" callback={clickDashboardHandler} error={errorHandler}></Transaction>
                         {/* <Button id="btn-check-nmae" className="ui right floated button primary" type="submit" onClick={clickDashboardHandler} style={{display: (ownSeriesContracts.length > 0) ? '' : 'none'}}>Go to Dashboard</Button> */}
                     </div>
                 </div>

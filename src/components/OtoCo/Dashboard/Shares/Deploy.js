@@ -52,7 +52,7 @@ export default () => {
 
     function Form() {
         if (transaction) {
-            return <Transaction hash={transaction} callback={nextStepHandler} ></Transaction>;
+            return <Transaction hash={transaction} title="Deploying Tokens Contract" callback={nextStepHandler} ></Transaction>;
         }
         return <p>
             <Button className="primary" onClick={clickBackHandler}>Back</Button>

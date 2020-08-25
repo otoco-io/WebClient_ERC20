@@ -119,7 +119,7 @@ export default (props) => {
                         <p><Button className="primary" onClick={sendTransaction}>Transfer Tokens</Button></p>
                     </div>}
                     <div className="ui active centered inline text loader" style={{ display: (!balance) ? "" : "none", zIndex : 0 }}>Loading Data</div>
-                    { transaction && <Transaction hash={transaction} title="Transfer Token" callback={clearTransaction} ></Transaction> }
+                    { transaction && <Transaction hash={transaction} title="Transfering Tokens" callback={clearTransaction} ></Transaction> }
                 </div>
                 <Button className="primary" onClick={clickDashboardHandler} style={{marginTop: '10px'}}>Back to Dashboard</Button>
             </div>

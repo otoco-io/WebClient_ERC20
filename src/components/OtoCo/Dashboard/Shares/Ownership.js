@@ -37,7 +37,7 @@ export default () => {
 
     function Form() {
         if (transaction) {
-            return <Transaction hash={transaction} callback={nextStepHandler} ></Transaction>;
+            return <Transaction hash={transaction} title="Transfering Ownership" callback={nextStepHandler} ></Transaction>;
         }
         return <div>
             <p style={{paddingTop: '30px'}}>You have successfully deployed shares token.</p>
