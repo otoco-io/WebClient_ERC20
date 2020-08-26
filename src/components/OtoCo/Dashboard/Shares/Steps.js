@@ -25,8 +25,8 @@ export default () => {
             </Step>
             <Step completed={sharesStep > 2} active={sharesStep === 2}>
             <Step.Content>
-                <Step.Title>Transfer</Step.Title>
-                <Step.Description>to the controlling wallet</Step.Description>
+                <Step.Title>Claim Ownership</Step.Title>
+                <Step.Description>by the controlling wallet</Step.Description>
             </Step.Content>
             </Step>
         </Step.Group>
