@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 // Redux Hook
 import {useMappedState,useDispatch} from 'redux-react-hook';
 
-import Transaction from '../../SmartContracts/Transaction'
+import Transaction from '../../UIComponents/Transaction'
 import SharesContract from '../../SmartContracts/ERC20Shares'
 
 // Semantic UI for React

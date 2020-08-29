@@ -9,7 +9,7 @@ import {store} from './Redux/store';
 // Components
 import App from './components/App';
 import Logo from './components/Logo';
-import AccountDetails from './components/AccountDetails';
+import AccountDetails from './components/OtoCo/UIComponents/AccountDetails';
 
 // Style Sheets
 import 'semantic-ui-less/semantic.less'

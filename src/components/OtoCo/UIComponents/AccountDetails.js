@@ -2,7 +2,7 @@ import React from 'react';
 
 // Redux Hook
 import {useMappedState, useDispatch} from 'redux-react-hook';
-import web3Integrate from '../web3-integrate';
+import web3Integrate from '../../../web3-integrate';
 
 export default () => { 
 

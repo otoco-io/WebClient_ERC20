@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import ENS from 'ethereum-ens';
 
 // Redux Hook
 import {useMappedState,useDispatch} from 'redux-react-hook';
@@ -11,7 +12,7 @@ import Input from 'semantic-ui-react/dist/commonjs/elements/Input'
 import Progress from 'semantic-ui-react/dist/commonjs/modules/Progress'
 
 import SharesContract from './SmartContracts/ERC20Shares'
-import Transaction from './SmartContracts/Transaction'
+import Transaction from './UIComponents/Transaction'
 import Web3Integrate from '../../web3-integrate';
 import { matchPath } from 'react-router-dom';
 
@@ -27,7 +28,9 @@ export default (props) => {
     const [transaction, setTransaction] = useState(null);
     const [error, setError] = useState(null);
     const [to, setTo] = useState('');
+    const [ensAddress, setENSAddress] = useState(null);
     const [amount, setAmount] = useState('');
+    const ens = new ENS(web3.currentProvider);
 
     React.useEffect(() => {
         setTimeout( async () => {
@@ -55,7 +58,8 @@ export default (props) => {
 
     const sendTransaction = async () => {
         try {
-            SharesContract.getContract(match.params.contract).methods.transfer(to, amount).send({from: currentAccount}, (error, hash) => {
+            const toAddress = ensAddress ? ensAddress : to;
+            SharesContract.getContract(match.params.contract).methods.transfer(toAddress, amount).send({from: currentAccount}, (error, hash) => {
                 if (error) alert("Something went wrong! Check parameters and connection!")
                 else setTransaction(hash);
             });
@@ -74,6 +78,13 @@ export default (props) => {
     }
 
     const handleChangeTo = (event) => {
+        ens.resolver(event.target.value).addr().then((addr) => {
+            console.log(addr)
+            setENSAddress(addr)
+        }).catch((err) => {
+            setENSAddress(null)
+            // console.log("ERR", err)
+        })
         setTo(event.target.value);
     }
 
@@ -99,6 +110,7 @@ export default (props) => {
                             className="token-input-container"
                             labelPosition='left'
                             defaultValue=''
+                            placeholder="Address or ENS..."
                             onChange={handleChangeTo}
                         >
                             <input className="placeholder" />

@@ -8,7 +8,7 @@ import { useHistory } from "react-router-dom";
 import Button from 'semantic-ui-react/dist/commonjs/elements/Button'
 import Container from 'semantic-ui-react/dist/commonjs/elements/Container'
 
-import Transaction from './SmartContracts/Transaction'
+import Transaction from './UIComponents/Transaction'
 
 export default () => {
 

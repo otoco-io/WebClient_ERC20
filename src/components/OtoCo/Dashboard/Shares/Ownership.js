@@ -3,7 +3,8 @@ import React, { useState } from 'react'
 // Redux Hook
 import {useMappedState,useDispatch} from 'redux-react-hook';
 
-import Transaction from '../../SmartContracts/Transaction'
+import Address from '../../UIComponents/Address'
+import Transaction from '../../UIComponents/Transaction'
 import SeriesContract from '../../SmartContracts/SeriesContract'
 
 // Semantic UI for React
@@ -48,7 +49,7 @@ export default () => {
 
     return (
         <div>
-            <p>Shares Token address: {manageShares.contract}</p>
+            <p>Shares Token address: <Address address={manageShares.contract}></Address></p>
             <Form></Form>
         </div>
     )

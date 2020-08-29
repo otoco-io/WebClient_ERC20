@@ -13,6 +13,7 @@ import Container from 'semantic-ui-react/dist/commonjs/elements/Container'
 import Management from './Dashboard/Management';
 import MainContract from './SmartContracts/MainContract';
 import SeriesContract from './SmartContracts/SeriesContract';
+import Address from './UIComponents/Address';
 import Web3Integrate from '../../web3-integrate';
 
 export default () => {
@@ -34,10 +35,6 @@ export default () => {
     }
 
     const ListItems = () => {
-        
-        let linkSearch = '';
-        if (network === 'kovan') linkSearch = 'https://kovan.etherscan.io/address/';
-        if (network === 'main') linkSearch = 'https://etherscan.io/address/';
 
         const managingIndex = ownSeriesContracts.findIndex(s => s.contract == manageSeries.contract)
         
@@ -46,14 +43,8 @@ export default () => {
                 <td className="name">{s.name}</td>
                 <td><button className="ui mini button jurisdiction">{s.jurisdiction}</button></td>
                 <td>{s.created.getUTCDate()}/{s.created.getUTCMonth()+1}/{s.created.getUTCFullYear()} {s.created.getUTCHours()}:{s.created.getUTCMinutes()} UTC</td>
-                <td>
-                    <a className="primary" href={linkSearch+s.owner} target="blank">{s.owner.substring(0,6)}...</a>
-                    <i className="copy link icon" onClick={clickCopyHandler.bind(undefined, s.owner)}></i>
-                </td>
-                <td>
-                    <a className="primary" href={linkSearch+s.contract} target="blank">{s.contract.substring(0,6)}...</a>
-                    <i className="copy link icon" onClick={clickCopyHandler.bind(undefined, s.contract)}></i>
-                </td>
+                <td><Address address={s.owner}></Address></td>
+                <td><Address address={s.contract}></Address></td>
                 <td style={{textAlign:'center'}}>
                     <Button className="primary mini" onClick={dispatch.bind(undefined, { type: "Select Manage Series", series:s })}><i className="cog icon" ></i> Manage</Button>
                 </td>
@@ -93,7 +84,7 @@ export default () => {
                             name: '',
                             owner: '',
                         }
-                        window.testContract = SeriesContract.getContract(s);
+                        // window.testContract = SeriesContract.getContract(s);
                         const events = await SeriesContract.getContract(s).getPastEvents('allEvents',{fromBlock:0,toBlock: 'latest'})
                         const timestamp = await web3.eth.getBlock(events[0].blockNumber);
                         newSeries.created = new Date(timestamp.timestamp * 1000);
@@ -117,6 +108,7 @@ export default () => {
         <Container className="pnl-body">
             <div style={{textAlign: "left", marginBottom: "100px"}}>
                 <h1 className="title">Dashboard</h1>
+                <Address address="0xf4b195ee08dc60ed1c60464e2be29f7511f2ec5c"></Address>
                 <p className="subtitle">Here you can manage your companies.</p>
                 <p></p>
                 <table className="ui celled table" style={{ display: (ownSeriesContracts.length > 0) ? "" : "none"}}>
