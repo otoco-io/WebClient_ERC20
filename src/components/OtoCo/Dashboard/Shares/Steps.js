@@ -23,12 +23,6 @@ export default () => {
                 <Step.Description>Create the token contract</Step.Description>
             </Step.Content>
             </Step>
-            <Step completed={sharesStep > 2} active={sharesStep === 2}>
-            <Step.Content>
-                <Step.Title>Claim Ownership</Step.Title>
-                <Step.Description>by the controlling wallet</Step.Description>
-            </Step.Content>
-            </Step>
         </Step.Group>
     )
 

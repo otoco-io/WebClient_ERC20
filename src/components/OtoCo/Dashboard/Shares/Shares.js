@@ -22,12 +22,13 @@ export default () => {
         setTimeout( async () => {
             const owns = new Set();
             // Add first owner
+            console.log('SHARES:', manageShares)
             await new Promise( (resolve,reject) => {
-                SharesContract.getContract(manageShares.contract).getPastEvents('OwnershipTransferred',{fromBlock: 0}, async (error, data) => {
+                SharesContract.getContract(manageShares.contract).getPastEvents('Initialized',{fromBlock: 0}, async (error, data) => {
                     const timestamp = await web3.eth.getBlock(data[0].blockNumber)
                     dispatch({type:'Set Shares Creation', creation:new Date(timestamp.timestamp * 1000)})
                     for (const o of data){
-                        owns.add(o.returnValues.newOwner)
+                        owns.add(o.returnValues.member)
                     }
                     resolve();
                 });
@@ -73,10 +74,6 @@ export default () => {
         history.push(`/tokens/${manageShares.contract}`);
     }
 
-    const clickUnlinkToken = () => {
-        dispatch({type:'Set Shares Step', step: 4})
-    }
-
     return (
         <div>
             <div className={`ui ${!owners ? 'active' : 'disabled'} dimmer`}>
@@ -103,7 +100,6 @@ export default () => {
             </table>
             <Button className="primary" onClick={clickTransferHandler}>Transfer Tokens</Button>
             <Button className="primary" onClick={clickCopyHandler.bind(undefined, `${window.location.host}/tokens/${manageShares.contract}`)}><i className="copy icon"/>Copy sharable link to tokens</Button>
-            <Button className="red" onClick={clickUnlinkToken}>Unlink Tokens</Button>
             <p style={{margin: '80px'}}></p>
         </div>
     )

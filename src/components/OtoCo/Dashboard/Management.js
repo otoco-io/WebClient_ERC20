@@ -2,6 +2,7 @@ import React from 'react'
 import SeriesStep from './Nav'
 import Agreement from './Agreement'
 import Shares from './Shares/Base'
+import Ens from './ENS/Base'
 
 // Redux Hook
 import {useMappedState} from 'redux-react-hook';
@@ -28,6 +29,7 @@ export default () => {
                             {manageOption == 0 && <p>On the left menu you can select different options accordingly to your needs.</p>}
                             {manageOption == 1 && <Agreement></Agreement>}
                             {manageOption == 2 && <Shares></Shares>}
+                            {manageOption == 3 && <Ens></Ens>}
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>

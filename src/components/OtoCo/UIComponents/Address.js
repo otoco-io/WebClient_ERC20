@@ -25,15 +25,11 @@ export default (props) => {
         if (network === 'kovan') setLinkSearch('https://kovan.etherscan.io/address/');
         if (network === 'main') setLinkSearch('https://etherscan.io/address/');
         
-        // ens.resolver('teca.certisign.eth').addr().then((addr) => {
-        //     console.log(addr)
-        // }).catch((err) => {
-        //     console.log(err)
-        // })
-        ens.reverse(props.address).name().then((addr) => {
-            console.log(addr)
-            setAddress(addr);
-            setENS(true);
+        ens.reverse(props.address).name().then(async (addr) => {
+            console.log(addr);
+            await setAddress(addr);
+            await setENS(true);
+            return;
         }).catch((err) => {
             // console.log("ERR", err)
         })

@@ -174,10 +174,28 @@ export const managementReducer = function(state = managementState, action){
         case "Set Shares Contract":
             obj = state.manageShares;
             obj.contract = action.contract;
-            return Object.assign({}, state, obj);
+            return Object.assign({}, state, {
+                manageShares: obj
+            });
         case "Set Config Shares":
             return Object.assign({}, state, {
                 manageOption: action.option
+            });
+        case "Set ENS Step":
+            return Object.assign({}, state, {
+                ensStep: action.step
+            });
+        case "Set ENS Domain":
+            obj = state.manageEns;
+            obj.selectedDomain = action.domain;
+            return Object.assign({}, state, {
+                manageEns: obj
+            });
+        case "Set ENS Name":
+            obj = state.manageEns;
+            obj.name = action.name;
+            return Object.assign({}, state, {
+                manageEns: obj
             });
         default:
             return state;

@@ -309,11 +309,13 @@ export default {
 		kovan_us_wy: "0x50ccB248667e116299cd1d2999713A709A78E077",
 		main_us_de: "0x24870e04F2573a132B695c48eB9ff2F3C8b0f410",
 		main_us_wy: "0xfc952ECF2EE199fa8C63A86424e3978F2dEB86eF",
+		ropsten_us_de: "0x861995A262516A98c1faCE4c63beE22fbc6251C6",
+		ropsten_us_wy: "0x8f332A747e4907fa51921F4e025cb1aE6fbBe9b2",
 		private_us_de: "0xF12b5dd4EAD5F743C6BaA640B0216200e89B60Da",
-		private_us_wy: "0x8f0483125FCb9aaAEFA9209D8E9d7b9C8B9Fb90F",
+		private_us_wy: "0x8f0483125FCb9aaAEFA9209D8E9d7b9C8B9Fb90F"
     },
     abi: mainContractABI,
     getContract: function(network = "kovan", jurisdiction = "de") {
-        return new web3.eth.Contract(this.abi, this.addresses[network+'_'+jurisdiction]) 
+        return new web3.eth.Contract(this.abi, this.addresses[network+'_'+jurisdiction])
     },
 }

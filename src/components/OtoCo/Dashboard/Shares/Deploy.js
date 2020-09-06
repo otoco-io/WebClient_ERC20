@@ -4,6 +4,7 @@ import {useMappedState,useDispatch} from 'redux-react-hook';
 
 import Transaction from '../../UIComponents/Transaction'
 import SharesContract from '../../SmartContracts/ERC20Shares'
+import FactoryContract from '../../SmartContracts/ERC20Factory'
 
 // Semantic UI for React
 import Button from 'semantic-ui-react/dist/commonjs/elements/Button'
@@ -17,7 +18,7 @@ export default () => {
     const [transaction, setTransaction] = useState(null);
 
     const clickDeployHandler = async (e) => {
-        let requestInfo = {from: currentAccount, gas:800000};
+        let requestInfo = {from: currentAccount, gas:200000};
         try {
             const gasFees = await axios.get(`https://ethgasstation.info/api/ethgasAPI.json`);
             requestInfo.gasPrice = web3.utils.toWei((gasFees.data.fast*0.1).toString(), 'gwei');
@@ -26,15 +27,14 @@ export default () => {
         }
         console.log(network, requestInfo)
         try {
-            const hash = await SharesContract.deployContract(
-                network,
-                currentAccount,
+            const hash = await FactoryContract.getContract(network).methods.createERC20(
+                manageShares.shares,
                 manageShares.name,
                 manageShares.symbol,
-                manageShares.shares,
                 manageSeries.contract
-            );
-            setTransaction(hash);
+            ).send(requestInfo, (error, hash) => {
+                setTransaction(hash);
+            });
         } catch (err) {
             console.log(err);
         }
