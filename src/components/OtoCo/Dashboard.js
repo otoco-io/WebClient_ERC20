@@ -108,7 +108,6 @@ export default () => {
         <Container className="pnl-body">
             <div style={{textAlign: "left", marginBottom: "100px"}}>
                 <h1 className="title">Dashboard</h1>
-                <Address address="0xf4b195ee08dc60ed1c60464e2be29f7511f2ec5c"></Address>
                 <p className="subtitle">Here you can manage your companies.</p>
                 <p></p>
                 <table className="ui celled table" style={{ display: (ownSeriesContracts.length > 0) ? "" : "none"}}>
