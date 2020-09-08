@@ -104,7 +104,7 @@ export default () => {
                 </tbody>
             </table>
             <Button className="primary" onClick={clickTransferHandler}>Transfer Tokens</Button>
-            <Button className="primary" onClick={clickCopyHandler.bind(undefined, manageShares.contract)}><i className="copy icon"/>View token on Etherscan</Button>
+            <Button className="primary" onClick={clickCopyHandler.bind(undefined, manageShares.contract)}>View token on Etherscan</Button>
             <p style={{margin: '80px'}}></p>
         </div>
     )
