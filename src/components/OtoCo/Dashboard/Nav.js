@@ -14,21 +14,21 @@ export default () => {
         <Menu pointing secondary vertical className="series-step-wrap">
             <Menu.Item
                 className="series-step-item"
-                name='Legal Documents'
+                name='Membership Tokens'
+                active={manageOption === 0}
+                onClick={dispatch.bind(undefined, { type: "Set Manage Option", option:0 })}
+            />
+            <Menu.Item
+                className="series-step-item"
+                name='ENS'
                 active={manageOption === 1}
                 onClick={dispatch.bind(undefined, { type: "Set Manage Option", option:1 })}
             />
             <Menu.Item
                 className="series-step-item"
-                name='Membership Tokens'
+                name='Legal Documents'
                 active={manageOption === 2}
                 onClick={dispatch.bind(undefined, { type: "Set Manage Option", option:2 })}
-            />
-            <Menu.Item
-                className="series-step-item"
-                name='ENS'
-                active={manageOption === 3}
-                onClick={dispatch.bind(undefined, { type: "Set Manage Option", option:3 })}
             />
         </Menu>
     )

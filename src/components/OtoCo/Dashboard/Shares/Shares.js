@@ -5,6 +5,7 @@ import {useMappedState,useDispatch} from 'redux-react-hook';
 import { useHistory } from "react-router-dom";
 
 import Address from '../../UIComponents/Address'
+import UTCDate from '../../UIComponents/UTCDate'
 import SharesContract from '../../SmartContracts/ERC20Shares'
 
 import Button from 'semantic-ui-react/dist/commonjs/elements/Button'
@@ -67,7 +68,12 @@ export default () => {
     }
 
     const clickCopyHandler = (info) => {
-        navigator.clipboard.writeText(info);
+        let link = ''
+        if (network === 'ropsten') link = 'https://ropsten.etherscan.io/address/';
+        if (network === 'kovan') link = 'https://kovan.etherscan.io/address/';
+        if (network === 'main') link = 'https://etherscan.io/address/';
+        link += info;
+        window.open(link,'_blank');
     }
 
     const clickTransferHandler = async (e) => {
@@ -80,9 +86,8 @@ export default () => {
                 <div className="ui text loader">Loading</div>
             </div>
             {manageShares.creation && <h4>
-                <i class="big ethereum icon" style={{float: 'left'}}></i>
-                Membership tokens were minted on {manageShares.creation.getUTCDate()}/{manageShares.creation.getUTCMonth()+1}/{manageShares.creation.getUTCFullYear()} at {manageShares.creation.getUTCHours()}:{manageShares.creation.getUTCMinutes()} UTC 
-                with the ticket {manageShares.symbol} and a total supply of {manageShares.shares}.
+                Membership tokens were minted on <UTCDate separator="at" date={manageShares.creation}></UTCDate> 
+                with the ticker {manageShares.symbol} and a total supply of {manageShares.shares}.
             </h4>}
             <p>{manageShares.symbol} token address: <Address address={manageShares.contract}></Address></p>
             <p>List of current holders:</p>
@@ -99,7 +104,7 @@ export default () => {
                 </tbody>
             </table>
             <Button className="primary" onClick={clickTransferHandler}>Transfer Tokens</Button>
-            <Button className="primary" onClick={clickCopyHandler.bind(undefined, `${window.location.host}/tokens/${manageShares.contract}`)}><i className="copy icon"/>Copy sharable link to tokens</Button>
+            <Button className="primary" onClick={clickCopyHandler.bind(undefined, manageShares.contract)}><i className="copy icon"/>View token on Etherscan</Button>
             <p style={{margin: '80px'}}></p>
         </div>
     )

@@ -60,12 +60,11 @@ export default () => {
 
     return (
         <div>
-            <p style={{paddingTop: '30px'}}>Subdomains registered as subdomains of otoco.eth happens in one single step and has no cost.</p>
-            <p>
-                The selected domais is {manageEns.name}.{manageEns.selectedDomain} will be registered on behalf of <Address address={currentAccount}></Address>.
-                And the domain will point to <Address address={manageSeries.contract}></Address>
-            </p>
-            {transaction && <Transaction hash={transaction} title="Registering domain" callback={registeringFinished}></Transaction>}
+            <h4 style={{paddingTop: '30px'}}>
+                {manageEns.name}.{manageEns.selectedDomain} will be registered on behalf of the company manager <Address address={currentAccount}></Address>
+                , and the domain will point to the company contract address <Address address={manageSeries.contract}></Address>
+            </h4>
+            {transaction && <Transaction hash={transaction} title="Register Subdomain" callback={registeringFinished}></Transaction>}
             {!transaction && !success && <Button id="btn-check-nmae" className="primary" type="submit" onClick={handlerClickSend}>Send Request</Button>}
             {success && <p>Your domain was successfully registered! Click 'back' and verify the domain.</p>}
             {success && 

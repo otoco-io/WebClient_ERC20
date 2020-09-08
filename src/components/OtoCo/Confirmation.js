@@ -32,7 +32,7 @@ export default () => {
         <Container className="pnl-body">
             <div style={{textAlign: "left", marginBottom: "100px"}}>
                 <h1 className="title">Confirmation</h1>
-                <p className="subtitle">Your company <b>{availableName}</b> was validly formed! Once deployed you will be redirected to Dashboard...</p>
+                <p className="subtitle">Your company <b>{availableName}</b> was validly formed! Once deployed, you will be redirected to the dashboard.</p>
                 <div class="ui two column centered grid">
                     <div class="column">
                         <Transaction hash={id} title="Deploying Series Contract" callback={clickDashboardHandler} error={errorHandler}></Transaction>

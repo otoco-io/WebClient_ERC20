@@ -66,14 +66,14 @@ export default () => {
 
     return (
         <div>
-            <p style={{paddingTop: '30px'}}>Setup your ENS domain here. First check if a desired domain is available, choose a domain, a subdomain and click 'Verify'.</p>
+            <h4 style={{paddingTop: '30px'}}>You can set up an ENS subdomain for your company for free, which makes it easier to reference it as needed. Choose a subdomain under otoco.eth and click `Verify`!</h4>
             <Input 
                 type='text' 
                 className="checkname-input-container" 
                 labelPosition='right' 
                 id="check_name"
                 defaultValue={manageEns.name}
-                placeholder='Choose a domain...'
+                placeholder='Choose a subdomain...'
                 onChange={handleInputChange}
             >
                 <input className="placeholder" />

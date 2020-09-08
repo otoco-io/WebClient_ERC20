@@ -135,7 +135,7 @@ export default () => {
     const AvailableResult = () => (
         <div>
             <div style={{minHeight: '200px'}}>
-                <p className="normal-text">Congrats! <b>{availableName}</b> is available for registration with <b>{jurisdictionName}</b> State Registry.</p>
+                <p className="normal-text">Congrats! <b>{availableName}</b> is available for registration with the <b>{jurisdictionName}</b> State Registry.</p>
                 <p className="normal-text">Your new company will have its registered address at: <br/> <b>{jurisdictionStreet[jurisdictionSelected]}</b></p>
                 { (jurisdictionSelected == 'us_wy') && <p className="bold-text">The full legal name is `<b>OtoCo WY LLC - {availableName} - Series #</b>` (the series number).</p> }
                 <p className="normal-text">Click `<b>Next</b>` to proceed or go `Back` to try a different name.</p>

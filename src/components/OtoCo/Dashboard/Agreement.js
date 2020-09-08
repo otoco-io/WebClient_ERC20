@@ -52,18 +52,18 @@ export default () => {
             pdf['/Root']['/Pages']['/Kids'][21]['/Contents']['stream'] = page22;
             //Remove last page from Source file
             pdf['/Root']['/Pages']['/Kids'].splice(-1);
-            newPdf.assemblePdf('Series_Operation_Agreement.pdf')
+            newPdf.assemblePdf('Series_Operating_Agreement.pdf')
             .then(function(pdfFile) {
-                fileSaver.saveAs(pdfFile, 'Series_Operation_Agreement.pdf');
+                fileSaver.saveAs(pdfFile, 'Series_Operating_Agreement.pdf');
             });
         });
 
     }
 
     return (
-        <div style={{textAlign: 'center'}}>
-            <p>Here you can download documents related to your company:</p>
-            <button className="ui mini button ui button primary" onClick={exportPDF}><i className="download icon"></i>Series Operation Agreement</button>
+        <div>
+            <h4 style={{paddingTop: '30px'}}>Here you can download documents related to your company:</h4>
+            <button className="ui mini button ui button primary" onClick={exportPDF}><i className="download icon"></i>Series Operating Agreement</button>
         </div>
     )
 

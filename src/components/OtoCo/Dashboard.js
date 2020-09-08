@@ -14,6 +14,7 @@ import Management from './Dashboard/Management';
 import MainContract from './SmartContracts/MainContract';
 import SeriesContract from './SmartContracts/SeriesContract';
 import Address from './UIComponents/Address';
+import UTCDate from './UIComponents/UTCDate';
 import Web3Integrate from '../../web3-integrate';
 
 export default () => {
@@ -42,7 +43,7 @@ export default () => {
             <tr key={idx} className={managingIndex === idx ? 'selected' : ''}>
                 <td className="name">{s.name}</td>
                 <td><button className="ui mini button jurisdiction">{s.jurisdiction}</button></td>
-                <td>{s.created.getUTCDate()}/{s.created.getUTCMonth()+1}/{s.created.getUTCFullYear()} {s.created.getUTCHours()}:{s.created.getUTCMinutes()} UTC</td>
+                <td><UTCDate separator="" date={s.created}></UTCDate></td>
                 <td><Address address={s.owner}></Address></td>
                 <td><Address address={s.contract}></Address></td>
                 <td style={{textAlign:'center'}}>
@@ -108,7 +109,7 @@ export default () => {
         <Container className="pnl-body">
             <div style={{textAlign: "left", marginBottom: "100px"}}>
                 <h1 className="title">Dashboard</h1>
-                <p className="subtitle">Here you can manage your companies.</p>
+                <p className="subtitle">Manage your on-chain companies</p>
                 <p></p>
                 <table className="ui celled table" style={{ display: (ownSeriesContracts.length > 0) ? "" : "none"}}>
                 <thead>

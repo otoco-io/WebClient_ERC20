@@ -46,7 +46,7 @@ export default (props) => {
                     web3.eth.getBlockNumber((error, blockNum) => {
                         setConfirmations(Math.max(0,blockNum - receipt.blockNumber))
                         setReceipt(receipt)
-                        if (blockNum - receipt.blockNumber <= 0) setMessage('Waiting confirmation')
+                        if (blockNum - receipt.blockNumber <= 0) setMessage('Waiting for confirmation')
                         if (blockNum - receipt.blockNumber > 0) setMessage('Transaction confimed')
                     })
                 } else setMessage('Waiting to be mined')
@@ -74,7 +74,7 @@ export default (props) => {
             <Card.Content>
             <Card.Header>{ props.title }</Card.Header>
             <Card.Description>
-                <p>Transaction hash: <a href={`https://${network === 'kovan' ? 'kovan.' : ''}etherscan.io/tx/${props.hash}`} target="_blank">
+                <p>Transaction hash: <a href={`https://${network === 'main' ? '' : network+'.'}etherscan.io/tx/${props.hash}`} target="_blank">
                     { props.hash.substring(0,32) } ...
                 </a> <Icon name='copy' /></p>
                 <p>Transaction Block: { blockNumber }</p>

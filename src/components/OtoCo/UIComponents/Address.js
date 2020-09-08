@@ -22,6 +22,7 @@ export default (props) => {
 
     React.useEffect(() => {
 
+        if (network === 'ropsten') setLinkSearch('https://ropsten.etherscan.io/address/');
         if (network === 'kovan') setLinkSearch('https://kovan.etherscan.io/address/');
         if (network === 'main') setLinkSearch('https://etherscan.io/address/');
         
@@ -43,7 +44,7 @@ export default (props) => {
             {!isEns && <a className="primary" href={linkSearch+props.address} target="blank">
                 {address.substring(0,6)}...{address.substring(address.length-5,address.length-1)}
             </a>}
-            <i className="copy link icon" onClick={clickCopyHandler.bind(undefined, props.address)}></i>
+            &nbsp;<i className="copy link icon" onClick={clickCopyHandler.bind(undefined, props.address)}></i>
         </span>
     )
 

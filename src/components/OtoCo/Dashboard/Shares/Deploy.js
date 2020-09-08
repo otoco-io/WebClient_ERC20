@@ -62,8 +62,8 @@ export default () => {
 
     return (
         <div>
-            <p>A new token named {manageShares.name}, with the symbol {manageShares.symbol} and a total supply of {manageShares.shares} will be deployed.</p>
-            <p>First, we need to deploy the ERC20 contract managing the membership tokens.</p>
+            <h4 style={{paddingTop: '30px'}}>A new token named {manageShares.name}, with the symbol {manageShares.symbol} and a total supply of {manageShares.shares} will be deployed.</h4>
+            <p>Next, we need to deploy the ERC20 contract managing the membership tokens.</p>
             <Form></Form>
         </div>
     )

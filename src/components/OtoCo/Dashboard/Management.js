@@ -26,10 +26,9 @@ export default () => {
                             <SeriesStep />
                         </Grid.Column>
                         <Grid.Column width={11}>
-                            {manageOption == 0 && <p>On the left menu you can select different options accordingly to your needs.</p>}
-                            {manageOption == 1 && <Agreement></Agreement>}
-                            {manageOption == 2 && <Shares></Shares>}
-                            {manageOption == 3 && <Ens></Ens>}
+                            {manageOption == 0 && <Shares></Shares>}
+                            {manageOption == 1 && <Ens></Ens>}
+                            {manageOption == 2 && <Agreement></Agreement>}
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>

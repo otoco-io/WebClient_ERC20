@@ -49,7 +49,7 @@ export default () => {
                         <Icon name='attention notched' />
                         <Message.Content>
                             <Message.Header><b>Before You Start</b></Message.Header>
-                            OtoCo is live on the Ethereum main net. Please use a Web3 browser. Activating a company using OtoCo will create a valid legal entity.  PLEASE READ OUR <Link to="/terms">TERMS OF USE</Link>.
+                            OtoCo is live on the Ethereum Mainnet. Please use a Web3 compatible browser like Opera, or a Web3 extension like MetaMask. Activating a company using OtoCo will create a valid legal entity.  PLEASE READ OUR <Link to="/terms">TERMS OF USE</Link>.
                         </Message.Content>
                     </Message>
                 </div>

@@ -74,7 +74,10 @@ var config = {
     ],
     devServer: {
       contentBase: './dist',
-      historyApiFallback: true
+      historyApiFallback: true,
+      historyApiFallback: {
+        index: '/index.html',
+      }
     }
 }
 
