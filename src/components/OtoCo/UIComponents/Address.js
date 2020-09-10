@@ -4,6 +4,8 @@ import ENS from 'ethereum-ens';
 import Card from 'semantic-ui-react/dist/commonjs/views/Card'
 import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon'
 
+import OtocoRegistrar from '../SmartContracts/OtocoRegistrar'
+
 import {useMappedState} from 'redux-react-hook'
 
 export default (props) => {
@@ -25,7 +27,6 @@ export default (props) => {
         if (network === 'ropsten') setLinkSearch('https://ropsten.etherscan.io/address/');
         if (network === 'kovan') setLinkSearch('https://kovan.etherscan.io/address/');
         if (network === 'main') setLinkSearch('https://etherscan.io/address/');
-        
         ens.reverse(props.address).name().then(async (addr) => {
             console.log(addr);
             await setAddress(addr);
@@ -33,7 +34,15 @@ export default (props) => {
             return;
         }).catch((err) => {
             // console.log("ERR", err)
-        })
+            OtocoRegistrar.getContract(network).methods.ownedDomains(props.address).call(async (error, amount) => {
+                if (amount <= 0) return;
+                OtocoRegistrar.getContract(network).methods.resolve(props.address, amount-1).call( async (error, name) => {
+                    await setAddress(name+'.otoco.eth');
+                    await setENS(true);
+                    return;
+                });
+            });
+        });
     },[props.address])
 
     return (

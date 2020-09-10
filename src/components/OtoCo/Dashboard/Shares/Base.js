@@ -1,13 +1,12 @@
 import React, { useState } from 'react'
-import Steps from './Steps'
 import Config from './Config'
 import Deploy from './Deploy'
 import Shares from './Shares'
 // Redux Hook
 import {useMappedState,useDispatch} from 'redux-react-hook';
 
-import SharesContract from '../../SmartContracts/ERC20Shares'
-import FactoryContract from '../../SmartContracts/ERC20Factory'
+import TokenContract from '../../SmartContracts/OtocoToken'
+import FactoryContract from '../../SmartContracts/TokenFactory'
 
 export default () => {
 
@@ -24,11 +23,10 @@ export default () => {
             }
             try {
                 const token = await FactoryContract.getContract(network).methods.seriesToken(manageSeries.contract).call({from:currentAccount});
-                console.log('TOKEN', token)
                 dispatch({type:'Set Shares Config', token:{
-                    name: await SharesContract.getContract(token).methods.name().call({from: currentAccount}),
-                    symbol: await SharesContract.getContract(token).methods.symbol().call({from: currentAccount}),
-                    shares: await SharesContract.getContract(token).methods.totalSupply().call({from: currentAccount}),
+                    name: await TokenContract.getContract(token).methods.name().call({from: currentAccount}),
+                    symbol: await TokenContract.getContract(token).methods.symbol().call({from: currentAccount}),
+                    shares: await TokenContract.getContract(token).methods.totalSupply().call({from: currentAccount}),
                 }})
                 dispatch({type:'Set Shares Contract', contract: token})
                 dispatch({type:'Set Shares Step', step: 2})
@@ -46,7 +44,6 @@ export default () => {
                 <div className="ui text loader">Loading</div>
             </div>
             {!loading && <div>
-                {sharesStep < 2 && <Steps></Steps>}
                 {sharesStep === 0 && <Config></Config>}
                 {sharesStep === 1 && <Deploy></Deploy>}
                 {sharesStep === 2 && <Shares></Shares>}

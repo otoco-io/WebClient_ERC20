@@ -14,6 +14,7 @@ export default () => {
 
     const dispatch = useDispatch();
     const {manageShares} = useMappedState(({managementState}) => managementState);
+    const {currentAccount, network} = useMappedState(({accountState}) => accountState);
     const [error, setError] = useState(null);
 
     const token = {
@@ -56,7 +57,8 @@ export default () => {
 
     return (
         <div>
-            <p style={{paddingTop: '30px'}}>Setup your token information here. Fill the form and click 'next'.</p>
+            <h4 style={{paddingTop: '30px'}}>We made it easy for your new company to issue ERC20 tokens.</h4>
+            <p>You decide what the tokens represent: equity in your company, a usage right, a convertible, etc. Simply set you token parameters and click 'Next' to create the new contract.</p>
             <Input 
                 type='text' 
                 className="token-input-container" 

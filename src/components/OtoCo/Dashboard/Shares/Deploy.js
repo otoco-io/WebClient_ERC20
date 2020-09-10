@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
+import axios from 'axios';
 // Redux Hook
 import {useMappedState,useDispatch} from 'redux-react-hook';
 
 import Transaction from '../../UIComponents/Transaction'
-import SharesContract from '../../SmartContracts/ERC20Shares'
-import FactoryContract from '../../SmartContracts/ERC20Factory'
+import FactoryContract from '../../SmartContracts/TokenFactory'
 
 // Semantic UI for React
 import Button from 'semantic-ui-react/dist/commonjs/elements/Button'
@@ -27,7 +27,7 @@ export default () => {
         }
         console.log(network, requestInfo)
         try {
-            const hash = await FactoryContract.getContract(network).methods.createERC20(
+            FactoryContract.getContract(network).methods.createERC20(
                 manageShares.shares,
                 manageShares.name,
                 manageShares.symbol,
@@ -63,7 +63,6 @@ export default () => {
     return (
         <div>
             <h4 style={{paddingTop: '30px'}}>A new token named {manageShares.name}, with the symbol {manageShares.symbol} and a total supply of {manageShares.shares} will be deployed.</h4>
-            <p>Next, we need to deploy the ERC20 contract managing the membership tokens.</p>
             <Form></Form>
         </div>
     )

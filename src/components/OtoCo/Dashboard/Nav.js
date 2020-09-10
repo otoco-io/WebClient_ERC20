@@ -14,7 +14,7 @@ export default () => {
         <Menu pointing secondary vertical className="series-step-wrap">
             <Menu.Item
                 className="series-step-item"
-                name='Membership Tokens'
+                name='Tokens'
                 active={manageOption === 0}
                 onClick={dispatch.bind(undefined, { type: "Set Manage Option", option:0 })}
             />

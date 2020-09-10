@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import axios from 'axios';
 import ENS from 'ethereum-ens';
 // Redux Hook
 import {useMappedState,useDispatch} from 'redux-react-hook';
@@ -36,9 +37,8 @@ export default () => {
         }
         console.log(network, requestInfo)
         try {
-            const hash = await OtocoRegistrar.getContract(network).methods.register(
-                web3.utils.sha3(manageEns.name),
-                currentAccount,
+            OtocoRegistrar.getContract(network).methods.registerAndStore(
+                manageEns.name,
                 manageSeries.contract
             ).send(requestInfo, (error, hash) => {
                 setTransaction(hash);

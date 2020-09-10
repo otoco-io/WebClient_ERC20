@@ -1,5 +1,48 @@
 const FIFSRegistrarAbi = [
 	{
+		"inputs": [
+			{
+				"internalType": "contract ENS",
+				"name": "ensAddr",
+				"type": "address"
+			},
+			{
+				"internalType": "contract Resolver",
+				"name": "resolverAddr",
+				"type": "address"
+			},
+			{
+				"internalType": "bytes32",
+				"name": "node",
+				"type": "bytes32"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "addr",
+				"type": "address"
+			}
+		],
+		"name": "ownedDomains",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
 		"constant": false,
 		"inputs": [
 			{
@@ -25,34 +68,58 @@ const FIFSRegistrarAbi = [
 		"type": "function"
 	},
 	{
+		"constant": false,
 		"inputs": [
 			{
-				"internalType": "contract ENS",
-				"name": "ensAddr",
+				"internalType": "string",
+				"name": "domain",
+				"type": "string"
+			},
+			{
+				"internalType": "contract Ownable",
+				"name": "target",
+				"type": "address"
+			}
+		],
+		"name": "registerAndStore",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "addr",
 				"type": "address"
 			},
 			{
-				"internalType": "contract Resolver",
-				"name": "resolverAddr",
-				"type": "address"
-			},
+				"internalType": "uint8",
+				"name": "index",
+				"type": "uint8"
+			}
+		],
+		"name": "resolve",
+		"outputs": [
 			{
-				"internalType": "bytes32",
-				"name": "node",
-				"type": "bytes32"
+				"internalType": "string",
+				"name": "",
+				"type": "string"
 			}
 		],
 		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "constructor"
+		"stateMutability": "view",
+		"type": "function"
 	}
 ];
 
 export default {
     addresses: {
         dev: "",
-		ropsten: "0x3b4065eC3DFF85217a1A4D1A77483330304f096f",
-		main: "0xfc952ECF2EE199fa8C63A86424e3978F2dEB86eF"
+		ropsten: "0xF006F0F2ecd911195E2F9F2c563d28F2B77551D3",
+		main: ""
     },
     abi: FIFSRegistrarAbi,
     getContract: function(address) {

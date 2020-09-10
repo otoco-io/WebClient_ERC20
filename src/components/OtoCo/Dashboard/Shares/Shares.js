@@ -6,7 +6,7 @@ import { useHistory } from "react-router-dom";
 
 import Address from '../../UIComponents/Address'
 import UTCDate from '../../UIComponents/UTCDate'
-import SharesContract from '../../SmartContracts/ERC20Shares'
+import TokenContract from '../../SmartContracts/OtocoToken'
 
 import Button from 'semantic-ui-react/dist/commonjs/elements/Button'
 import Progress from 'semantic-ui-react/dist/commonjs/modules/Progress'
@@ -25,7 +25,7 @@ export default () => {
             // Add first owner
             console.log('SHARES:', manageShares)
             await new Promise( (resolve,reject) => {
-                SharesContract.getContract(manageShares.contract).getPastEvents('Initialized',{fromBlock: 0}, async (error, data) => {
+                TokenContract.getContract(manageShares.contract).getPastEvents('Initialized',{fromBlock: 0}, async (error, data) => {
                     const timestamp = await web3.eth.getBlock(data[0].blockNumber)
                     dispatch({type:'Set Shares Creation', creation:new Date(timestamp.timestamp * 1000)})
                     for (const o of data){
@@ -36,7 +36,7 @@ export default () => {
             })
             // Add all receivers
             await new Promise( (resolve,reject) => {
-                SharesContract.getContract(manageShares.contract).getPastEvents('Transfer',{fromBlock: 0}, (error, data) => {
+                TokenContract.getContract(manageShares.contract).getPastEvents('Transfer',{fromBlock: 0}, (error, data) => {
                     for (const o of data){
                         owns.add(o.returnValues.to)
                     }
@@ -47,7 +47,7 @@ export default () => {
             for (const o of [...owns]){
                 let owner = {
                     address: o,
-                    balance: await SharesContract.getContract(manageShares.contract).methods.balanceOf(o).call({from: currentAccount})
+                    balance: await TokenContract.getContract(manageShares.contract).methods.balanceOf(o).call({from: currentAccount})
                 }
                 result.push(owner)
             }
@@ -86,8 +86,7 @@ export default () => {
                 <div className="ui text loader">Loading</div>
             </div>
             {manageShares.creation && <h4>
-                Membership tokens were minted on <UTCDate separator="at" date={manageShares.creation}></UTCDate> 
-                with the ticker {manageShares.symbol} and a total supply of {manageShares.shares}.
+                A total of {manageShares.shares} {manageShares.name} with symbol {manageShares.symbol} were minted on <UTCDate separator="at" date={manageShares.creation}></UTCDate>.
             </h4>}
             <p>{manageShares.symbol} token address: <Address address={manageShares.contract}></Address></p>
             <p>List of current holders:</p>

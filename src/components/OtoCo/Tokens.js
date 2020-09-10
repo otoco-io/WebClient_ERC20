@@ -11,8 +11,9 @@ import Label from 'semantic-ui-react/dist/commonjs/elements/Label'
 import Input from 'semantic-ui-react/dist/commonjs/elements/Input'
 import Progress from 'semantic-ui-react/dist/commonjs/modules/Progress'
 
-import SharesContract from './SmartContracts/ERC20Shares'
+import TokenContract from './SmartContracts/OtocoToken'
 import Transaction from './UIComponents/Transaction'
+import Address from './UIComponents/Address'
 import Web3Integrate from '../../web3-integrate';
 import { matchPath } from 'react-router-dom';
 
@@ -48,18 +49,18 @@ export default (props) => {
             dispatch({ type: "Set Current Account", currentAccount: accounts[0] });
             dispatch({ type: "Set Current Network", network: await web3.eth.net.getNetworkType() })
             dispatch({type:'Set Shares Config', token:{
-                name: await SharesContract.getContract(match.params.contract).methods.name().call({from: accounts[0]}),
-                symbol: await SharesContract.getContract(match.params.contract).methods.symbol().call({from: accounts[0]}),
-                shares: await SharesContract.getContract(match.params.contract).methods.totalSupply().call({from: accounts[0]}),
+                name: await TokenContract.getContract(match.params.contract).methods.name().call({from: accounts[0]}),
+                symbol: await TokenContract.getContract(match.params.contract).methods.symbol().call({from: accounts[0]}),
+                shares: await TokenContract.getContract(match.params.contract).methods.totalSupply().call({from: accounts[0]}),
             }})
-            setBalance(await SharesContract.getContract(match.params.contract).methods.balanceOf(accounts[0]).call({from: accounts[0]}));                
+            setBalance(await TokenContract.getContract(match.params.contract).methods.balanceOf(accounts[0]).call({from: accounts[0]}));                
         }, 10);
     },[balance])
 
     const sendTransaction = async () => {
         try {
             const toAddress = ensAddress ? ensAddress : to;
-            SharesContract.getContract(match.params.contract).methods.transfer(toAddress, amount).send({from: currentAccount}, (error, hash) => {
+            TokenContract.getContract(match.params.contract).methods.transfer(toAddress, amount).send({from: currentAccount}, (error, hash) => {
                 if (error) alert("Something went wrong! Check parameters and connection!")
                 else setTransaction(hash);
             });
@@ -69,7 +70,7 @@ export default (props) => {
     }
 
     const clearTransaction = async () => {
-        setBalance(await SharesContract.getContract(match.params.contract).methods.balanceOf(currentAccount).call({from: currentAccount}));
+        setBalance(await TokenContract.getContract(match.params.contract).methods.balanceOf(currentAccount).call({from: currentAccount}));
         setTransaction(null);
     }
 
@@ -96,14 +97,15 @@ export default (props) => {
         <Container className="pnl-body">
             <div style={{textAlign: "left", marginBottom: "100px"}}>
                 <h1>Token Transfer Tool</h1>
-                <h3>Distribute your membership tokens easily.</h3>
+                <h3>Easily transfer your tokens.</h3>
                 <div className="transfer-card">
                     { balance && <div>
                         <h2>{manageShares.symbol} - {manageShares.name}</h2>
                         <p>Total Supply: {manageShares.shares}</p>
                     </div>}
-                    { balance && !transaction && <p>Your balance: {balance}</p>}
-                    { balance && !transaction && <div>Your Membership Percentage: <Progress percent={((balance/manageShares.shares)*100).toFixed(2)} progress /></div>}
+                    { balance && !transaction && <p>Balance: {balance}</p>}
+                    { balance && !transaction && <p>Wallet: <Address address={currentAccount}></Address></p>}
+                    { balance && !transaction && <div>Your Percentage: <Progress percent={((balance/manageShares.shares)*100).toFixed(2)} progress /></div>}
                     { balance && !transaction && <div>
                         <Input 
                             type='text' 
