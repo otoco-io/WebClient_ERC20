@@ -25,15 +25,10 @@ export default () => {
     const {network, currentAccount} = useMappedState(({accountState}) => accountState);
     const {loading, jurisdictionsList, ownSeriesContracts} = useMappedState(({dashboardState}) => dashboardState);
     const {manageSeries} = useMappedState(({managementState}) => managementState);
-    const [seriesList, setSeriesList] = useState([]);
 
     const clickBackHandler = async (e) => {
         dispatch({ type: "Resume Welcome Board" });
         history.push('/');
-    }
-
-    const clickCopyHandler = (info) => {
-        navigator.clipboard.writeText(info);
     }
 
     React.useEffect(() => {
@@ -99,7 +94,7 @@ export default () => {
     })
 
     const List = React.memo(({contracts, selected}) => {
-        console.log('REDRAW LIST', selected)
+        //console.log('REDRAW LIST', selected)
         const managingIndex = contracts.findIndex(s => s.contract == selected)
         const series = contracts.map( (s) => <ListItem series={s} managing={s.contract == selected}></ListItem> )
         if (managingIndex >= 0) series.splice(managingIndex+1, 0, <Management/>)
@@ -123,7 +118,9 @@ export default () => {
                             <th></th>
                         </tr>
                     </thead>
-                    <List contracts={ownSeriesContracts} selected={manageSeries.contract}></List>
+                    <tbody>
+                        <List contracts={ownSeriesContracts} selected={manageSeries.contract}></List>
+                    </tbody>
                 </table>
                 <div className="ui active centered inline text loader" style={{ display: (loading) ? "" : "none", zIndex : 0 }}>Loading Companies</div>
                 <Button id="btn-check-nmae" className="ui right floated button primary" type="submit" onClick={clickBackHandler}>Set up a new company</Button>

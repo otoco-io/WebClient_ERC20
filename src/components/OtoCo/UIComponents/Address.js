@@ -56,7 +56,7 @@ export default (props) => {
     },[])
 
     return (
-        <span>
+        <span style={{minWidth:'160px', display:'inline-block'}}>
             {isEns && <a className="primary" href={linkSearch+props.address} target="blank">
                 {address}
             </a>}
