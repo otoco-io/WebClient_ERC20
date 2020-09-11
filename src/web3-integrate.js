@@ -1,6 +1,5 @@
 import Web3 from "web3";
 import Web3Modal from "web3modal";
-
 import WalletConnectProvider from "@walletconnect/web3-provider";
 
 export default {
@@ -32,9 +31,9 @@ export default {
         const web3 = new Web3(this.provider);
         window.web3 = web3;
 
-        if (this.provider.isAuthereum) this.provider.authereum.showWidget();
-        else if (this.provider.isUniLogin) web3.currentProvider.callModal = this.provider.boundOpenDashboard;
-        else web3.currentProvider.callModal = undefined;
+        // if (this.provider.isAuthereum) this.provider.authereum.showWidget();
+        // else if (this.provider.isUniLogin) web3.currentProvider.callModal = this.provider.boundOpenDashboard;
+        // else web3.currentProvider.callModal = undefined;
         return true;
     },
     disconnect: function () {

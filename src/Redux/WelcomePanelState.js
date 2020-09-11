@@ -2,7 +2,6 @@ export const initWelcomePanelState = {
     showBoard: true,
     loading: false,
     approving: false,
-    waitingTicktoc: 0,
     currentStep: 0,
     selectedCompanyName: '',
     availableName: '',

@@ -8,14 +8,16 @@ import { useHistory, Link } from "react-router-dom";
 // Components
 import Logo from '../../Logo'
 import Step_ActivateCompany from './ActivateCompany'
-// import Step_ApprovePayment from './OtoCo/SpinUpCompanySteps/ApprovePayment'
 import Step_ConnectWallet from './ConnectWallet'
 import Step_CheckName from './CheckName'
 import Step_Nav from './Nav'
-import Confirmation from '../Dashboard/Confirmation'
 
 // UI Framework
-import { Container, Button, Image, Loader, Icon, Message, Grid } from 'semantic-ui-react'
+import Loader from 'semantic-ui-react/dist/commonjs/elements/Loader'
+import Container from 'semantic-ui-react/dist/commonjs/elements/Container'
+import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon'
+import Message from 'semantic-ui-react/dist/commonjs/collections/Message'
+import Grid from 'semantic-ui-react/dist/commonjs/collections/Grid'
 
 export default () => {
     const {loading, currentStep, errMsg} = useMappedState(({welcomePanelState}) => welcomePanelState);
@@ -38,7 +40,7 @@ export default () => {
 
     return (
         <Container className="pnl-body">
-            <Loader active={loading} style={{'z-index': 0}} />
+            <Loader active={loading} style={{zIndex: 0}} />
             <div style={{display: (typeof currentStep === 'string' ? "none" : "")}}>
                 <div style={{textAlign: "left", marginBottom: "30px"}}>
                     <h1 className="title">Welcome to OtoCo</h1>
@@ -47,7 +49,7 @@ export default () => {
                         <Icon name='attention notched' />
                         <Message.Content>
                             <Message.Header><b>Before You Start</b></Message.Header>
-                            OtoCo is live on the Ethereum main net. Please use a Web3 browser. Activating a company using OtoCo will create a valid legal entity.  PLEASE READ OUR <Link to="/terms">TERMS OF USE</Link>.
+                            OtoCo is live on the Ethereum Mainnet. Please use a Web3 compatible browser like Opera, or a Web3 extension like MetaMask. Activating a company using OtoCo will create a valid legal entity.  PLEASE READ OUR <Link to="/terms">TERMS OF USE</Link>.
                         </Message.Content>
                     </Message>
                 </div>
@@ -76,11 +78,6 @@ export default () => {
                     </Grid.Row>
                 </Grid>
             </div>
-
-            <div style={{display: (currentStep !== "confirmation" ? "none" : "")}}>
-                <Confirmation />
-            </div>
-            
         </Container>
     )
 

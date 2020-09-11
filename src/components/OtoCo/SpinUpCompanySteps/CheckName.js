@@ -6,7 +6,11 @@ import {useMappedState,useDispatch} from 'redux-react-hook';
 import { useHistory } from "react-router-dom";
 
 // Semantic UI for React
-import { Input, Label, Button, Message, Dropdown } from 'semantic-ui-react'
+import Button from 'semantic-ui-react/dist/commonjs/elements/Button'
+import Message from 'semantic-ui-react/dist/commonjs/collections/Message'
+import Label from 'semantic-ui-react/dist/commonjs/elements/Label'
+import Input from 'semantic-ui-react/dist/commonjs/elements/Input'
+import Dropdown from 'semantic-ui-react/dist/commonjs/modules/Dropdown'
 
 import axios from 'axios';
 
@@ -118,7 +122,7 @@ export default () => {
             </Message>
             <p className="normal-text">Enter your company name exactly as you want it registered.</p>
             <p className="normal-text">Click <b>`Check`</b> to verify if your preferred name is available.</p>
-            <p className="normal-text">Click <b>`My Dashboard`</b> if you want to manage your deployed LCCs.</p>
+            <p className="normal-text">Click <b>`My Dashboard`</b> if you want to manage your deployed LCC.</p>
             </div>
             <p className="align-right">
                 <Button id="btn-check-nmae" className="primary" type="submit" onClick={clickDashboardHandler}>My Dashboard</Button>
@@ -130,7 +134,7 @@ export default () => {
     const AvailableResult = () => (
         <div>
             <div style={{minHeight: '200px'}}>
-                <p className="normal-text">Congrats! <b>{availableName}</b> is available for registration with <b>{jurisdictionName}</b> State Registry.</p>
+                <p className="normal-text">Congrats! <b>{availableName}</b> is available for registration with the <b>{jurisdictionName}</b> State Registry.</p>
                 <p className="normal-text">Your new company will have its registered address at: <br/> <b>{jurisdictionStreet[jurisdictionSelected]}</b></p>
                 { (jurisdictionSelected == 'us_wy') && <p className="bold-text">The full legal name is `<b>OtoCo WY LLC - {availableName} - Series #</b>` (the series number).</p> }
                 <p className="normal-text">Click `<b>Next</b>` to proceed or go `Back` to try a different name.</p>
