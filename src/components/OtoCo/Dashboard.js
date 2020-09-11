@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 // Redux Hook
 import {useMappedState,useDispatch} from 'redux-react-hook';
@@ -25,6 +25,7 @@ export default () => {
     const {network, currentAccount} = useMappedState(({accountState}) => accountState);
     const {loading, jurisdictionsList, ownSeriesContracts} = useMappedState(({dashboardState}) => dashboardState);
     const {manageSeries} = useMappedState(({managementState}) => managementState);
+    const [seriesList, setSeriesList] = useState([]);
 
     const clickBackHandler = async (e) => {
         dispatch({ type: "Resume Welcome Board" });
@@ -33,28 +34,6 @@ export default () => {
 
     const clickCopyHandler = (info) => {
         navigator.clipboard.writeText(info);
-    }
-
-    const ListItems = () => {
-
-        const managingIndex = ownSeriesContracts.findIndex(s => s.contract == manageSeries.contract)
-        
-        const series = ownSeriesContracts.map( (s, idx) =>
-            <tr key={idx} className={managingIndex === idx ? 'selected' : ''}>
-                <td className="name">{s.name}</td>
-                <td><button className="ui mini button jurisdiction">{s.jurisdiction}</button></td>
-                <td><UTCDate separator="" date={s.created}></UTCDate></td>
-                <td><Address address={s.owner}></Address></td>
-                <td><Address address={s.contract}></Address></td>
-                <td style={{textAlign:'center'}}>
-                    <Button className="primary mini" onClick={dispatch.bind(undefined, { type: "Select Manage Series", series:s })}><i className="cog icon" ></i> Manage</Button>
-                </td>
-            </tr>
-        )
-
-        if (managingIndex >= 0) series.splice(managingIndex+1, 0, <Management/>)
-
-        return series;
     }
 
     React.useEffect(() => {
@@ -92,7 +71,6 @@ export default () => {
                         newSeries.name = await SeriesContract.getContract(s).methods.getName().call({from: currentAccount})
                         newSeries.owner = await SeriesContract.getContract(s).methods.owner().call({from: currentAccount})
                         ownSeries.push(newSeries)
-                        //console.log(newSeries);
                     }
                 }
                 dispatch({ type: "Set Own Series Contracts", ownSeriesContracts:ownSeries });
@@ -105,6 +83,29 @@ export default () => {
         }, 0)
     },[network])
 
+    const ListItem = React.memo(({series, managing}) => {
+        return (
+            <tr key={series.contract} className={managing ? 'selected' : ''}>
+                <td className="name">{series.name}</td>
+                <td><button className="ui mini button jurisdiction">{series.jurisdiction}</button></td>
+                <td><UTCDate separator="" date={series.created}></UTCDate></td>
+                <td><Address address={series.owner}></Address></td>
+                <td><Address address={series.contract}></Address></td>
+                <td style={{textAlign:'center'}}>
+                    <Button className="primary mini" onClick={dispatch.bind(undefined, { type: "Select Manage Series", series:series })}><i className="cog icon" ></i> Manage</Button>
+                </td>
+            </tr>
+        )
+    })
+
+    const List = React.memo(({contracts, selected}) => {
+        console.log('REDRAW LIST', selected)
+        const managingIndex = contracts.findIndex(s => s.contract == selected)
+        const series = contracts.map( (s) => <ListItem series={s} managing={s.contract == selected}></ListItem> )
+        if (managingIndex >= 0) series.splice(managingIndex+1, 0, <Management/>)
+        return series
+    })
+
     return (
         <Container className="pnl-body">
             <div style={{textAlign: "left", marginBottom: "100px"}}>
@@ -112,19 +113,17 @@ export default () => {
                 <p className="subtitle">Manage your on-chain companies</p>
                 <p></p>
                 <table className="ui celled table" style={{ display: (ownSeriesContracts.length > 0) ? "" : "none"}}>
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Jurisdiction</th>
-                        <th>Creation date</th>
-                        <th>Owner</th>
-                        <th>Contract</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <ListItems/>
-                </tbody>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Jurisdiction</th>
+                            <th>Creation date</th>
+                            <th>Owner</th>
+                            <th>Contract</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <List contracts={ownSeriesContracts} selected={manageSeries.contract}></List>
                 </table>
                 <div className="ui active centered inline text loader" style={{ display: (loading) ? "" : "none", zIndex : 0 }}>Loading Companies</div>
                 <Button id="btn-check-nmae" className="ui right floated button primary" type="submit" onClick={clickBackHandler}>Set up a new company</Button>

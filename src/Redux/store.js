@@ -4,7 +4,8 @@ import {
     accountReducer,
     txsReducer,
     dashboardReducer,
-    managementReducer
+    managementReducer,
+    addressReducer
 } from './reducers';
 
 const reducers = combineReducers({
@@ -13,6 +14,7 @@ const reducers = combineReducers({
     txsState: txsReducer,
     dashboardState: dashboardReducer,
     managementState: managementReducer,
+    addressState: addressReducer,
 })
 
 export const store  = createStore(reducers);

@@ -86,7 +86,7 @@ export default () => {
 
     const registeringFinished = async (e) => {
         setTransaction(null);
-        setStatus('success')
+        dispatch({type:'Set ENS Step', step: 1})
     }
 
     return (

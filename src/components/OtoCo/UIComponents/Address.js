@@ -1,20 +1,19 @@
 import React, { useState } from 'react'
 import ENS from 'ethereum-ens';
 
-import Card from 'semantic-ui-react/dist/commonjs/views/Card'
-import Icon from 'semantic-ui-react/dist/commonjs/elements/Icon'
-
 import OtocoRegistrar from '../SmartContracts/OtocoRegistrar'
 
-import {useMappedState} from 'redux-react-hook'
+import {useMappedState,useDispatch} from 'redux-react-hook'
 
 export default (props) => {
 
+    const dispatch = useDispatch();
     const { network } = useMappedState(({ accountState }) => accountState );
-    const [message, setMessage] = useState();
+    const { addresses } = useMappedState(({ addressState }) => addressState );
     const [isEns, setENS] = useState(false);
     const [address, setAddress] = useState(props.address);
     const [linkSearch, setLinkSearch] = useState(null);
+    const [isStop, setStop] = useState(false);
 
     const clickCopyHandler = (info) => {
         navigator.clipboard.writeText(info);
@@ -23,12 +22,21 @@ export default (props) => {
     const ens = new ENS(web3.currentProvider);
 
     React.useEffect(() => {
-
+        if (isStop) return
+        console.log('REDRAW ADDRESSES')
         if (network === 'ropsten') setLinkSearch('https://ropsten.etherscan.io/address/');
         if (network === 'kovan') setLinkSearch('https://kovan.etherscan.io/address/');
         if (network === 'main') setLinkSearch('https://etherscan.io/address/');
+        
+        if (addresses[props.address]) {
+            setAddress(addresses[props.address]);
+            setENS(true);
+            return;
+        }
+
         ens.reverse(props.address).name().then(async (addr) => {
-            console.log(addr);
+            // console.log(addr);
+            dispatch({type:'Set Address', address: props.address, domain:addr})
             await setAddress(addr);
             await setENS(true);
             return;
@@ -37,13 +45,15 @@ export default (props) => {
             OtocoRegistrar.getContract(network).methods.ownedDomains(props.address).call(async (error, amount) => {
                 if (amount <= 0) return;
                 OtocoRegistrar.getContract(network).methods.resolve(props.address, amount-1).call( async (error, name) => {
+                    dispatch({type:'Set Address', address: props.address, domain:name+'.otoco.eth'})
                     await setAddress(name+'.otoco.eth');
                     await setENS(true);
                     return;
                 });
             });
         });
-    },[props.address])
+        setStop(true)
+    },[])
 
     return (
         <span>

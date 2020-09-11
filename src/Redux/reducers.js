@@ -177,10 +177,6 @@ export const managementReducer = function(state = managementState, action){
             return Object.assign({}, state, {
                 manageShares: obj
             });
-        case "Set Config Shares":
-            return Object.assign({}, state, {
-                manageOption: action.option
-            });
         case "Set ENS Step":
             return Object.assign({}, state, {
                 ensStep: action.step
@@ -199,5 +195,18 @@ export const managementReducer = function(state = managementState, action){
             });
         default:
             return state;
+    }
+}
+
+const addresses = {
+    addresses: {}
+}
+export const addressReducer = function(state = addresses, action){
+    switch(action.type){
+        case "Set Address":
+            state.addresses[action.address] = action.domain;
+            return state
+        default:
+        return state;
     }
 }

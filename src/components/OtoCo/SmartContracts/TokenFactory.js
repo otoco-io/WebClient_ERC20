@@ -134,7 +134,7 @@ export default {
     addresses: {
         dev: "",
         ropsten: "0x7265D4936EF5BCeC6357563b307CAe20e7dDd47A",
-        main: ""
+        main: "0xA9fEFffa8026a259109c322e7351F6C5cbf3CBd8"
     },
     abi: erc20FactoryABI,
     getContract: function(network = "ropsten") {

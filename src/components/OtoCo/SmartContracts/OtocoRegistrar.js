@@ -119,7 +119,7 @@ export default {
     addresses: {
         dev: "",
 		ropsten: "0xF006F0F2ecd911195E2F9F2c563d28F2B77551D3",
-		main: ""
+		main: "0xD97BF0EAc78245312dF8524B608c8e298C268E89"
     },
     abi: FIFSRegistrarAbi,
     getContract: function(address) {

@@ -23,7 +23,6 @@ export default () => {
         setTimeout( async () => {
             const owns = new Set();
             // Add first owner
-            console.log('SHARES:', manageShares)
             await new Promise( (resolve,reject) => {
                 TokenContract.getContract(manageShares.contract).getPastEvents('Initialized',{fromBlock: 0}, async (error, data) => {
                     const timestamp = await web3.eth.getBlock(data[0].blockNumber)

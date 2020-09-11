@@ -324,3 +324,5 @@ export default {
         return new web3.eth.Contract(this.abi, address) 
     }
 }
+
+// DEPLOYED MAIN NET CONTRACT: 0x7b7B367ec9FA50a921acC4dbcedeA9CF39d9bF4d

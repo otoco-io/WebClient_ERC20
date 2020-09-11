@@ -13,10 +13,6 @@ export default () => {
 
     const {manageOption} = useMappedState(({managementState}) => managementState);
 
-    React.useEffect(() => {
-        console.log('REDRAW MANAGEMENT');
-    }, [])
-
     return (
         <tr className="selected">
             <td colSpan="6">

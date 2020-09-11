@@ -123,7 +123,7 @@ export default () => {
             </Message>
             <p className="normal-text">Enter your company name exactly as you want it registered.</p>
             <p className="normal-text">Click <b>`Check`</b> to verify if your preferred name is available.</p>
-            <p className="normal-text">Click <b>`My Dashboard`</b> if you want to manage your deployed LCCs.</p>
+            <p className="normal-text">Click <b>`My Dashboard`</b> if you want to manage your deployed LCC.</p>
             </div>
             <p className="align-right">
                 <Button id="btn-check-nmae" className="primary" type="submit" onClick={clickDashboardHandler}>My Dashboard</Button>
