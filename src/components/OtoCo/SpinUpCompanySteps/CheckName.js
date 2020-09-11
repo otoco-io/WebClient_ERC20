@@ -68,7 +68,6 @@ export default () => {
         //console.log('selected', selectedCompanyName,'input', compName)
         axios.get(`https://api.opencorporates.com/v0.4.8/companies/search?q=${encodeURIComponent(compName + " LLC")}&jurisdiction_code=${jurisdictionSelected}`)
         .then(function({data}){
-
             if (data.results.total_count === 0) dispatch({type: 'Store Available Company Name'});
             else dispatch({type: 'Show Error Msg on Welcome Board', title: "Sorry! " + compName + " is taken in " + jurisdictionName + ".", msg: "Please Enter Another Company Name."});
             
