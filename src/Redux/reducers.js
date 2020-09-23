@@ -14,10 +14,6 @@ export const welcomePanelReducer = function(state = welcomePanelState, action){
             return Object.assign({}, state, {loading: true})
         case "Close Welcome Board Loading":
             return Object.assign({}, state, {loading: false})
-        case "Open Welcome Board Approving":
-            return Object.assign({}, state, {approving: true})
-        case "Close Welcome Board Approving":
-            return Object.assign({}, state, {approving: false})
         case "Increase Waiting Ticktoc":
             return Object.assign({}, state, {waitingTicktoc: state.waitingTicktoc + 1})
         case "Reset Waiting Ticktoc":

@@ -1,98 +1,101 @@
 // React
-import React from 'react';
+import React, { useState } from 'react';
 
 // Redux Hook
 import {useMappedState,useDispatch} from 'redux-react-hook';
 
 // Semantic UI for React
 import Button from 'semantic-ui-react/dist/commonjs/elements/Button'
-import Image from 'semantic-ui-react/dist/commonjs/elements/Image'
-import Input from 'semantic-ui-react/dist/commonjs/elements/Input'
+
+import Address from '../UIComponents/Address';
+import Transaction from '../UIComponents/Transaction';
 
 // Smart Contract
 import MainContract from '../SmartContracts/MainContract';
-import ERC20Contract from '../SmartContracts/ERC20Contract';
+import ERC20Contract from '../SmartContracts/ERC20';
 
 export default () => { 
 
     const dispatch = useDispatch();
-    const {currentAccount, accountBalanceERC20, erc20Symbol, erc20SpinUpFee} = useMappedState(({accountState}) => accountState)
-    const {availableName, approving, waitingTicktoc} = useMappedState(({welcomePanelState}) => welcomePanelState);
-    const {txs} = useMappedState(({txsState}) => txsState);
-    
-    const clickCancelHandler = (e) => {
+    const {currentAccount, network} = useMappedState(({accountState}) => accountState)
+    const {jurisdictionSelected, availableName} = useMappedState(({welcomePanelState}) => welcomePanelState);
+    const [transaction, setTransaction] = useState(null);
+    const [accountAllowance, setAllowance] = useState(0);
+    const [accountBalance, setBalance] = useState(0);
+    const [erc20, setERC20] = useState({
+        symbol: 'DAI',
+        spinUpFee: 5
+    });
+    const [erc20Target, setERC20Target] = useState('');
+
+    // TODO : Verify if company already not allow master to address payment
+    React.useEffect(() => {
+        // When enter page
+        setTimeout( async () => {
+            let allowance = await ERC20Contract.getContract(network).methods.allowance(currentAccount,MainContract.addresses[network+'_'+jurisdictionSelected]).call({from: currentAccount})
+            let balance = await ERC20Contract.getContract(network).methods.balanceOf( currentAccount ).call({from: currentAccount})
+            allowance = parseFloat(allowance)
+            balance = parseFloat(balance)
+            // console.log("PASSOU", allowance, balance, erc20.spinUpFee);
+            setERC20Target(MainContract.addresses[network+'_'+jurisdictionSelected])
+            setAllowance(allowance)
+            setBalance(balance)
+            if(erc20.spinUpFee <= allowance && balance >= allowance)
+                dispatch({ type: "Welcome Board Go To Step N", N: 3 });
+        }, 0)
+    },[network])
+
+
+    const clickApproveHandler = async (e) => {
+        let requestInfo = {from: currentAccount, gas:200000};
+        try {
+            const gasFees = await axios.get(`https://ethgasstation.info/api/ethgasAPI.json`);
+            requestInfo.gasPrice = web3.utils.toWei((gasFees.data.fast*0.1).toString(), 'gwei');
+        } catch (err){
+            console.log('Could not fetch gas fee for transaction.');
+        }
+        console.log(network, requestInfo)
+        try {
+            ERC20Contract.getContract(network).methods.approve(erc20Target, erc20.spinUpFee)
+            .send(requestInfo, (error, hash) => {
+                setTransaction(hash);
+            })
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    const nextStepHandler = () => {
+        dispatch({ type: "Welcome Board Go To Step N", N: 3 });
+    }
+
+    const clickBackHandler = () => {
         dispatch({ type: "Resume Welcome Board" });
     }
 
-    const clickApproveHandler = (e) => {
-        dispatch({ type: "Open Welcome Board Loading" });
-        
-        MainContract.getContract().methods.seriesFee().call((error, SpinUpFee) => {
-            ERC20Contract.getContract().methods.approve(MainContract.getContract().options.address, SpinUpFee).send({from: currentAccount},(error, result) => {
-                
-                if(result) {
-                    dispatch({ type: "Open Welcome Board Approving" });
-                    dispatch({ type: "Push Tx", txID: result });
-                    function polling() {
-                        setTimeout(function(){
-                            web3.eth.getTransactionReceipt(result, function(error, tx){
-                                console.log("tx_info", tx);
-                                if(!tx){
-                                    polling();
-                                } else { 
-                                    dispatch({ type: "Set Tx Pending", idx: 0});
-                                    web3.eth.getBlockNumber(function(error, blockNum){
-                                        console.log("blockNum", blockNum)
-                                        console.log("confirmed", blockNum - tx.blockNumber)
-                                        if(blockNum - tx.blockNumber < 1){
-                                            dispatch({ type: "Increase Waiting Ticktoc" });
-                                            polling();
-                                        } else {
-                                            dispatch({ type: "Set Tx Confirmed", idx: 0});
-                                            dispatch({ type: "Close Welcome Board Loading" });
-                                            dispatch({ type: "Welcome Board Go To Step N", N: 3 });
-                                            dispatch({ type: "Close Welcome Board Approving" });
-                                            dispatch({ type: "Reset Waiting Ticktoc" });
-                                        }
-                                    })
-                                }     
-                            })
-                        }, 2000);
-                    }
-                    polling();
-                }
-                
-                if(error) console.log("Something went wrong!", error);
-                
-            });
-        });
+    function Form() {
+        if (transaction) {
+            return <div style={{minHeight: '200px'}}>
+                <Transaction hash={transaction} title="Approving Tokens" callback={nextStepHandler} ></Transaction>
+                <p>* Once transaction is confirmed, it will automatically proceed to next step.</p> 
+            </div>
+        }
+        return <div style={{minHeight: '200px'}}>
+            <p>All it takes to activate your LCC is to approve <b>{erc20.spinUpFee} {erc20.symbol}</b> to OtoCo from your connected wallet.</p>
+            <p>Approved <b>{accountAllowance} {erc20.symbol}</b> of total <b>{accountBalance} {erc20.symbol}</b> available.</p>
+            <p>From Your Account: <Address address={currentAccount}></Address></p>
+            <p>To Address: <Address address={erc20Target}></Address></p>
+        </div>;
     }
 
     return (
         <div>
-            <div style={{display: (approving) ? 'none':''}}>
-                <div style={{minHeight: '200px'}}>
-                <p className="normal-text">All it takes to activate <b>{availableName}</b> is to send <b>{erc20SpinUpFee} {erc20Symbol}</b> to OtoCo from your connected wallet.</p>
-                <p className="normal-text">Approve <b>{erc20SpinUpFee} {erc20Symbol}</b> of total <b>{accountBalanceERC20} {erc20Symbol}</b> available</p>
-                <p className="normal-text">From Your Account: {currentAccount}</p>
-                <p className="normal-text">To Address: <b>otoco.eth</b></p>
-                <p className="normal-text"><a href="#"><b>Terms of Service</b></a></p>
-                </div>
-                <p className="align-right">
-                    <Button id="btn-check-nmae" className="primary" onClick={clickCancelHandler}>Cancel</Button>
-                    <Button id="btn-check-nmae" className="primary" onClick={clickApproveHandler}>Approve</Button>
-                </p>
-            </div>
-            <div style={{display: (approving) ? '':'none'}}>
-                <p>Waiting the Transaction to be confirmed....</p>
-                <p>( { (txs[0]) ? (txs[0].status === "Confirmed" ? "Confirmed! Redirecting.." : (txs[0].status === "Pending" ? `Pending for ${waitingTicktoc}s ...` : "Initializing..")) : "Initializing.." } )</p>
-                <p>* Please `<b>DO NOT</b>` Close This Window.</p>
-                <p>* If transaction is confirmed, it will go to next step.</p> 
-                <div style={{marginTop: '10px'}}>
-                    ( <a href={`https://kovan.etherscan.io/tx/${(txs[0]) ? txs[0].id : ""}`} 
-                        target="_blank">View Transaction on Etherscan
-                    </a> )
-                </div>
+            <div>
+                <Form></Form>
+                { !transaction && <p className="align-right">
+                    <Button className="primary" onClick={clickBackHandler}>Back</Button>
+                    <Button className="primary" onClick={clickApproveHandler}>Approve</Button>
+                </p>}
             </div>
         </div>
     );

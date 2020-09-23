@@ -6,9 +6,9 @@ import {useMappedState,useDispatch} from 'redux-react-hook';
 import { useHistory, Link } from "react-router-dom";
 
 // Components
-import Logo from '../../Logo'
 import Step_ActivateCompany from './ActivateCompany'
 import Step_ConnectWallet from './ConnectWallet'
+import Step_ApprovePayment from './ApprovePayment'
 import Step_CheckName from './CheckName'
 import Step_Nav from './Nav'
 
@@ -27,9 +27,9 @@ export default () => {
         switch (currentStep) {
             case 1: 
                 return <Step_ConnectWallet />
-            // case 2: 
-            //     return <Step_ApprovePayment />
             case 2: 
+                return <Step_ApprovePayment />
+            case 3: 
                 return <Step_ActivateCompany />
             default:
                 return (

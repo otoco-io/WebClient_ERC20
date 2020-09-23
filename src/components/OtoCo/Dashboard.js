@@ -8,13 +8,10 @@ import { useHistory } from "react-router-dom";
 import Button from 'semantic-ui-react/dist/commonjs/elements/Button'
 import Container from 'semantic-ui-react/dist/commonjs/elements/Container'
 
-
 // Smart Contract
-import Management from './Dashboard/Management';
+import Listing from './Dashboard/Listing';
 import MainContract from './SmartContracts/MainContract';
 import SeriesContract from './SmartContracts/SeriesContract';
-import Address from './UIComponents/Address';
-import UTCDate from './UIComponents/UTCDate';
 import Web3Integrate from '../../web3-integrate';
 
 export default () => {
@@ -23,8 +20,8 @@ export default () => {
     const history = useHistory();
 
     const {network, currentAccount} = useMappedState(({accountState}) => accountState);
-    const {loading, jurisdictionsList, ownSeriesContracts} = useMappedState(({dashboardState}) => dashboardState);
-    const {manageSeries} = useMappedState(({managementState}) => managementState);
+    const {jurisdictionsList} = useMappedState(({dashboardState}) => dashboardState);
+    const [loading, setLoading] = useState(true);
 
     const clickBackHandler = async (e) => {
         dispatch({ type: "Resume Welcome Board" });
@@ -69,60 +66,22 @@ export default () => {
                     }
                 }
                 dispatch({ type: "Set Own Series Contracts", ownSeriesContracts:ownSeries });
-                dispatch({ type: "Set Dashboard Loading", loading: false });
+                setLoading(false)
             } else {
-                dispatch({ type: "Set Dashboard Loading", loading: true });
                 dispatch({ type: "Clear Manage Series" });
                 dispatch({ type: "Set Manage Option", option: 0 });
             }
         }, 0)
     },[network])
 
-    const ListItem = React.memo(({series, managing}) => {
-        return (
-            <tr key={series.contract} className={managing ? 'selected' : ''}>
-                <td className="name">{series.name}</td>
-                <td><button className="ui mini button jurisdiction">{series.jurisdiction}</button></td>
-                <td><UTCDate separator="" date={series.created}></UTCDate></td>
-                <td><Address address={series.owner}></Address></td>
-                <td><Address address={series.contract}></Address></td>
-                <td style={{textAlign:'center'}}>
-                    <Button className="primary mini" onClick={dispatch.bind(undefined, { type: "Select Manage Series", series:series })}><i className="cog icon" ></i> Manage</Button>
-                </td>
-            </tr>
-        )
-    })
-
-    const List = React.memo(({contracts, selected}) => {
-        //console.log('REDRAW LIST', selected)
-        const managingIndex = contracts.findIndex(s => s.contract == selected)
-        const series = contracts.map( (s) => <ListItem series={s} managing={s.contract == selected}></ListItem> )
-        if (managingIndex >= 0) series.splice(managingIndex+1, 0, <Management/>)
-        return series
-    })
-
     return (
         <Container className="pnl-body">
             <div style={{textAlign: "left", marginBottom: "100px"}}>
                 <h1 className="title">Dashboard</h1>
                 <p className="subtitle">Manage your on-chain companies</p>
-                <p></p>
-                <table className="ui celled table" style={{ display: (ownSeriesContracts.length > 0) ? "" : "none"}}>
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Jurisdiction</th>
-                            <th>Creation date</th>
-                            <th>Owner</th>
-                            <th>Contract</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <List contracts={ownSeriesContracts} selected={manageSeries.contract}></List>
-                    </tbody>
-                </table>
+                <Listing></Listing>
                 <div className="ui active centered inline text loader" style={{ display: (loading) ? "" : "none", zIndex : 0 }}>Loading Companies</div>
+                <p></p>
                 <Button id="btn-check-nmae" className="ui right floated button primary" type="submit" onClick={clickBackHandler}>Set up a new company</Button>
             </div>
         </Container>

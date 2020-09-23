@@ -23,7 +23,6 @@ export default (props) => {
 
     React.useEffect(() => {
         if (isStop) return
-        console.log('REDRAW ADDRESSES')
         if (network === 'ropsten') setLinkSearch('https://ropsten.etherscan.io/address/');
         if (network === 'kovan') setLinkSearch('https://kovan.etherscan.io/address/');
         if (network === 'main') setLinkSearch('https://etherscan.io/address/');

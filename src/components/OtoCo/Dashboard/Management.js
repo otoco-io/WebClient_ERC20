@@ -14,7 +14,7 @@ export default () => {
     const {manageOption} = useMappedState(({managementState}) => managementState);
 
     return (
-        <tr>
+        <tr key="man">
             <td colSpan="6">
                 <Grid>
                     <Grid.Row style={{minHeight: "500px"}}>

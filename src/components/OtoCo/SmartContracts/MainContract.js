@@ -311,8 +311,8 @@ export default {
         main_us_wy: "0xfc952ECF2EE199fa8C63A86424e3978F2dEB86eF",
         ropsten_us_de: "0x861995A262516A98c1faCE4c63beE22fbc6251C6",
         ropsten_us_wy: "0x8f332A747e4907fa51921F4e025cb1aE6fbBe9b2",
-        private_us_de: "0xF12b5dd4EAD5F743C6BaA640B0216200e89B60Da",
-		    private_us_wy: "0x8f0483125FCb9aaAEFA9209D8E9d7b9C8B9Fb90F"
+        private_us_de: "0x4bfd9Cd9DA9e9D2258796f62fD2B3D3C44dEe479",
+		private_us_wy: "0x4bfd9Cd9DA9e9D2258796f62fD2B3D3C44dEe479"
     },
     abi: mainContractABI,
     getContract: function(network = "kovan", jurisdiction = "de") {
