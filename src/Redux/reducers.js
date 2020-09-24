@@ -107,9 +107,9 @@ export const txsReducer = function(state = txsState, action){
 
 export const dashboardReducer = function(state = dashboardState, action){
     switch(action.type){
-        case "Set Dashboard Loading":
+        case "Set Dashboard Contact Form":
             return Object.assign({}, state, {
-                loading: action.loading
+                showContact: action.show
             });
         case "Set Own Series Contracts":
             return Object.assign({}, state, {

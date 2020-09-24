@@ -10,6 +10,7 @@ import Container from 'semantic-ui-react/dist/commonjs/elements/Container'
 
 // Smart Contract
 import Listing from './Dashboard/Listing';
+import ContactForm from './Dashboard/ContactForm';
 import MainContract from './SmartContracts/MainContract';
 import SeriesContract from './SmartContracts/SeriesContract';
 import Web3Integrate from '../../web3-integrate';
@@ -20,7 +21,7 @@ export default () => {
     const history = useHistory();
 
     const {network, currentAccount} = useMappedState(({accountState}) => accountState);
-    const {jurisdictionsList} = useMappedState(({dashboardState}) => dashboardState);
+    const {jurisdictionsList, showContact} = useMappedState(({dashboardState}) => dashboardState);
     const [loading, setLoading] = useState(true);
 
     const clickBackHandler = async (e) => {
@@ -66,6 +67,7 @@ export default () => {
                     }
                 }
                 dispatch({ type: "Set Own Series Contracts", ownSeriesContracts:ownSeries });
+                dispatch({ type: "Set Dashboard Contact Form", show:true });
                 setLoading(false)
             } else {
                 dispatch({ type: "Clear Manage Series" });
@@ -79,10 +81,11 @@ export default () => {
             <div style={{textAlign: "left", marginBottom: "100px"}}>
                 <h1 className="title">Dashboard</h1>
                 <p className="subtitle">Manage your on-chain companies</p>
-                <Listing></Listing>
+                {!loading && !showContact && <Listing></Listing>}
+                {showContact && <ContactForm></ContactForm>}
                 <div className="ui active centered inline text loader" style={{ display: (loading) ? "" : "none", zIndex : 0 }}>Loading Companies</div>
                 <p></p>
-                <Button id="btn-check-nmae" className="ui right floated button primary" type="submit" onClick={clickBackHandler}>Set up a new company</Button>
+                {!loading && !showContact && <Button id="btn-check-nmae" className="ui right floated button primary" type="submit" onClick={clickBackHandler}>Set up a new company</Button>}
             </div>
         </Container>
     )

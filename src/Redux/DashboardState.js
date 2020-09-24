@@ -1,7 +1,7 @@
 export const initDashboardState = {
-    loading: true,
     jurisdictionsList: ['us_de','us_wy'],
     ownSeriesContracts: [],
+    showContact: false,
     errMsg: {
         show: false,
         title: "",
