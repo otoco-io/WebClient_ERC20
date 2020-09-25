@@ -22,9 +22,10 @@ export default () => {
     const [transaction, setTransaction] = useState(null);
     const [accountAllowance, setAllowance] = useState(0);
     const [accountBalance, setBalance] = useState(0);
+    const [decimals, setDecimals] = useState(18);
     const [erc20, setERC20] = useState({
         symbol: 'DAI',
-        spinUpFee: 5
+        spinUpFee: 5 
     });
     const [erc20Target, setERC20Target] = useState('');
 
@@ -34,10 +35,12 @@ export default () => {
         setTimeout( async () => {
             let allowance = await ERC20Contract.getContract(network).methods.allowance(currentAccount,MainContract.addresses[network+'_'+jurisdictionSelected]).call({from: currentAccount})
             let balance = await ERC20Contract.getContract(network).methods.balanceOf( currentAccount ).call({from: currentAccount})
-            allowance = parseFloat(allowance)
-            balance = parseFloat(balance)
-            // console.log("PASSOU", allowance, balance, erc20.spinUpFee);
+            let dec = await ERC20Contract.getContract(network).methods.decimals().call({from: currentAccount})
+            allowance = parseFloat(allowance / 10**dec)
+            balance = parseFloat(balance / 10**dec)
+            //console.log("PASSOU", allowance, balance, erc20.spinUpFee);
             setERC20Target(MainContract.addresses[network+'_'+jurisdictionSelected])
+            setDecimals(dec)
             setAllowance(allowance)
             setBalance(balance)
             if(erc20.spinUpFee <= allowance && balance >= allowance)
@@ -56,7 +59,7 @@ export default () => {
         }
         console.log(network, requestInfo)
         try {
-            ERC20Contract.getContract(network).methods.approve(erc20Target, erc20.spinUpFee)
+            ERC20Contract.getContract(network).methods.approve(erc20Target, (erc20.spinUpFee * 10**decimals).toString())
             .send(requestInfo, (error, hash) => {
                 setTransaction(hash);
             })
