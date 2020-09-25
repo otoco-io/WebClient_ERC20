@@ -323,7 +323,7 @@ export default {
 	addresses: {
         private: "0x2E2D10b41b7c8DDb995568A87185428d9A513ead",
         main: "0x6b175474e89094c44da98b954eedeac495271d0f",
-		ropsten: "0xad6d458402f60fd3bd25163575031acdce07538d",
+		ropsten: "0x472322043c1051B5882cB29C52ff0e79FD3B7bf6",
 		kovan: "0x50ccB248667e116299cd1d2999713A709A78E077",
     },
     getContract: function(network = "kovan") {
