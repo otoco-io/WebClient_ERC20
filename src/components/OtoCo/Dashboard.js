@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import database from '../../firebase'
 
 // Redux Hook
 import {useMappedState,useDispatch} from 'redux-react-hook';
@@ -27,6 +28,17 @@ export default () => {
     const clickBackHandler = async (e) => {
         dispatch({ type: "Resume Welcome Board" });
         history.push('/');
+    }
+
+    const contactFormLastRequest = async (e) => {
+        const now = new Date();
+        now.setDate(now.getDate() - 10);
+        try {
+            const lastRequest = new Date(window.localStorage.getItem('contactFormLastRequest'));
+            if (lastRequest < now) throw ('Must show form')
+        } catch (err) {
+            dispatch({ type: "Set Dashboard Contact Form", show:true });
+        }
     }
 
     React.useEffect(() => {
@@ -67,7 +79,8 @@ export default () => {
                     }
                 }
                 dispatch({ type: "Set Own Series Contracts", ownSeriesContracts:ownSeries });
-                dispatch({ type: "Set Dashboard Contact Form", show:true });
+                if (!(await database.getFilling(currentAccount)))
+                    contactFormLastRequest();
                 setLoading(false)
             } else {
                 dispatch({ type: "Clear Manage Series" });
@@ -81,8 +94,8 @@ export default () => {
             <div style={{textAlign: "left", marginBottom: "100px"}}>
                 <h1 className="title">Dashboard</h1>
                 <p className="subtitle">Manage your on-chain companies</p>
-                {!loading && !showContact && <Listing></Listing>}
                 {showContact && <ContactForm></ContactForm>}
+                {!loading && !showContact && <Listing></Listing>}
                 <div className="ui active centered inline text loader" style={{ display: (loading) ? "" : "none", zIndex : 0 }}>Loading Companies</div>
                 <p></p>
                 {!loading && !showContact && <Button id="btn-check-nmae" className="ui right floated button primary" type="submit" onClick={clickBackHandler}>Set up a new company</Button>}
