@@ -54,13 +54,21 @@ export default (props) => {
         setStop(true)
     },[])
 
+    const formattedAddress = (address) => {
+        try{
+            return address.substring(0,6) + '...' + address.substring(address.length-5,address.length-1)
+        } catch {
+            console.log('Cannot show address...', address)
+        }
+    }
+
     return (
         <span style={{minWidth:'160px', display:'inline-block'}}>
             {isEns && <a className="primary" href={linkSearch+props.address} target="blank">
                 {address}
             </a>}
             {!isEns && <a className="primary" href={linkSearch+props.address} target="blank">
-                {address.substring(0,6)}...{address.substring(address.length-5,address.length-1)}
+                {formattedAddress(address)}
             </a>}
             &nbsp;<i className="copy link icon" onClick={clickCopyHandler.bind(undefined, props.address)}></i>
         </span>

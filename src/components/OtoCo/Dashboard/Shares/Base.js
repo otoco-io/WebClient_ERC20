@@ -15,6 +15,11 @@ export default () => {
     const {currentAccount, network} = useMappedState(({accountState}) => accountState);
     const [loading, setLoading] = useState(true);
 
+    const getBNDecimals = (decimals) => {
+        const BN = web3.utils.BN;
+        return new BN(10).pow(new BN(decimals)); 
+    }
+
     React.useEffect(() => {
         setTimeout(async () => {
             if (manageShares.contract) {
@@ -23,10 +28,15 @@ export default () => {
             }
             try {
                 const token = await FactoryContract.getContract(network).methods.seriesToken(manageSeries.contract).call({from:currentAccount});
+
+                let shares =  await TokenContract.getContract(token).methods.totalSupply().call({from: currentAccount})
+                let decimals = await TokenContract.getContract(token).methods.decimals().call({from: currentAccount})
+
                 dispatch({type:'Set Shares Config', token:{
                     name: await TokenContract.getContract(token).methods.name().call({from: currentAccount}),
                     symbol: await TokenContract.getContract(token).methods.symbol().call({from: currentAccount}),
-                    shares: await TokenContract.getContract(token).methods.totalSupply().call({from: currentAccount}),
+                    shares: shares / getBNDecimals(decimals),
+                    decimals: decimals,
                 }})
                 dispatch({type:'Set Shares Contract', contract: token})
                 dispatch({type:'Set Shares Step', step: 2})

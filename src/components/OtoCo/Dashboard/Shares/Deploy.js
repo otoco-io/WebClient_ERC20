@@ -17,8 +17,14 @@ export default () => {
 
     const [transaction, setTransaction] = useState(null);
 
+    const getBNDecimals = (decimals) => {
+        const BN = web3.utils.BN;
+        return new BN(10).pow(new BN(decimals)); 
+    }
+
     const clickDeployHandler = async (e) => {
-        let requestInfo = {from: currentAccount, gas:200000};
+        console.log(manageShares)
+        let requestInfo = {from: currentAccount, gas:300000};
         try {
             const gasFees = await axios.get(`https://ethgasstation.info/api/ethgasAPI.json`);
             requestInfo.gasPrice = web3.utils.toWei((gasFees.data.fast*0.1).toString(), 'gwei');
@@ -26,9 +32,10 @@ export default () => {
             console.log('Could not fetch gas fee for transaction.');
         }
         console.log(network, requestInfo)
+        const BN = web3.utils.BN;
         try {
             FactoryContract.getContract(network).methods.createERC20(
-                manageShares.shares,
+                (new BN(manageShares.shares).mul(getBNDecimals(manageShares.decimals))).toString(),
                 manageShares.name,
                 manageShares.symbol,
                 manageSeries.contract

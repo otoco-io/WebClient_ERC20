@@ -19,9 +19,15 @@ export default () => {
     const {network, currentAccount} = useMappedState(({accountState}) => accountState);
     const [owners, setOwners] = useState([]);
 
+    const getBNDecimals = (decimals) => {
+        const BN = web3.utils.BN;
+        return new BN(10).pow(new BN(decimals)); 
+    }
+
     React.useEffect(() => {
         setTimeout( async () => {
             const owns = new Set();
+            let dec = await TokenContract.getContract(manageShares.contract).methods.decimals().call({from: currentAccount})
             // Add first owner
             await new Promise( (resolve,reject) => {
                 TokenContract.getContract(manageShares.contract).getPastEvents('Initialized',{fromBlock: 0}, async (error, data) => {
@@ -44,9 +50,10 @@ export default () => {
             })
             const result = [];
             for (const o of [...owns]){
+                let balance = await TokenContract.getContract(manageShares.contract).methods.balanceOf(o).call({from: currentAccount})
                 let owner = {
                     address: o,
-                    balance: await TokenContract.getContract(manageShares.contract).methods.balanceOf(o).call({from: currentAccount})
+                    balance: balance / getBNDecimals(dec)
                 }
                 result.push(owner)
             }

@@ -20,7 +20,8 @@ export default () => {
     const token = {
         name: manageShares.name,
         symbol: manageShares.symbol,
-        shares: manageShares.shares
+        shares: manageShares.shares,
+        decimals: 18
     };
 
     const handleChangeName = (event) => {
@@ -34,7 +35,7 @@ export default () => {
     }
 
     const handleClickNext = (event) => {
-        console.log(token)
+        //console.log(token)
         dispatch({type:'Set Shares Config', token: token});
         if (token.name.length < 3 || token.name.length > 50){
             setError('Keep token name length biggen than 2 and less than 50');

@@ -33,6 +33,11 @@ export default (props) => {
     const [amount, setAmount] = useState('');
     const ens = new ENS(web3.currentProvider);
 
+    const getBNDecimals = (decimals) => {
+        const BN = web3.utils.BN;
+        return new BN(10).pow(new BN(decimals)); 
+    }
+
     React.useEffect(() => {
         setTimeout( async () => {
             
@@ -48,29 +53,37 @@ export default (props) => {
             let accounts =  await web3.eth.getAccounts();
             dispatch({ type: "Set Current Account", currentAccount: accounts[0] });
             dispatch({ type: "Set Current Network", network: await web3.eth.net.getNetworkType() })
+
+            let decimals = await TokenContract.getContract(match.params.contract).methods.decimals().call({from: accounts[0]})
+            let shares = await TokenContract.getContract(match.params.contract).methods.totalSupply().call({from: accounts[0]})
+            let balance = await TokenContract.getContract(match.params.contract).methods.balanceOf(accounts[0]).call({from: accounts[0]})
+
             dispatch({type:'Set Shares Config', token:{
                 name: await TokenContract.getContract(match.params.contract).methods.name().call({from: accounts[0]}),
                 symbol: await TokenContract.getContract(match.params.contract).methods.symbol().call({from: accounts[0]}),
-                shares: await TokenContract.getContract(match.params.contract).methods.totalSupply().call({from: accounts[0]}),
+                shares: shares / getBNDecimals(decimals),
+                decimals: decimals
             }})
-            setBalance(await TokenContract.getContract(match.params.contract).methods.balanceOf(accounts[0]).call({from: accounts[0]}));                
+            setBalance(balance / getBNDecimals(decimals));
         }, 10);
     },[balance])
 
     const sendTransaction = async () => {
         try {
             const toAddress = ensAddress ? ensAddress : to;
-            TokenContract.getContract(match.params.contract).methods.transfer(toAddress, amount).send({from: currentAccount}, (error, hash) => {
-                if (error) alert("Something went wrong! Check parameters and connection!")
+            const BN = web3.utils.BN;
+            TokenContract.getContract(match.params.contract).methods.transfer(toAddress, (new BN(amount).mul(getBNDecimals(manageShares.decimals))).toString()).send({from: currentAccount}, (error, hash) => {
+                if (error) alert(error)
                 else setTransaction(hash);
             });
-        } catch {
-            alert("Something went wrong! Check parameters and connection!")
+        } catch (err) {
+            alert(err)
         }
     }
 
-    const clearTransaction = async () => {
-        setBalance(await TokenContract.getContract(match.params.contract).methods.balanceOf(currentAccount).call({from: currentAccount}));
+    const clearTransaction = async () => { 
+        let balance = await TokenContract.getContract(match.params.contract).methods.balanceOf(currentAccount).call({from: currentAccount})
+        setBalance(balance / getBNDecimals(manageShares.decimals)); 
         setTransaction(null);
     }
 

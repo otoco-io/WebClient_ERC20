@@ -6,6 +6,7 @@ export const initManagementState = {
         shares: 1000000,
         name: '',
         symbol: '',
+        decimals: 0,
         contract: ''
     },
     ensStep: 0,

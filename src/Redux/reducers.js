@@ -148,6 +148,7 @@ export const managementReducer = function(state = managementState, action){
             obj.name = action.token.name;
             obj.symbol = action.token.symbol;
             obj.shares = action.token.shares
+            obj.decimals = action.token.decimals
             return Object.assign({}, state, {
                 manageShares: obj
             });
