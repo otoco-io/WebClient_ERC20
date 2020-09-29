@@ -78,12 +78,12 @@ export default () => {
 
     function Form() {
         if (transaction) {
-            return <div style={{minHeight: '200px'}}>
+            return <div className="animate-slide-left" style={{minHeight: '200px'}}>
                 <Transaction hash={transaction} title="Approving Tokens" callback={nextStepHandler} ></Transaction>
                 <p>* Once transaction is confirmed, it will automatically proceed to next step.</p> 
             </div>
         }
-        return <div style={{minHeight: '200px'}}>
+        return <div className="animate-slide-left" style={{minHeight: '200px'}}>
             <p>All it takes to activate your LCC is to approve <b>{erc20.spinUpFee} {erc20.symbol}</b> to OtoCo from your connected wallet.</p>
             <p>Approved <b>{accountAllowance} {erc20.symbol}</b> of total <b>{accountBalance} {erc20.symbol}</b> available.</p>
             <p>From Your Account: <Address address={currentAccount}></Address></p>

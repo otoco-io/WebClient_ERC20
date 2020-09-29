@@ -51,7 +51,8 @@ export default () => {
             return;
         }
         setError('');
-        database.fillForm(currentAccount, email, name, website)
+        // database.fillForm(currentAccount, email, name, website)
+        database.fillForm(currentAccount, email)
         dispatch({type: "Set Dashboard Contact Form", show:false})
     }
     const handleClickSkip = (event) => {
@@ -60,7 +61,7 @@ export default () => {
     }
 
     return (
-        <div className="ui celled table contact-form">
+        <div className="ui celled table contact-form animate-slide">
             <p>
             Before accessing your dashboard, we ask you to provide us with basic contact information. 
             The only required field is your email address. 
@@ -79,7 +80,7 @@ export default () => {
                 <Label basic>E-mail Address</Label>
                 <input className="placeholder" />
             </Input>
-            <Input 
+            {/* <Input 
                 type='text' 
                 className="contact-input-container" 
                 labelPosition='left' 
@@ -102,7 +103,7 @@ export default () => {
             >
                 <Label basic>Website</Label>
                 <input className="placeholder" />
-            </Input>
+            </Input> */}
             {error && <p className="contact-error">{error}</p>}
             <p>
                 <Button className="primary" onClick={handleClickNext}>Save Contact Information</Button>

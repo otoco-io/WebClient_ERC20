@@ -68,7 +68,7 @@ export default () => {
     }
 
     return (
-        <div>
+        <div className="animate-fade">
             <h4 style={{paddingTop: '30px'}}>A new token named {manageShares.name}, with the symbol {manageShares.symbol} and a total supply of {manageShares.shares} will be deployed.</h4>
             <Form></Form>
         </div>

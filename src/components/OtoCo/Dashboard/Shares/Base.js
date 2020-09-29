@@ -49,7 +49,7 @@ export default () => {
     }, [])
 
     return (
-        <div>
+        <div className="animate-fade">
             <div className={`ui ${loading ? 'active' : 'disabled'} dimmer`}>
                 <div className="ui text loader">Loading</div>
             </div>

@@ -1,5 +1,5 @@
 // React
-import React, {useEffect, createRef} from 'react';
+import React, {useEffect, useState, createRef} from 'react';
 
 // Redux Hook
 import {useMappedState,useDispatch} from 'redux-react-hook';
@@ -18,7 +18,7 @@ export default () => {
 
     const dispatch = useDispatch();
     const history = useHistory();
-    const {selectedCompanyName, jurisdictionSelected, jurisdictionName, jurisdictionOptions, jurisdictionStreet, availableName} = useMappedState(({welcomePanelState}) => welcomePanelState);
+    const {loading, selectedCompanyName, jurisdictionSelected, jurisdictionName, jurisdictionOptions, jurisdictionStreet, availableName} = useMappedState(({welcomePanelState}) => welcomePanelState);
 
     let compName = ""
 
@@ -154,7 +154,9 @@ export default () => {
     }
 
     return (
-        <CheckNamePanel />
+        <div className="animate-slide-left">
+        {!loading && <CheckNamePanel />}
+        </div>
     );
     
 }

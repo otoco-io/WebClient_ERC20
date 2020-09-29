@@ -43,7 +43,7 @@ export default ({setStepNum}) => {
     }
 
     return (
-        <div>
+        <div className="animate-slide-left">
             <p>Connect a wallet that will own your company.</p>
             <Button  className="primary" onClick={clickConnectkHandler}>Connect Wallet</Button>
         </div>

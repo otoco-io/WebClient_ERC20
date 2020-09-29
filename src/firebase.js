@@ -15,8 +15,8 @@ export default {
         try {
             const res = await firebase.database().ref('data/' + wallet).set({
                 email,
-                name,
-                website,
+                // name,
+                // website,
                 filling: true
             });
             return res;

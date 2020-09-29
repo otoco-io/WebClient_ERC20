@@ -63,7 +63,7 @@ export default () => {
     },[])
 
     return (
-        <div>
+        <div className="animate-slide-left">
             <div style={{minHeight: '200px'}}>
             <p className="normal-text">The current deployment cost is approximately. <b>{totalCost} ETH</b>.</p>
             <p className="normal-text">Click `<b>Activate</b>` to spin up `<b>{availableName}</b>` in <b>{jurisdictionName}</b>.</p>

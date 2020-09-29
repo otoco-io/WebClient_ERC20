@@ -14,10 +14,10 @@ export default () => {
     const {manageOption} = useMappedState(({managementState}) => managementState);
 
     return (
-        <tr key="man">
+        <tr key="man" className="animate-fade">
             <td colSpan="6">
                 <Grid>
-                    <Grid.Row style={{minHeight: "500px"}}>
+                    <Grid.Row className="animate-scale">
                         <Grid.Column width={4} style={{textAlign: "right"}}>
                             <SeriesStep />
                         </Grid.Column>

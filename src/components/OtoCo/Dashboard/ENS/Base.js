@@ -28,7 +28,7 @@ export default () => {
     }, [])
 
     return (
-        <div>
+        <div className="animate-fade">
             {ensStep === 0 && <Config></Config>}
             {ensStep === 1 && <Registered></Registered>}
             {/* {ensStep === 1 && manageEns.selectedDomain === 'otoco.eth' && <RegisterOtoco></RegisterOtoco>} */}

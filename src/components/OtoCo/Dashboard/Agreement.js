@@ -61,7 +61,7 @@ export default () => {
     }
 
     return (
-        <div>
+        <div className="animate-fade">
             <h4 style={{paddingTop: '30px'}}>Here you can download documents related to your company:</h4>
             <button className="ui mini button ui button primary" onClick={exportPDF}><i className="download icon"></i>Series Operating Agreement</button>
         </div>

@@ -57,7 +57,7 @@ export default () => {
     }
 
     return (
-        <div>
+        <div className="animate-fade">
             <h4 style={{paddingTop: '30px'}}>We made it easy for your new company to issue ERC20 tokens.</h4>
             <p>You decide what the tokens represent: equity in your company, a usage right, a convertible, etc. Simply set you token parameters and click 'Next' to create the new contract.</p>
             <Input 

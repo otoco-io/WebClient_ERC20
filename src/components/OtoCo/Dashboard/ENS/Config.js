@@ -90,7 +90,7 @@ export default () => {
     }
 
     return (
-        <div>
+        <div className="animate-fade">
             <h4 style={{paddingTop: '30px'}}>Link your company address <Address address={manageSeries.contract}></Address> to an otoco.eth to make it easy to use. Simply check availability and claim your domain for free.</h4>
             {(status != 'claiming') && <Input 
                 type='text' 

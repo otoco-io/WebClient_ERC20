@@ -28,14 +28,14 @@ const ListItem = ({series, managing}) => {
             <td><Address address={series.owner}></Address></td>
             <td><Address address={series.contract}></Address></td>
             <td style={{textAlign:'center'}}>
-                <Button className="primary mini" onClick={dispatch.bind(undefined, { type: "Select Manage Series", series:series })}><i className="cog icon" ></i> Manage</Button>
+                { !managing && <Button className="primary mini" onClick={dispatch.bind(undefined, { type: "Select Manage Series", series:series })}><i className="cog icon" ></i> Manage</Button>}
+                { managing &&  <Button className="primary mini" onClick={dispatch.bind(undefined, { type: "Clear Manage Series"})}><i className="close icon" ></i> Close</Button>}
             </td>
         </tr>
     )
 }
 
 const List = React.memo(({contracts, selected}) => {
-    // console.log('REDRAW LIST', selected)
     const managingIndex = contracts.findIndex(s => s.contract == selected)
     const series = contracts.map( (s) => <ListItem series={s} key={s.contract} managing={s.contract == selected}></ListItem> )
     if (managingIndex >= 0) series.splice(managingIndex+1, 0, <Management/>)
@@ -49,7 +49,7 @@ export default () => {
     const {manageSeries} = useMappedState(({managementState}) => managementState);
 
     return (
-        <div>
+        <div className="animate-fade">
             <table className="ui celled table" style={{ display: (ownSeriesContracts.length > 0) ? "" : "none"}}>
                 <thead>
                     <tr>

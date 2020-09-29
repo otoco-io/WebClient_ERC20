@@ -88,29 +88,31 @@ export default () => {
 
     return (
         <div>
-            <div className={`ui ${!owners ? 'active' : 'disabled'} dimmer`}>
+            <div className={`ui ${owners.length == 0 ? 'active' : 'disabled'} dimmer`}>
                 <div className="ui text loader">Loading</div>
             </div>
-            {manageShares.creation && <h4>
-                A total of {manageShares.shares} {manageShares.name} with symbol {manageShares.symbol} were minted on <UTCDate separator="at" date={manageShares.creation}></UTCDate>.
-            </h4>}
-            <p>{manageShares.symbol} token address: <Address address={manageShares.contract}></Address></p>
-            <p>List of current holders:</p>
-            <table className="ui celled table">
-                <thead>
-                    <tr>
-                        <th style={{width:'30%'}}>Wallet</th>
-                        <th style={{width:'20%'}}>Balance</th>
-                        <th style={{width:'50%'}}></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <ListOwners/>
-                </tbody>
-            </table>
-            <Button className="primary" onClick={clickTransferHandler}>Transfer Tokens</Button>
-            <Button className="primary" onClick={clickCopyHandler.bind(undefined, manageShares.contract)}>View token on Etherscan</Button>
-            <p style={{margin: '80px'}}></p>
+            {owners.length > 0 && <div>
+                <h4 style={{paddingTop: '30px'}}>
+                    A total of {manageShares.shares} {manageShares.name} with symbol {manageShares.symbol} were minted on <UTCDate separator="at" date={manageShares.creation}></UTCDate>.
+                </h4>
+                <p>{manageShares.symbol} token address: <Address address={manageShares.contract}></Address></p>
+                <p>List of current holders:</p>
+                <table className="ui celled table animate-fade">
+                    <thead>
+                        <tr>
+                            <th style={{width:'30%'}}>Wallet</th>
+                            <th style={{width:'20%'}}>Balance</th>
+                            <th style={{width:'50%'}}></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ListOwners/>
+                    </tbody>
+                </table>
+                <Button className="primary" onClick={clickTransferHandler}>Transfer Tokens</Button>
+                <Button className="primary" onClick={clickCopyHandler.bind(undefined, manageShares.contract)}>View token on Etherscan</Button>
+                <p style={{margin: '80px'}}></p>
+            </div>}
         </div>
     )
 

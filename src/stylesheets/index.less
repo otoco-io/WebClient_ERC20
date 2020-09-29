@@ -445,3 +445,60 @@ body {
     font-size: 11px;
     color: red;
 }
+
+.animate-fade {
+    animation: fade-in 0.4s ease-out;
+}
+
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.animate-slide {
+    animation: slide-up 0.4s ease;
+}
+
+@keyframes slide-up {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-scale {
+    animation: scale-up 0.4s ease-out;
+    min-height: 500px;
+}
+
+@keyframes scale-up {
+    0% {
+        min-height: 0px;
+    }
+    100% {
+        min-height: 500px;
+    }
+}
+
+.animate-slide-left {
+    animation: slide-left 0.4s ease-out;
+}
+
+@keyframes slide-left {
+    0% {
+        opacity: 0;
+        transform: translateX(40px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
