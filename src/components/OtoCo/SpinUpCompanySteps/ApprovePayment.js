@@ -38,7 +38,6 @@ export default () => {
             let dec = await ERC20Contract.getContract(network).methods.decimals().call({from: currentAccount})
             allowance = parseFloat(allowance / 10**dec)
             balance = parseFloat(balance / 10**dec)
-            //console.log("PASSOU", allowance, balance, erc20.spinUpFee);
             setERC20Target(MainContract.addresses[network+'_'+jurisdictionSelected])
             setDecimals(dec)
             setAllowance(allowance)

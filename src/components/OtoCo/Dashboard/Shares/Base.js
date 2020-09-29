@@ -28,7 +28,6 @@ export default () => {
             }
             try {
                 const token = await FactoryContract.getContract(network).methods.seriesToken(manageSeries.contract).call({from:currentAccount});
-
                 let shares =  await TokenContract.getContract(token).methods.totalSupply().call({from: currentAccount})
                 let decimals = await TokenContract.getContract(token).methods.decimals().call({from: currentAccount})
 

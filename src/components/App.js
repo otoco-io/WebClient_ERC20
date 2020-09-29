@@ -7,6 +7,7 @@ import Confirmation from './OtoCo/Confirmation'
 import Tokens from './OtoCo/Tokens'
 import Terms from './OtoCo/Terms'
 import Privacy from './OtoCo/Privacy'
+import Admin from './OtoCo/Admin'
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 export default () => {
@@ -17,6 +18,7 @@ export default () => {
             <Route path="/confirmation" component={Confirmation}/>
             <Route path="/terms" component={Terms}/>
             <Route path="/privacy" component={Privacy}/>
+            <Route path="/admin" component={Admin}/>
             <Route path="/tokens/:contract" component={Tokens}/>
         </Router>
     );

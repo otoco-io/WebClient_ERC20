@@ -5,6 +5,7 @@ import {useMappedState,useDispatch} from 'redux-react-hook';
 
 import Transaction from '../../UIComponents/Transaction'
 import FactoryContract from '../../SmartContracts/TokenFactory'
+import TokenContract from '../../SmartContracts/OtocoToken'
 
 // Semantic UI for React
 import Button from 'semantic-ui-react/dist/commonjs/elements/Button'
@@ -53,7 +54,17 @@ export default () => {
 
     const nextStepHandler = async (logs) => {
         console.log(logs);
-        dispatch({type:'Set Shares Contract', contract: logs.contractAddress})
+        const token = await FactoryContract.getContract(network).methods.seriesToken(manageSeries.contract).call({from:currentAccount});
+        let shares =  await TokenContract.getContract(token).methods.totalSupply().call({from: currentAccount})
+        let decimals = await TokenContract.getContract(token).methods.decimals().call({from: currentAccount})
+
+        dispatch({type:'Set Shares Config', token:{
+            name: await TokenContract.getContract(token).methods.name().call({from: currentAccount}),
+            symbol: await TokenContract.getContract(token).methods.symbol().call({from: currentAccount}),
+            shares: shares / getBNDecimals(decimals),
+            decimals: decimals,
+        }})
+        dispatch({type:'Set Shares Contract', contract: token})
         dispatch({type:'Set Shares Step', step: 2})
     }
 
